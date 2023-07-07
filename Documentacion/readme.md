@@ -13,7 +13,7 @@ Framework: Materialize CSS https://materializecss.com/
 
 Versiones probadas
 
-PHP: 8.1.10
+PHP: 8.1.10  , 8,3.0
 MySQL: 8.0.30
 HTML5
 Apache: 2.4.54
