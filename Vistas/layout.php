@@ -8,37 +8,51 @@
 
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <style>
+         body {
+                display: flex;
+                min-height: 100vh;
+               flex-direction: column;
+  }
+
+  main {
+              flex: 1 0 auto;
+  }
+      </style>
     </head>
 
     <body>
       
-      <nav>
-        <div class="nav-wrapper #1e88e5 blue darken-1">
-          <a href="#!" class="brand-logo center">Car</a>
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <ul class="right hide-on-med-and-down">
-                <li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>
-                <li><a href="collapsible.html">Javascript</a></li>
-
-                <li>
-                  <a href="mobile.html">
-                    Perfil <span class="badge"><i class="material-icons white-text">person</i>
-                  </a>
-
-                </li>
-          </ul>
-        </div>
-      </nav>
-
-      <ul class="sidenav" id="mobile-demo">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
-            <li><a href="collapsible.html">Javascript</a></li>
-            <li><a href="mobile.html">Mobile</a></li>
+    <nav>
+    <div class="nav-wrapper #2196f3 blue">
+      <a href="sistema.php?r=layout" class="brand-logo center"><i class="material-icons">local_taxi</i>RentACar</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="sistema.php?r=formulario"><i class="material-icons">message</i>Formulario</a></li>
+        <li><a href="sistema.php?r=perfil"><i class="material-icons">person</i>Perfil</a></li>
+        <li><a href="sistema.php?r=vehiculos"><i class="material-icons">directions_car</i>Vehiculos</a></li>
       </ul>
+    </div>
+  </nav>
+      <main>
+        
+        <div class="container">
+        
+            <?php include("router.php"); ?>
+        </div>
+      </main>
+
+      <footer class="page-footer #2196f3 blue">
+          
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+        </footer>
       
-        <h1>Hola arranco el proyecto</h1>
+      
       <!--JavaScript at end of body for optimized loading-->
       <script type="text/javascript" src="web/js/materialize.min.js"></script>
       <script>
