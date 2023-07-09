@@ -17,6 +17,9 @@
 
                 include("Vistas/vehiculos.php");
 
+        }elseif($formulario=="ingresar_vehiculos"){
+                include("Vistas/ingresar_vehiculos.php");
+
         }
         else{
             

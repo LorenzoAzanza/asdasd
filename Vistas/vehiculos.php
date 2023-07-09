@@ -21,7 +21,7 @@ $listaVehiculos=$objVehiculos->listar();
         <thead>
           <tr>
       <th colspan="9">
-        <a class="btn blue">
+        <a href="sistema.php?r=ingresar_vehiculos" class="btn blue">
           <i class="material-icons">add</i> Nuevo
 </a>
         
