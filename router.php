@@ -21,6 +21,16 @@
                 include("Vistas/ingresar_vehiculos.php");
 
         }
+
+        elseif($formulario=="borrar_vehiculos"){
+                include("Vistas/borrar_vehiculos.php");
+
+
+        } elseif($formulario=="editar_vehiculos"){
+        
+                include("Vistas/editar_vehiculos.php");
+        }
+
         else{
             
             echo("<h1>ERROR 404</h1>");

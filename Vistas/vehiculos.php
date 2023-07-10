@@ -56,10 +56,10 @@ $listaVehiculos=$objVehiculos->listar();
             <td><?=$vehiculo['precio'] ?></td>
             <td><?=$vehiculo['estado'] ?></td>
             <td>
-              <a class="btn blue">
+              <a href="sistema.php?r=editar_vehiculos&id_vehiculo=<?=$vehiculo['id_vehiculo'] ?>" class="btn blue">
                 <i class="material-icons">edit</i>
               </a>
-              <a class="btn red">
+              <a href="sistema.php?r=borrar_vehiculos&id_vehiculo=<?=$vehiculo['id_vehiculo'] ?>" class="btn red">
                 <i class="material-icons">delete</i>
               </a>
             </td>
