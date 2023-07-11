@@ -4,7 +4,35 @@ require_once("Modelos/BDvehiculos.php");
 
 $objVehiculos= new vehiculos();
 
-$listaVehiculos=$objVehiculos->listar();
+
+$cantidad=isset($_GET['cantidad'])?$_GET['cantidad']:3;
+$pagina=isset($_GET['pagina'])?$_GET['pagina']:1;
+
+$totalRegistros=$objVehiculos->totalRegistros();
+
+$paginaAnterior=$pagina-1;
+if($paginaAnterior<1){
+    $paginaAnterior=1;
+
+}
+$totalPaginas= ceil($totalRegistros/$cantidad);
+$paginaSiguiente=$pagina+1;
+if($paginaSiguiente>$totalPaginas){
+    $paginaSiguiente=$totalPaginas;
+
+}
+
+
+
+$totalPaginas=ceil($totalRegistros/$cantidad);
+
+
+$arrayFiltro=array();
+
+$arrayFiltro['inicio']=($pagina-1)*$cantidad;
+$arrayFiltro['cantidad']=$cantidad;
+
+$listaVehiculos=$objVehiculos->listar($arrayFiltro);
 
 
 
@@ -14,7 +42,7 @@ $listaVehiculos=$objVehiculos->listar();
 
 
 
-<h1>Vehiculos</h1>
+<h1>Vehiculos, paginas <?=$pagina?>/<?=$totalPaginas?>, total registro:<?=$totalRegistros?></h1>
 
 
 <table class="striped">
@@ -37,7 +65,7 @@ $listaVehiculos=$objVehiculos->listar();
               <th>Modelo</th>
               <th>Precio</th>
               <th>Estado</th>
-              <th></th>
+              <th style="width:150px"></th>
 
           </tr>
         </thead>
@@ -67,6 +95,40 @@ $listaVehiculos=$objVehiculos->listar();
 
           </tr>
 <?php }?>
+  <tr>
+      <td colspan="9">
+        
+  <ul class="pagination center-align">
+    <li class="waves-effect"><a href="sistema.php?r=vehiculos&pagina=1"><i class="material-icons">fast_rewind</i></a></li>
+    <li class="waves-effect"><a href="sistema.php?r=vehiculos&pagina=<?=$paginaAnterior?>"><i class="material-icons">chevron_left</i></a></li>
+    <!--
+    <li class="active"><a href="sistema.php?r=vehiculos&pagina=1">1</a></li>
+-->
+<?php
+        for($i = ($pagina-2); $i <= ($pagina+2); $i++){
+
+          if($i<1 || $i > $totalPaginas ){
+            continue;
+          }
+
+          $color="waves-effect";
+          if($i== $pagina){
+              $color="active";
+          }
+ ?>
+          <li class="<?=$color?>"><a href="sistema.php?r=vehiculos&pagina=<?=$i?>"><?=$i?></a></li>
+
+<?php
+        }
+?>
+   
+  
+    <li class="waves-effect"><a href="sistema.php?r=vehiculos&pagina=<?=$paginaSiguiente?>"><i class="material-icons">chevron_right</i></a></li>
+    <li class="waves-effect"><a href="sistema.php?r=vehiculos&pagina=<?=$totalPaginas?>"><i class="material-icons">fast_forward</i></a></li>
+  </ul>
+
+      </td>
+  </tr>
           
         </tbody>
       </table>

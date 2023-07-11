@@ -19,6 +19,7 @@ class vehiculos{
 
     public $estado;
 
+    protected $tabla="vehiculos";
 
     public function constructor($arrayDatos=array()){
         $this->tipo=$arrayDatos['tipo'];
@@ -159,7 +160,7 @@ class vehiculos{
 
     }
 
- public function listar(){
+ public function listar($filtro=array()){
 // retorna una lista de registros de la base de datos//
 $host = "localhost";
 $puerto= "3306";
@@ -170,8 +171,8 @@ $db= "proyecto";
 $conexion= new PDO("mysql:host=".$host.":".$puerto.";dbname=".$db."",$usuario,$clave);
 $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$sql= "SELECT * FROM vehiculo WHERE estado='A'";
 
+$sql= "SELECT * FROM vehiculo WHERE estado='A' ORDER BY id_vehiculo LIMIT ".$filtro['inicio'].", ".$filtro['cantidad']."";
 $mysqlPrepare= $conexion->prepare($sql);
 
 
@@ -206,6 +207,38 @@ try{
  
     return $respuesta;
 
+
+}
+
+
+public function totalRegistros(){
+    $host = "localhost";
+    $puerto = "3306";
+    $usuario = "root";
+    $clave = "";
+    $db = "proyecto";
+
+    $conexion = new PDO("mysql:host=".$host.":".$puerto.";dbname=".$db, $usuario, $clave);
+    $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql = "SELECT  count(*) as total FROM ".this->tabla." WHERE  estado='A'" ;
+
+
+    $mysqlPrepare = $conexion->prepare($sql);
+    $mysqlPrepare->execute();
+
+    $lista = $mysqlPrepare->fetchAll(PDO::FETCH_ASSOC);
+
+    if (isset($lista[0]['total'])){
+        $retorno= $lista[0]['total'];
+
+       
+        
+    } else {
+        $retorno=0;
+    }
+
+    return $retorno;
 
 }
 
