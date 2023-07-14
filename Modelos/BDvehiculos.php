@@ -1,6 +1,7 @@
 <?php
+require_once("Modelos/generico.php");
 
-class vehiculos{
+class vehiculos extends generico{
 
     //identificador de registro autonumerico
     public $id_vehiculo;
@@ -19,7 +20,7 @@ class vehiculos{
 
     public $estado;
 
-    protected $tabla="vehiculos";
+    protected $tabla="vehiculo";
 
     public function constructor($arrayDatos=array()){
         $this->tipo=$arrayDatos['tipo'];
@@ -33,22 +34,13 @@ class vehiculos{
 
     }
     public function cargar($id_vehiculo){
-        $host = "localhost";
-        $puerto = "3306";
-        $usuario = "root";
-        $clave = "";
-        $db = "proyecto";
-    
-        $conexion = new PDO("mysql:host=".$host.":".$puerto.";dbname=".$db, $usuario, $clave);
-        $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      
     
         $sql = "SELECT * FROM vehiculo WHERE id_vehiculo = :id_vehiculo";
-        $arraySql = array(":id_vehiculo" => $id_vehiculo);
+        $arraySql = array("id_vehiculo" => $id_vehiculo);
     
-        $mysqlPrepare = $conexion->prepare($sql);
-        $mysqlPrepare->execute($arraySql);
-    
-        $lista = $mysqlPrepare->fetchAll(PDO::FETCH_ASSOC);
+
+        $lista = $this->traerRegistros($sql, $arraySql);
     
         if (isset($lista[0]['id_vehiculo'])){
             $this->tipo = $lista[0]['tipo'];
@@ -66,7 +58,25 @@ class vehiculos{
     
         return $retorno;
     }
-
+    public function totalRegistros(){
+ 
+        $sql = "SELECT  count(*) as total FROM ".$this->tabla." WHERE  estado='A'" ;
+    
+    
+        $lista = $this->traerRegistros($sql);
+    
+        if (isset($lista[0]['total'])){
+            $retorno= $lista[0]['total'];
+    
+           
+            
+        } else {
+            $retorno=0;
+        }
+    
+        return $retorno;
+    
+    }
     public function ingresar(){
 //se encarga de ingresar registros//
     $sql="INSERT vehiculo SET
@@ -162,85 +172,19 @@ class vehiculos{
 
  public function listar($filtro=array()){
 // retorna una lista de registros de la base de datos//
-$host = "localhost";
-$puerto= "3306";
-$usuario= "root";
-$clave= "";
-$db= "proyecto";
-
-$conexion= new PDO("mysql:host=".$host.":".$puerto.";dbname=".$db."",$usuario,$clave);
-$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 
 $sql= "SELECT * FROM vehiculo WHERE estado='A' ORDER BY id_vehiculo LIMIT ".$filtro['inicio'].", ".$filtro['cantidad']."";
-$mysqlPrepare= $conexion->prepare($sql);
 
+$lista=$this->traerRegistros($sql);
 
-$mysqlPrepare->execute();
-
-$lista= $mysqlPrepare->fetchAll(PDO::FETCH_ASSOC);
 
 return $lista;
 
     }
 
-protected function ejecutar($sql, $arraySql=array()){
-try{
-    $host = "localhost";
-    $puerto= "3306";
-    $usuario= "root";
-    $clave= "";
-    $db= "proyecto";
-
-    $conexion= new PDO("mysql:host=".$host.":".$puerto.";dbname=".$db."",$usuario,$clave);
-    $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-   
-    $stm= $conexion->prepare($sql);
-    $respuesta=$stm->execute($arraySql);
-}catch(Exception $error){
-    print_r($error->getMessage());
-    $respuesta=false;
-
-}
-
- 
-    return $respuesta;
 
 
-}
 
-
-public function totalRegistros(){
-    $host = "localhost";
-    $puerto = "3306";
-    $usuario = "root";
-    $clave = "";
-    $db = "proyecto";
-
-    $conexion = new PDO("mysql:host=".$host.":".$puerto.";dbname=".$db, $usuario, $clave);
-    $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    $sql = "SELECT  count(*) as total FROM ".this->tabla." WHERE  estado='A'" ;
-
-
-    $mysqlPrepare = $conexion->prepare($sql);
-    $mysqlPrepare->execute();
-
-    $lista = $mysqlPrepare->fetchAll(PDO::FETCH_ASSOC);
-
-    if (isset($lista[0]['total'])){
-        $retorno= $lista[0]['total'];
-
-       
-        
-    } else {
-        $retorno=0;
-    }
-
-    return $retorno;
-
-}
 
 }
 
