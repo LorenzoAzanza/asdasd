@@ -60,7 +60,7 @@ class vehiculos extends generico{
     }
     public function totalRegistros(){
  
-        $sql = "SELECT  count(*) as total FROM ".$this->tabla." WHERE  estado='A'" ;
+        $sql = "SELECT  count(*) as total FROM ".$this->tabla." " ;
     
     
         $lista = $this->traerRegistros($sql);
@@ -141,42 +141,31 @@ class vehiculos extends generico{
     }
 
     public function borrar(){
- //para borrar los registros///
- 
-     /*
-    // para validar que no hay reservas activas
-    SELECT count (*) as total Reserva WHERE id_vehiculo= $this->id_vehiculo and estado= 'A'
-    if(total>0){
-        no borramos el registro
-    }
-
-
-    */
-
-    $sql="UPDATE vehiculo SET
-       
-        estado = 'S'
-        where id_vehiculo= :id_vehiculo;
-
-
-    ";
-    $arrayDatos=array(
-       "id_vehiculo"=> $this->id_vehiculo
-    );
-    $respuesta=$this->ejecutar($sql, $arrayDatos);
- 
-    return $respuesta;
-
-
+        // Primero, verifica si el vehículo existe antes de eliminarlo
+        $existe = $this->cargar($this->id_vehiculo);
+        if ($existe) {
+            // Verificar si hay reservas activas para este vehículo antes de borrarlo
+            // (puedes implementar este código, como el comentario que tienes en el código)
+    
+            // Si no hay reservas activas, procede a eliminar el vehículo
+            $sql = "DELETE FROM vehiculo WHERE id_vehiculo = :id_vehiculo";
+            $arrayDatos = array("id_vehiculo" => $this->id_vehiculo);
+    
+            $respuesta = $this->ejecutar($sql, $arrayDatos);
+    
+            return $respuesta;
+        } else {
+            // El vehículo no existe, no es posible eliminarlo
+            return false;
+        }
     }
 
  public function listar($filtro=array()){
 // retorna una lista de registros de la base de datos//
 
-$sql= "SELECT * FROM vehiculo WHERE estado='A' ORDER BY id_vehiculo LIMIT ".$filtro['inicio'].", ".$filtro['cantidad']."";
+$sql = "SELECT * FROM vehiculo ORDER BY id_vehiculo LIMIT " . $filtro['inicio'] . ", " . $filtro['cantidad'] . "";
 
-$lista=$this->traerRegistros($sql);
-
+$lista = $this->traerRegistros($sql);
 
 return $lista;
 

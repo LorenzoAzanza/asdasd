@@ -102,6 +102,8 @@
         <div class="input-field col s6">
             <select name="txtEstado">
             <option value="A" selected>A</option>
+            <option value="O">O</option>
+            <option value="S">S</option>
          
             </select>
   <label>Estado</label>

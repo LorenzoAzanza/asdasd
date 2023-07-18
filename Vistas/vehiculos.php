@@ -5,7 +5,7 @@ require_once("Modelos/BDvehiculos.php");
 $objVehiculos= new vehiculos();
 
 
-$cantidad=isset($_GET['cantidad'])?$_GET['cantidad']:3;
+$cantidad=isset($_GET['cantidad'])?$_GET['cantidad']:4;
 $pagina=isset($_GET['pagina'])?$_GET['pagina']:1;
 
 $totalRegistros=$objVehiculos->totalRegistros();
