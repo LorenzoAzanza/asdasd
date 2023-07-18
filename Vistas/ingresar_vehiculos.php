@@ -84,7 +84,7 @@
           <label for="color">Color</label>
         </div>
         <div class="input-field col s6">
-          <input  id="cantidad_pasajeros" type="text" class="validate" name="txtCantidadPasajeros">
+          <input  id="cantidad_pasajeros" type="number" class="validate" name="txtCantidadPasajeros">
           <label for="cantidad_pasajeros">Cantidad de pasajeros</label>
         </div>
         <div class="input-field col s6">
@@ -96,7 +96,7 @@
           <label for="modelo">Modelo</label>
         </div>
         <div class="input-field col s6">
-          <input  id="precio" type="text" class="validate" name="txtPrecio">
+          <input  id="precio" type="number" class="validate" name="txtPrecio">
           <label for="precio">Precio</label>
         </div>
         <div class="input-field col s6">

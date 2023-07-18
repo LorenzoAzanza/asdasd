@@ -42,7 +42,7 @@ $listaVehiculos=$objVehiculos->listar($arrayFiltro);
 
 
 
-<h1>Vehiculos, paginas <?=$pagina?>/<?=$totalPaginas?>, total registro:<?=$totalRegistros?></h1>
+<h1>Vehiculos, paginas <?=$pagina?>/<?=$totalPaginas?>, total registros activos:<?=$totalRegistros?></h1>
 
 
 <table class="striped">

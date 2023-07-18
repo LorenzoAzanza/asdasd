@@ -18,20 +18,37 @@
   main {
               flex: 1 0 auto;
   }
+
+  .enlace-icono {
+            display: flex;
+            align-items: center;
+        }
+
+    
+
       </style>
     </head>
 
     <body>
       
     <nav>
-    <div class="nav-wrapper #2196f3 blue">
+    <div class="nav-wrapper red lighten-2">
       <a href="sistema.php?r=layout" class="brand-logo center"><i class="material-icons">local_taxi</i>RentACar</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="sistema.php?r=formulario"><i class="material-icons">message</i>Formulario</a></li>
-        <li><a href="sistema.php?r=perfil"><i class="material-icons">person</i>Perfil</a></li>
-        <li><a href="sistema.php?r=vehiculos"><i class="material-icons">directions_car</i>Vehiculos</a></li>
+        <li><a href="sistema.php?r=usuarios"  class="enlace-icono black-text"><img src="web/img/grupo-de-chat.png" width="30" height="30">Modificar usuarios</a></li>
+        <li><a href="sistema.php?r=vehiculos" class="enlace-icono black-text"><img src="web/img/servicio.png" width="30" height="30">Modificar vehículos</a></li>
       </ul>
+      <ul class="left hide-on-med-and-down">
+      <li><a href="sistema.php?r=perfil" class="enlace-icono"><img src="web/img/avatar.png" width="30" height="30">Perfil</a></li>
+      <li><a href="sistema.php?r=formulario" class="enlace-icono"><img src="web/img/formulario-de-contacto.png" width="30" height="30">Formulario</a></li>
+      <li><a href="sistema.php?r=vehiculos_venta" class="enlace-icono "><img src="web/img/auto-limpio.png" width="30" height="30">Vehículos</a></li>
+
+      </ul>
+
     </div>
+
+
+
   </nav>
       <main>
         
@@ -41,7 +58,7 @@
         </div>
       </main>
 
-      <footer class="page-footer #2196f3 blue">
+      <footer class="page-footer red lighten-2">
           
           </div>
           <div class="footer-copyright">

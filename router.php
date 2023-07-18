@@ -29,9 +29,25 @@
         } elseif($formulario=="editar_vehiculos"){
         
                 include("Vistas/editar_vehiculos.php");
+        }elseif($formulario=="vehiculos_venta"){
+        
+                include("Vistas/vehiculos_venta.php");
+        }elseif($formulario=="usuarios"){
+        
+                include("Vistas/usuarios.php");
+        }elseif($formulario=="ingresar_usuarios"){
+        
+                include("Vistas/ingresar_usuarios.php");
+        }elseif($formulario=="borrar_usuarios"){
+        
+                include("Vistas/borrar_usuarios.php");
+        }elseif($formulario=="editar_usuarios"){
+        
+                include("Vistas/editar_usuarios.php");
         }
 
-        else{
+
+        else{ 
             
             echo("<h1>ERROR 404</h1>");
 

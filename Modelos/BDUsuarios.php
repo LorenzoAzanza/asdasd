@@ -151,39 +151,30 @@ class usuario extends generico{
     }
 
     public function borrar(){
- //para borrar los registros///
- 
-     /*
-    // para validar que no hay reservas activas
-    SELECT count (*) as total Reserva WHERE id_vehiculo= $this->id_vehiculo and estado= 'A'
-    if(total>0){
-        no borramos el registro
+        // Primero, verifica si el vehículo existe antes de eliminarlo
+        $existe = $this->cargar($this->id_usuario);
+        if ($existe) {
+            // Verificar si hay reservas activas para este vehículo antes de borrarlo
+            // (puedes implementar este código, como el comentario que tienes en el código)
+    
+            // Si no hay reservas activas, procede a eliminar el vehículo
+            $sql = "DELETE FROM usuario WHERE id_usuario = :id_usuario";
+            $arrayDatos = array("id_usuario" => $this->id_usuario);
+    
+            $respuesta = $this->ejecutar($sql, $arrayDatos);
+    
+            return $respuesta;
+        } else {
+            // El vehículo no existe, no es posible eliminarlo
+            return false;
+        }
     }
 
-
-    */
-
-    $sql="UPDATE usuario SET
-       
-        estado = 'S'
-        where id_usuario= :id_usuario;
-
-
-    ";
-    $arrayDatos=array(
-       "id_usuario"=> $this->id_usuario
-    );
-    $respuesta=$this->ejecutar($sql, $arrayDatos);
- 
-    return $respuesta;
-
-
-    }
 
  public function listar($filtro=array()){
 // retorna una lista de registros de la base de datos//
 
-$sql= "SELECT * FROM usuario WHERE estado='A' ORDER BY id_usuario LIMIT ".$filtro['inicio'].", ".$filtro['cantidad']."";
+$sql= "SELECT * FROM usuario ORDER BY nombre LIMIT ".$filtro['inicio'].", ".$filtro['cantidad']."";
 
 $lista=$this->traerRegistros($sql);
 
