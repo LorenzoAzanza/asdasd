@@ -7,12 +7,6 @@
            
             include("Vistas/formulario.php");
 
-
-
-        }elseif($formulario=="perfil"){
-
-                include("Vistas/perfil.php");
-
         }elseif($formulario=="vehiculos"){
 
                 include("Vistas/vehiculos.php");
@@ -44,6 +38,9 @@
         }elseif($formulario=="editar_usuarios"){
         
                 include("Vistas/editar_usuarios.php");
+        }elseif($formulario=="mi_panel"){
+        
+                include("Vistas/mi_panel.php");
         }
 
 

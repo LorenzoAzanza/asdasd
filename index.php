@@ -1,17 +1,21 @@
 <?php
 
+session_start();
 
-$sessionActiva= true; // false
 
-if($sessionActiva){
+    $sessionActiva=isset($_SESSION['usuario'])?true:false;
 
-    header('Location:sistema.php');
 
-}else{
+    if(!$sessionActiva){
+      header('Location:login.php');
+    
+    }
+        header('Location:sistema.php');
+    
 
-    header('Location:login.php');
+    
 
-}
+
 
 
 

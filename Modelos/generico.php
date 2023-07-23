@@ -62,10 +62,7 @@ class generico{
     
     }
 
-    public function constructor($arrayDatos=array()){
 
-
-    }
     public function listar($filtro=array()){
  
         

@@ -1,7 +1,9 @@
 <?php
 
+session_start();
 
-    $sessionActiva=true;
+
+    $sessionActiva=isset($_SESSION['usuario'])?true:false;
 
 
     if(!$sessionActiva){
