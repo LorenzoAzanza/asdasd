@@ -72,6 +72,39 @@ class tipo_usuario extends generico{
     }
 
 
+    public function cambiarContrasena($contrasena,$nuevaContrasena,$confirmarContrasena){
+
+        $largoContrasena=strlen($nuevaContrasena);
+
+        if(!($nuevaContrasena===$confirmarContrasena)){
+
+            $retorno="Las Contraseñas no coinciden";
+            return $retorno;
+        }
+        $sql = "SELECT * FROM tipo_usuario WHERE  id_tipo_usuario=".$this->id_tipo_usuario." AND contrasena = :contrasena";
+        $arraySql = array("contrasena" => md5($contrasena));
+
+        $registro = $this->traerRegistros($sql, $arraySql);
+
+        if (!isset($registro[0]['id_tipo_usuario'])){
+            $retorno="La Contraseña no es correcta";
+            return $retorno;
+        
+        }
+        $sql = "UPDATE tipo_usuario SET
+            contrasena = :contrasena
+            WHERE id_tipo_usuario = :id_tipo_usuario";
+        $arrayDatos = array(
+            "contrasena" => md5($nuevaContrasena),
+            "id_tipo_usuario" => $this->id_tipo_usuario
+        );
+    
+        $respuesta = $this->ejecutar($sql, $arrayDatos);
+        return $respuesta;
+
+    }
+
+
 }
 
 
