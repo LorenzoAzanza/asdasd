@@ -70,6 +70,7 @@ require_once("Modelos/tipo_usuario.php");
 
 <?php
         }elseif(($respuesta==false && $mensaje!="") && $boton=="guardar" ){ 
+          
 ?>
     <div class="card-panel red center-align">
         <?=$mensaje?>

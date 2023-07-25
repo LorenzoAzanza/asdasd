@@ -1,15 +1,8 @@
 <?php
 
 
-    $_SERVER;
 
-    print_r("soy el comando");
-
-
-
-
-
-
+include("comandos/routerComandos.php");
 
 
 
