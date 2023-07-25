@@ -1,25 +1,10 @@
 <?php
 
 
-    $nuevaContrasena=trim("TTDSADS432432^");
-    $largoContrasena=strlen($nuevaContrasena);
+    $nuevaContrasena = trim("TTDSADS432432^");
+    $resultado = preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/', $nuevaContrasena);
 
-    $resultado=preg_match('/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/', $nuevaContrasena);
-
-    $resultado=preg_match('/^(?=.*[a-z])(?=.*[A-Z](?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/',$nuevaContrasena);
-
-    $resultado1 = preg_match('/[A-Z]/',$nuevaContrasena);
-    $resultado2 = preg_match('/[a-z]/',$nuevaContrasena);
-    $resultado3 = preg_match('/[0-9]/',$nuevaContrasena);
-    $resultado4 = preg_match('/[^a-zA-Z0-9_]/',$nuevaContrasena);
-
-    print_r("<h3>".$nuevaContrasena."<h3>");
-    // print_r("<h3>".$resultado1."-".$resultado2."-".$resultado3."-".$resultado4."<h3>");
-    var_dump($resultado);
-
-
-
-    require_once("Modelos/tipo_usuario.php");
+require_once("Modelos/tipo_usuario.php");
 
 
     $mensaje="";

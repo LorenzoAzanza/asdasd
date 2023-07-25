@@ -54,7 +54,7 @@
   
  ?>
 
-<h1>Editar vehiculo Nº:<?=$id_usuario?> </h1>
+<h1>Editar Usuario Nº:<?=$id_usuario?> </h1>
 
     <form method="POST" action="sistema.php?r=editar_usuarios">
       <div class="row">

@@ -74,7 +74,20 @@ class tipo_usuario extends generico{
 
     public function cambiarContrasena($contrasena,$nuevaContrasena,$confirmarContrasena){
 
-        $largoContrasena=strlen($nuevaContrasena);
+        //$largoContrasena=strlen($nuevaContrasena);
+
+        $resultado = preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/', $nuevaContrasena);
+
+        if($resultado==0){
+
+            $retorno="La clave no cumple con las condiciones de seguridad. <br>
+                      Tiene que tener un minimo de 8 caracteres, los cuales incluyan
+                      mayusculas, minusculas, numeros y alguno de estos caracteres
+                      @$!%*#?&";
+
+            return $retorno;
+
+        }
 
         if(!($nuevaContrasena===$confirmarContrasena)){
 
