@@ -41,6 +41,10 @@
         }elseif($formulario=="mi_panel"){
         
                 include("Vistas/mi_panel.php");
+        }elseif($formulario==""){
+
+                include("Vistas/principal.php");
+                 
         }
 
 

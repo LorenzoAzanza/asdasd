@@ -32,7 +32,7 @@ class generico{
     
     }
     
-    protected function ejecutar($sql, $arraySql=array()){
+    public function ejecutar($sql, $arraySql=array()){
     try{
         if(file_exists("Configuracion/db.php")){
             include("Configuracion/db.php");
@@ -61,6 +61,10 @@ class generico{
     
     
     }
+
+
+    
+
 
 
     public function listar($filtro=array()){

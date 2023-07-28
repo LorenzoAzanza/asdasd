@@ -35,7 +35,7 @@
       
     <nav>
     <div class="nav-wrapper red lighten-2">
-    <a href="sistema.php?r=layout" class="brand-logo center"><i class="material-icons">local_taxi</i>RentACar</a>
+    <a href="sistema.php" class="brand-logo center"><i class="material-icons">local_taxi</i>RentACar</a>
     <ul class="right hide-on-med-and-down">
         <li><a href="sistema.php?r=usuarios" class="enlace-icono black-text"><img src="web/img/grupo-de-chat.png" width="30" height="30">Modificar usuarios</a></li>
         <li><a href="sistema.php?r=vehiculos" class="enlace-icono black-text"><img src="web/img/servicio.png" width="30" height="30">Modificar vehículos</a></li>
