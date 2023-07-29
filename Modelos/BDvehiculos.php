@@ -1,6 +1,11 @@
 <?php
 require_once("Modelos/generico.php");
 
+
+
+
+
+
 class vehiculos extends generico{
 
     //identificador de registro autonumerico
@@ -171,12 +176,28 @@ $lista = $this->traerRegistros($sql);
 return $lista;
 
     }
+  
 
 
 
 
 
+
+
+
+    
 }
+
+   
+
+
+    
+
+
+
+
+
+
 
 
 

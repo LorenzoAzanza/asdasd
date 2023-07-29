@@ -45,6 +45,10 @@
 
                 include("Vistas/principal.php");
                  
+        }elseif($formulario=="reservas"){
+
+                include("Vistas/reservas.php");
+                 
         }
 
 
