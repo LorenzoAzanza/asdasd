@@ -1,15 +1,15 @@
 
 <?php
 
-require_once("Modelos/BDUsuarios.php");
+require_once("Modelos/tipo_usuario.php");
 
-$objUsuarios= new usuario();
+$objTipo_usuario= new tipo_usuario();
 
 
 $cantidad=isset($_GET['cantidad'])?$_GET['cantidad']:4;
 $pagina=isset($_GET['pagina'])?$_GET['pagina']:1;
 
-$totalRegistros=$objUsuarios->totalRegistros();
+$totalRegistros=$objTipo_usuario->totalRegistros();
 
 $paginaAnterior=$pagina-1;
 if($paginaAnterior<1){
@@ -33,7 +33,7 @@ $arrayFiltro=array();
 $arrayFiltro['inicio']=($pagina-1)*$cantidad;
 $arrayFiltro['cantidad']=$cantidad;
 
-$listaUsuarios=$objUsuarios->listar($arrayFiltro);
+$listaUsuario=$objTipo_usuario->listar($arrayFiltro);
 
 
 
@@ -58,7 +58,7 @@ $listaUsuarios=$objUsuarios->listar($arrayFiltro);
 
 </tr>
           <tr>
-              <th>#</th>
+              <th>#ID USUARIOS</th>
               <th>Nombre</th>
               <th>Apellido</th>
               <th>Direccion</th>
@@ -66,6 +66,7 @@ $listaUsuarios=$objUsuarios->listar($arrayFiltro);
               <th>Mail</th>
               <th>Tipo de documento</th>
               <th>Numero de documento</th>
+              <th>Rol</th>
               <th>Estado</th>
               <th style="width:150px"></th>
 
@@ -75,9 +76,9 @@ $listaUsuarios=$objUsuarios->listar($arrayFiltro);
         <tbody>
 
 
-<?php foreach($listaUsuarios as $usuario){ ?>
+<?php foreach($listaUsuario as $usuario){ ?>
           <tr>
-            <td><?=$usuario['id_usuario'] ?></td>
+            <td><?=$usuario['id_tipo_usuario'] ?></td>
             <td><?=$usuario['nombre'] ?></td>
             <td><?=$usuario['apellido'] ?></td>
             <td><?=$usuario['direccion'] ?></td>
@@ -85,12 +86,13 @@ $listaUsuarios=$objUsuarios->listar($arrayFiltro);
             <td><?=$usuario['mail'] ?></td>
             <td><?=$usuario['tipo_documento'] ?></td>
             <td><?=$usuario['numero_documento'] ?></td>
+            <td><?=$usuario['rol']?></td>
             <td><?=$usuario['estado'] ?></td>
             <td>
-              <a href="sistema.php?r=editar_usuarios&id_usuario=<?=$usuario['id_usuario'] ?>" class="btn blue">
+              <a href="sistema.php?r=editar_usuarios&id_tipo_usuario=<?=$usuario['id_tipo_usuario'] ?>" class="btn blue">
                 <i class="material-icons">edit</i>
               </a>
-              <a href="sistema.php?r=borrar_usuarios&id_usuario=<?=$usuario['id_usuario'] ?>" class="btn red">
+              <a href="sistema.php?r=borrar_usuarios&id_tipo_usuario=<?=$usuario['id_tipo_usuario'] ?>" class="btn red">
                 <i class="material-icons">delete</i>
               </a>
             </td>
@@ -99,7 +101,7 @@ $listaUsuarios=$objUsuarios->listar($arrayFiltro);
           </tr>
 <?php }?>
   <tr>
-      <td colspan="10">
+      <td colspan="12">
         
   <ul class="pagination center-align">
     <li class="waves-effect"><a href="sistema.php?r=usuarios&pagina=1"><i class="material-icons">fast_rewind</i></a></li>

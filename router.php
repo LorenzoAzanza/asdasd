@@ -26,18 +26,18 @@
         }elseif($formulario=="vehiculos_venta"){
         
                 include("Vistas/vehiculos_venta.php");
-        }elseif($formulario=="usuarios"){
+        }elseif($formulario=="clientes"){
         
-                include("Vistas/usuarios.php");
-        }elseif($formulario=="ingresar_usuarios"){
+                include("Vistas/clientes.php");
+        }elseif($formulario=="ingresar_clientes"){
         
-                include("Vistas/ingresar_usuarios.php");
-        }elseif($formulario=="borrar_usuarios"){
+                include("Vistas/ingresar_clientes.php");
+        }elseif($formulario=="borrar_clientes"){
         
-                include("Vistas/borrar_usuarios.php");
-        }elseif($formulario=="editar_usuarios"){
+                include("Vistas/borrar_clientes.php");
+        }elseif($formulario=="editar_clientes"){
         
-                include("Vistas/editar_usuarios.php");
+                include("Vistas/editar_clientes.php");
         }elseif($formulario=="mi_panel"){
         
                 include("Vistas/mi_panel.php");
@@ -48,6 +48,10 @@
         }elseif($formulario=="reservas"){
 
                 include("Vistas/reservas.php");
+                 
+        }elseif($formulario=="usuarios"){
+
+                include("Vistas/usuarios.php");
                  
         }
 

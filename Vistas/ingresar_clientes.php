@@ -1,6 +1,6 @@
 
 <?php
-    require_once("Modelos/BDUsuarios.php");
+    require_once("Modelos/BDClientes.php");
 
 
     $mensaje="";
@@ -9,11 +9,11 @@
 
     if($boton=="cancelar"){
         
-        header('Location: sistema.php?r=usuarios');
+        header('Location: sistema.php?r=clientes');
 
     }elseif($boton=="ingresar"){
       
-        $objUsuarios= new usuario();
+        $objClientes= new cliente();
         $arrayDatos=array();
 
         $arrayDatos['nombre']= isset($_POST['txtNombre'])?$_POST['txtNombre']:"";
@@ -23,11 +23,12 @@
         $arrayDatos['mail']= isset($_POST['txtMail'])?$_POST['txtMail']:"";
         $arrayDatos['tipo_documento']= isset($_POST['txtTipo_documento'])?$_POST['txtTipo_documento']:"";
         $arrayDatos['numero_documento']= isset($_POST['txtNumero_documento'])?$_POST['txtNumero_documento']:"";
+        $arrayDatos['rol']= isset($_POST['txtRol'])?$_POST['txtRol']:"";
         $arrayDatos['estado']= isset($_POST['txtEstado'])?$_POST['txtEstado']:"";
 
-        if($arrayDatos['nombre']!="" && $arrayDatos['apellido']!="" && $arrayDatos['direccion']!=""&&$arrayDatos['telefono']!=""&&$arrayDatos['mail']!=""&&$arrayDatos['tipo_documento']!=""&&$arrayDatos['numero_documento']!=""){
-            $objUsuarios->constructor($arrayDatos);
-            $respuesta= $objUsuarios->ingresar();
+        if($arrayDatos['nombre']!="" && $arrayDatos['apellido']!="" && $arrayDatos['direccion']!=""&&$arrayDatos['telefono']!=""&&$arrayDatos['mail']!=""&&$arrayDatos['tipo_documento']!=""&&$arrayDatos['numero_documento']!=""&&$arrayDatos['rol']!=""){
+            $objClientes->constructor($arrayDatos);
+            $respuesta= $objClientes->ingresar();
 
             if($respuesta==true){
                 $mensaje="Se ingreso correctamente";
@@ -53,16 +54,16 @@
 
 
 
-<h1>Ingresar Usuarios</h1>
+<h1>Ingresar Clientes</h1>
 
-    <form method="POST" action="sistema.php?r=ingresar_usuarios">
+    <form method="POST" action="sistema.php?r=ingresar_clientes">
       <div class="row">
         <?php
         if($respuesta==true){
 ?>
  <div class="card-panel blue center-align">
         <?=$mensaje?>
-        <a href="sistema.php?r=usuarios" class="btn green">Regresar</a>
+        <a href="sistema.php?r=clientes" class="btn green">Regresar</a>
       </div>
 
 <?php
@@ -105,6 +106,15 @@
           <input  id="numero_documento" type="number" class="validate" name="txtNumero_documento">
           <label for="numero_documento">Numero de documento</label>
         </div>
+        <div class="input-field col s6"> 
+          <select name="txtRol">
+          <option value="cliente"  selected>Cliente</option>
+          <option value="Administrador" >Administrador</option>
+          <option value="vendedor">Vendedor</option>
+      </select>
+      <label>Rol</label>
+
+      </div>
         <div class="input-field col s6">
             <select name="txtEstado">
             <option value="A" selected>A</option>

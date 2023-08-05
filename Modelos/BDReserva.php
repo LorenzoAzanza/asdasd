@@ -9,7 +9,7 @@ class reserva extends generico{
 
     public $fecha;
     
-    public $id_usuario;
+    public $id_cliente;
 
     public $id_vehiculo;
 
@@ -19,7 +19,7 @@ class reserva extends generico{
 
     public function constructor($arrayDatos = array()){
         $this->fecha = $arrayDatos['fecha'];
-        $this->id_usuario = $arrayDatos['id_usuario'];
+        $this->id_cliente = $arrayDatos['id_cliente'];
         $this->id_vehiculo = $arrayDatos['id_vehiculo'];
         $this->estado = $arrayDatos['estado'];
     }
@@ -32,7 +32,7 @@ class reserva extends generico{
     
         if (isset($lista[0]['id_reserva'])){
             $this->fecha = $lista[0]['fecha'];
-            $this->id_usuario = $lista[0]['id_usuario'];
+            $this->id_cliente = $lista[0]['id_cliente'];
             $this->id_vehiculo = $lista[0]['id_vehiculo'];
             $this->estado = $lista[0]['estado'];
             $this->id_reserva = $lista[0]['id_reserva'];
@@ -59,13 +59,13 @@ class reserva extends generico{
         // Se encarga de ingresar registros
         $sql = "INSERT reserva SET
             fecha = :fecha,
-            id_usuario = :id_usuario,
+            id_cliente = :id_cliente,
             id_vehiculo = :id_vehiculo,
             estado = :estado";
 
         $arrayDatos = array(
             "fecha" => $this->fecha,
-            "id_usuario" => $this->id_usuario,
+            "id_cliente" => $this->id_cliente,
             "id_vehiculo" => $this->id_vehiculo,
             "estado" => $this->estado
         );
@@ -77,14 +77,14 @@ class reserva extends generico{
         // Para editar los registros
         $sql = "UPDATE reserva SET
             fecha = :fecha,
-            id_usuario = :id_usuario,
+            id_cliente = :id_cliente,
             id_vehiculo = :id_vehiculo,
             estado = :estado
             WHERE id_reserva = :id_reserva";
 
         $arrayDatos = array(
             "fecha" => $this->fecha,
-            "id_usuario" => $this->id_usuario,
+            "id_cliente" => $this->id_cliente,
             "id_vehiculo" => $this->id_vehiculo,
             "estado" => $this->estado,
             "id_reserva" => $this->id_reserva

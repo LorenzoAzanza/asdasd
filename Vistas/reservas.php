@@ -47,7 +47,7 @@ $listaReservas = $objReserva->listar($arrayFiltro);
         <tr>
             <th>#</th>
             <th>Fecha</th>
-            <th>ID Usuario</th>
+            <th>ID Cliente</th>
             <th>ID Vehículo</th>
             <th>Estado</th>
             <th style="width:150px"></th>
@@ -58,7 +58,7 @@ $listaReservas = $objReserva->listar($arrayFiltro);
         <tr>
             <td><?=$reserva['id_reserva'] ?></td>
             <td><?=$reserva['fechaInicio'].'---Hasta---'.$reserva['fechaFin'] ?></td>
-            <td><?=$reserva['id_usuario'] ?></td>
+            <td><?=$reserva['id_cliente'] ?></td>
             <td><?=$reserva['id_vehiculo'] ?></td>
             <td><?=$reserva['estado'] ?></td>
             <td>
