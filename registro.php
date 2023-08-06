@@ -201,7 +201,7 @@ if ($boton == "registrarse") {
                     <div class="row center-align">
                         <div class="input-field col s6 offset-s3">
                             <i class="material-icons prefix">lock</i>
-                            <input id="txtConfirmarContrasena" type="password" class="                            validate white-text" name="txtConfirmarContrasena" required>
+                            <input id="txtConfirmarContrasena" type="password" class="validate white-text" name="txtConfirmarContrasena" required>
                             <label for="txtConfirmarContrasena">Confirmar Contraseña</label>
                         </div>
                     </div>

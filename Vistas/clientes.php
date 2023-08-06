@@ -3,40 +3,31 @@
 
 require_once("Modelos/BDClientes.php");
 
-$objClientes= new cliente();
-
-
+$objClientes = new cliente();
 
 $cantidad=isset($_GET['cantidad'])?$_GET['cantidad']:4;
-$pagina=isset($_GET['pagina'])?$_GET['pagina']:1;
+$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
-$totalRegistros=$objClientes->totalRegistros();
+$totalRegistros = $objClientes->totalRegistros();
 
-$paginaAnterior=$pagina-1;
-if($paginaAnterior<1){
-    $paginaAnterior=1;
-
-}
-$totalPaginas= ceil($totalRegistros/$cantidad);
-$paginaSiguiente=$pagina+1;
-if($paginaSiguiente>$totalPaginas){
-    $paginaSiguiente=$totalPaginas;
-
+$paginaAnterior = $pagina - 1;
+if ($paginaAnterior < 1) {
+    $paginaAnterior = 1;
 }
 
+$totalPaginas = ceil($totalRegistros / $cantidad);
+$paginaSiguiente = $pagina + 1;
+if ($paginaSiguiente > $totalPaginas) {
+    $paginaSiguiente = $totalPaginas;
+}
 
+$arrayFiltro = array("activo" => 1); // Filtrar solo clientes activos
 
-$totalPaginas=ceil($totalRegistros/$cantidad);
-
-
-$arrayFiltro=array();
-
-$arrayFiltro['inicio']=($pagina-1)*$cantidad;
-$arrayFiltro['cantidad']=$cantidad;
-
-$arrayFiltro = array("activo" => 1);
+$arrayFiltro['inicio'] = ($pagina - 1) * $cantidad;
+$arrayFiltro['cantidad'] = $cantidad;
 
 $listaclientes = $objClientes->listar($arrayFiltro);
+
 
 
 
@@ -122,14 +113,14 @@ $listaclientes = $objClientes->listar($arrayFiltro);
               $color="active";
           }
  ?>
-          <li class="<?=$color?>"><a href="sistema.php?r=clientes&pagina=<?=$i?>"><?=$i?></a></li>
+         <li class="<?=$color?>"><a href="sistema.php?r=clientes&pagina=<?=$i?>"><?=$i?></a></li>
 
 <?php
         }
 ?>
    
   
-    <li class="waves-effect"><a href="sistema.php?r=clientes&pagina=<?=$paginaSiguiente?>"><i class="material-icons">chevron_right</i></a></li>
+   <li class="waves-effect"><a href="sistema.php?r=clientes&pagina=<?=$paginaSiguiente?>"><i class="material-icons">chevron_right</i></a></li>
     <li class="waves-effect"><a href="sistema.php?r=clientes&pagina=<?=$totalPaginas?>"><i class="material-icons">fast_forward</i></a></li>
   </ul>
 

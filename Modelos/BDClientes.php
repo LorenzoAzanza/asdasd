@@ -44,7 +44,7 @@ class cliente extends generico{
         $this->tipo_documento=$arrayDatos['tipo_documento'];
         $this->numero_documento=$arrayDatos['numero_documento'];
         $this->estado=$arrayDatos['estado'];
-        $this->rol=$arrayDatos['rol'];
+      
         
     
 
@@ -79,7 +79,7 @@ class cliente extends generico{
     }
     public function totalRegistros(){
  
-        $sql = "SELECT  count(*) as total FROM clientes WHERE  estado='A'" ;
+        $sql = "SELECT  count(*) as total FROM clientes" ;
     
     
         $lista = $this->traerRegistros($sql);
@@ -108,7 +108,6 @@ class cliente extends generico{
         tipo_documento =:tipo_documento,
         numero_documento =:numero_documento,
         estado =:estado,
-        rol=:rol,   
         contrasena =:contrasena
         
         
@@ -124,7 +123,7 @@ class cliente extends generico{
     "numero_documento" => $this->numero_documento,
     "estado" => $this->estado,
     "contrasena" => md5($this->contrasena), // Guarda la contraseña como hash MD5
-    "rol"=>$this->rol
+    
 );
 
     
@@ -268,25 +267,14 @@ class cliente extends generico{
 
 
     public function listar($filtros = array()) {
-        $sql = "SELECT * FROM clientes";
+        $sql = "SELECT * FROM clientes WHERE activo=1 ORDER BY id_cliente  LIMIT " . $filtros['inicio'] . ", " . $filtros['cantidad'] . "";
+
+        $lista = $this->traerRegistros($sql);
+        
+        return $lista;
+        
+            }
     
-        // Verificar si se ha proporcionado el filtro 'activo'
-        if (isset($filtros['activo'])) {
-            $sql .= " WHERE activo = :activo";
-        }
-    
-        // Resto de la consulta...
-    
-        // Ejecutar la consulta con el filtro si es necesario
-        if (isset($filtros['activo'])) {
-            $arrayDatos = array("activo" => $filtros['activo']);
-            $resultado = $this->traerRegistros($sql, $arrayDatos);
-        } else {
-            $resultado = $this->traerRegistros($sql);
-        }
-    
-        return $resultado;
-    }
     public function login($mail, $contrasena){
         $sql = "SELECT * FROM clientes WHERE mail = :mail AND contrasena = :contrasena";
         $arraySql = array("mail" => $mail, "contrasena" => md5($contrasena));
