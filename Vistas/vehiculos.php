@@ -65,6 +65,7 @@ $listaVehiculos=$objVehiculos->listar($arrayFiltro);
               <th>Modelo</th>
               <th>Precio</th>
               <th>Estado</th>
+              <th>Imagen</th>
               <th style="width:150px"></th>
 
           </tr>
@@ -83,6 +84,7 @@ $listaVehiculos=$objVehiculos->listar($arrayFiltro);
             <td><?=$vehiculo['modelo'] ?></td>
             <td><?=$vehiculo['precio'] ?></td>
             <td><?=$vehiculo['estado'] ?></td>
+            <td><?=$vehiculo['img'] ?></td>
             <td>
               <a href="sistema.php?r=editar_vehiculos&id_vehiculo=<?=$vehiculo['id_vehiculo'] ?>" class="btn blue">
                 <i class="material-icons">edit</i>

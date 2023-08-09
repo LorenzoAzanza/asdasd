@@ -47,8 +47,8 @@ $listaReservas = $objReserva->listar($arrayFiltro);
         <tr>
             <th>#</th>
             <th>Fecha</th>
-            <th>ID Cliente</th>
-            <th>ID Vehículo</th>
+            <th>Cliente</th>
+            <th>Vehículo</th>
             <th>Estado</th>
             <th style="width:150px"></th>
         </tr>
@@ -57,9 +57,9 @@ $listaReservas = $objReserva->listar($arrayFiltro);
         <?php foreach ($listaReservas as $reserva) { ?>
         <tr>
             <td><?=$reserva['id_reserva'] ?></td>
-            <td><?=$reserva['fechaInicio'].'---Hasta---'.$reserva['fechaFin'] ?></td>
-            <td><?=$reserva['id_cliente'] ?></td>
-            <td><?=$reserva['id_vehiculo'] ?></td>
+            <td><?=$reserva['fechaInicio'].' Hasta '.$reserva['fechaFin'] ?></td>
+            <td><?=$reserva['nombreCliente'] ?></td>
+            <td><?=$reserva['marcaVehiculo'] ?></td>
             <td><?=$reserva['estado'] ?></td>
             <td>
                 <a href="sistema.php?r=editar_reserva&id_reserva=<?=$reserva['id_reserva'] ?>" class="btn blue">
@@ -73,7 +73,7 @@ $listaReservas = $objReserva->listar($arrayFiltro);
         <?php }?>
         <tr>
             <td colspan="6">
-                <ul class="pagination center-align">
+                <ul class="pagination center-align blue">
                     <li class="waves-effect"><a href="sistema.php?r=reservas&pagina=1"><i class="material-icons">fast_rewind</i></a></li>
                     <li class="waves-effect"><a href="sistema.php?r=reservas&pagina=<?=$paginaAnterior?>"><i class="material-icons">chevron_left</i></a></li>
                     <?php

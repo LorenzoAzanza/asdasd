@@ -108,7 +108,12 @@ class reserva extends generico{
 
     public function listar($filtro = array()){
         // Retorna una lista de registros de la base de datos
-        $sql = "SELECT * FROM reserva ORDER BY fechaInicio LIMIT " . $filtro['inicio'] . ", " . $filtro['cantidad'];
+        $sql = "SELECT
+		r.id_reserva, r.fechaInicio , r.fechaFin , r.estado , CONCAT(v.marca,' ID ', v.id_vehiculo)as marcaVehiculo, CONCAT(c.nombre,' ',c.apellido,' ID ', c.id_cliente) as nombreCliente
+		from reserva r 
+		inner join vehiculo v on r.id_vehiculo = v.id_vehiculo 
+		inner join clientes c on r.id_cliente = c.id_cliente;
+	 " . $filtro['inicio'] . ", " . $filtro['cantidad'];
         return $this->traerRegistros($sql);
     }
 }

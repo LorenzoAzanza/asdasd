@@ -11,6 +11,11 @@
         header('Location: sistema.php?r=vehiculos');
 
     }elseif($boton=="ingresar"){
+
+
+      $respuestaCopy=copy($_FILES['fileImg']['tmp_name'] , "web/archivos/".$_FILES['fileImg']['name']);
+      print_r($respuestaCopy);
+      
         //si vale ingresar , ingresamos el registro 
         $objVehiculos= new vehiculos();
         $arrayDatos=array();
@@ -53,7 +58,7 @@
 
 <h1>Ingresar vehiculos</h1>
 
-    <form method="POST" action="sistema.php?r=ingresar_vehiculos">
+    <form method="POST" action="sistema.php?r=ingresar_vehiculos" enctype="multipart/form-data">
       <div class="row">
         <?php
         if($respuesta==true){
@@ -107,7 +112,17 @@
          
             </select>
   <label>Estado</label>
+  <div class="file-field input-field col s6">
+      <div class="btn blue">
+        <span>Archivo</span>
+        <input type="file" name="fileImg">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text">
+      </div>
 </div>
+
+    </div>
         <div class="col s10">
             <button class="btn waves-effect waves-light blue" type="submit" name="boton" value="ingresar">Ingresar
              <i class="material-icons right blue">send</i>

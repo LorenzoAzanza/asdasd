@@ -25,6 +25,8 @@ class vehiculos extends generico{
 
     public $estado;
 
+    public $img;
+
     protected $tabla="vehiculo";
 
     public function constructor($arrayDatos=array()){
@@ -35,6 +37,7 @@ class vehiculos extends generico{
         $this->modelo=$arrayDatos['modelo'];
         $this->precio=$arrayDatos['precio'];
         $this->estado=$arrayDatos['estado'];
+        $this->img=$arrayDatos['img'];
     
 
     }
@@ -56,6 +59,7 @@ class vehiculos extends generico{
             $this->precio = $lista[0]['precio'];
             $this->estado = $lista[0]['estado'];
             $this->id_vehiculo = $lista[0]['id_vehiculo'];
+            $this->img=$lista[0]['img'];
             $retorno = true;
         } else {
             $retorno = false;
@@ -91,7 +95,8 @@ class vehiculos extends generico{
         marca =:marca,
         modelo =:modelo,
         precio =:precio,
-        estado =:estado
+        estado =:estado,
+        img =:img
 
     ";
     $arrayDatos=array(
@@ -101,7 +106,8 @@ class vehiculos extends generico{
         "marca" => $this->marca,
         "modelo" => $this->modelo,
         "precio" => $this->precio,
-        "estado" => $this->estado
+        "estado" => $this->estado,
+        "img" => $this->img
     );
 
 
@@ -122,7 +128,8 @@ class vehiculos extends generico{
         marca =:marca,
         modelo =:modelo,
         precio =:precio,
-        estado =:estado
+        estado =:estado,
+        img =:img
         where id_vehiculo = :id_vehiculo;
 
     ";
@@ -134,7 +141,8 @@ class vehiculos extends generico{
         "modelo" => $this->modelo,
         "precio" => $this->precio,
         "estado" => $this->estado,
-        "id_vehiculo" => $this->id_vehiculo
+        "id_vehiculo" => $this->id_vehiculo,
+        "img" => $this->img
     );
     
 
