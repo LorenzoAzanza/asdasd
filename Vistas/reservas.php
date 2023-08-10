@@ -90,7 +90,11 @@ $listaReservas = $objReserva->listar($arrayFiltro);
     <main>
         <div class="container">
             <h1 class="reservas-title">Lista de Reservas, páginas <?=$pagina?>/<?=$totalPaginas?>, total registros activos: <?=$totalRegistros?></h1>
-            
+            <div class="nuevo-botton">
+                <a href="sistema.php?r=ingresar_reservas" class="btn blue ">
+                    <i class="material-icons">add</i> Nuevo
+                </a>
+            </div>
             <div class="table-container">
                 <table class="striped">
                     <thead>

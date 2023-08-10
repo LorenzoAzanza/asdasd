@@ -57,6 +57,18 @@
 
                 include("Vistas/editar_tipoUsuario.php");
                  
+        }elseif($formulario=="editar_reserva"){
+
+                include("Vistas/editar_reservas.php");
+                 
+        }elseif($formulario=="borrar_reserva"){
+
+                include("Vistas/borrar_reservas.php");
+                 
+        }elseif($formulario=="ingresar_reservas"){
+
+                include("Vistas/ingresar_reservas.php");
+                 
         }
 
 

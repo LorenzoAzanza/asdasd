@@ -29,18 +29,23 @@ class reserva extends generico{
     }
 
     public function cargar($id_reserva){
+      
+    
         $sql = "SELECT * FROM reserva WHERE id_reserva = :id_reserva";
         $arraySql = array("id_reserva" => $id_reserva);
+    
 
         $lista = $this->traerRegistros($sql, $arraySql);
     
         if (isset($lista[0]['id_reserva'])){
             $this->fechaInicio = $lista[0]['fechaInicio'];
             $this->fechaFin = $lista[0]['fechaFin'];
-            $this->id_cliente = $lista[0]['id_cliente'];
             $this->id_vehiculo = $lista[0]['id_vehiculo'];
             $this->estado = $lista[0]['estado'];
-            $this->id_reserva = $lista[0]['id_reserva'];
+            $this->id_cliente = $lista[0]['id_cliente'];
+            $this->id_reserva=$lista[0]['id_reserva'];
+       
+
             $retorno = true;
         } else {
             $retorno = false;
@@ -48,7 +53,6 @@ class reserva extends generico{
     
         return $retorno;
     }
-
     public function totalRegistros(){
         $sql = "SELECT COUNT(*) AS total FROM reserva WHERE estado = 'A'";
         $lista = $this->traerRegistros($sql);
@@ -104,14 +108,23 @@ class reserva extends generico{
     }
 
     public function borrar(){
-        // Verificar si la reserva existe antes de eliminarla
+        // Primero, verifica si el vehículo existe antes de eliminarlo
+        var_dump("Método borrar() ejecutado");
         $existe = $this->cargar($this->id_reserva);
+        var_dump($existe);
         if ($existe) {
-            $sql = "DELETE FROM reserva WHERE id_reserva = :id_reserva";
+            // Verificar si hay reservas activas para este vehículo antes de borrarlo
+            // (puedes implementar este código, como el comentario que tienes en el código)
+    
+            // Si no hay reservas activas, procede a eliminar el vehículo
+            $sql = "DELETE  FROM reserva WHERE id_reserva = :id_reserva";
             $arrayDatos = array("id_reserva" => $this->id_reserva);
-            return $this->ejecutar($sql, $arrayDatos);
+    
+            $respuesta = $this->ejecutar($sql, $arrayDatos);
+    
+            return $respuesta;
         } else {
-            // La reserva no existe, no es posible eliminarla
+            // El vehículo no existe, no es posible eliminarlo
             return false;
         }
     }
