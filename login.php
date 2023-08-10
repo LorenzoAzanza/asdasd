@@ -33,7 +33,7 @@ if (isset($_POST['boton']) && $_POST['boton'] == "ingresar") {
 
             if ($respuesta_cliente) {
                 // Si el usuario es cliente, almacenamos la información en la sesión.
-                $_SESSION['usuario']['tipo'] = 'cliente';
+                $_SESSION['usuario']['tipo'] = 'clientes';
                 $_SESSION['usuario']['mail'] = $objCliente->mail;
                 $_SESSION['usuario']['id'] = $objCliente->id_cliente;
 

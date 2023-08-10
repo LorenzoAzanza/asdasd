@@ -16,10 +16,11 @@ if ($boton == "registrarse") {
         'tipo_documento' => isset($_POST['txtTipo_documento']) ? $_POST['txtTipo_documento'] : "",
         'numero_documento' => isset($_POST['txtNumero_documento']) ? $_POST['txtNumero_documento'] : "",
         'estado' => isset($_POST['txtEstado']) ? $_POST['txtEstado'] : "",
-        'contrasena' => isset($_POST['txtContrasena']) ? $_POST['txtContrasena'] : "",
+        'contrasena' => isset($_POST['passContrasena']) ? $_POST['passContrasena'] : "",
         'confirmarContrasena' => isset($_POST['txtConfirmarContrasena']) ? $_POST['txtConfirmarContrasena'] : ""
     );
 
+    var_dump($arrayDatos);
     // Validación de contraseñas
     $resultado = preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/', $arrayDatos['contrasena']);
     if ($resultado == 0) {
@@ -194,8 +195,8 @@ if ($boton == "registrarse") {
                     <div class="row center-align">
                         <div class="input-field col s6 offset-s3">
                             <i class="material-icons prefix">lock</i>
-                            <input id="txtContrasena" type="password" class="validate white-text" name="txtContrasena" required>
-                            <label for="txtContrasena">Contraseña</label>
+                            <input id="passContrasena" type="password" class="validate white-text" name="passContrasena" required>
+                            <label for="passContrasena">Contraseña</label>
                         </div>
                     </div>
                     <div class="row center-align">

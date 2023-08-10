@@ -44,6 +44,8 @@ class cliente extends generico{
         $this->tipo_documento=$arrayDatos['tipo_documento'];
         $this->numero_documento=$arrayDatos['numero_documento'];
         $this->estado=$arrayDatos['estado'];
+        $this->contrasena = $arrayDatos['contrasena'];
+   
       
         
     
@@ -79,7 +81,7 @@ class cliente extends generico{
     }
     public function totalRegistros(){
  
-        $sql = "SELECT  count(*) as total FROM clientes" ;
+        $sql = "SELECT  count(*) as total FROM clientes WHERE activo='1'" ;
     
     
         $lista = $this->traerRegistros($sql);
@@ -98,42 +100,39 @@ class cliente extends generico{
     }
 
     public function ingresar(){
-//se encarga de ingresar registros//
-    $sql="INSERT clientes SET
-        nombre =:nombre,
-        apellido =:apellido,
-        direccion =:direccion,
-        telefono =:telefono,
-        mail =:mail,
-        tipo_documento =:tipo_documento,
-        numero_documento =:numero_documento,
-        estado =:estado,
-        contrasena =:contrasena
-        
-        
-
-    ";
-   $arrayDatos = array(
-    "nombre" => $this->nombre,
-    "apellido" => $this->apellido,
-    "direccion" => $this->direccion,
-    "telefono" => $this->telefono,
-    "mail" => $this->mail,
-    "tipo_documento" => $this->tipo_documento,
-    "numero_documento" => $this->numero_documento,
-    "estado" => $this->estado,
-    "contrasena" => md5($this->contrasena), // Guarda la contraseña como hash MD5
+        // Se establece el rol por defecto como "cliente"
+        $defaultRol = "cliente";
     
-);
-
+        // Consulta SQL para insertar el registro en la base de datos
+        $sql="INSERT clientes SET
+            nombre = :nombre,
+            apellido = :apellido,
+            direccion = :direccion,
+            telefono = :telefono,
+            mail = :mail,
+            tipo_documento = :tipo_documento,
+            numero_documento = :numero_documento,
+            estado = :estado,
+            contrasena = :contrasena,
+            rol = :rol"; // No es necesario incluir el rol en esta consulta
     
-
-    $respuesta=$this->ejecutar($sql,$arrayDatos);
+        $arrayDatos = array(
+            "nombre" => $this->nombre,
+            "apellido" => $this->apellido,
+            "direccion" => $this->direccion,
+            "telefono" => $this->telefono,
+            "mail" => $this->mail,
+            "tipo_documento" => $this->tipo_documento,
+            "numero_documento" => $this->numero_documento,
+            "estado" => $this->estado,
+            "contrasena" => md5($this->contrasena),
+            "rol" => $defaultRol // Se asigna el rol por defecto
+        );
     
-    return $respuesta;
-
-
-     }
+        $respuesta = $this->ejecutar($sql, $arrayDatos);
+    
+        return $respuesta;
+    }
      public function agregarNuevoUsuarioEnTipoUsuario($rol) {
         // Verificar si el cliente ya tiene una entrada en la tabla tipo_usuarios
         $sql = "SELECT * FROM tipo_usuario WHERE id_cliente = :id_cliente";
@@ -275,25 +274,30 @@ class cliente extends generico{
         
             }
     
-    public function login($mail, $contrasena){
-        $sql = "SELECT * FROM clientes WHERE mail = :mail AND contrasena = :contrasena";
-        $arraySql = array("mail" => $mail, "contrasena" => md5($contrasena));
-
-        $registro = $this->traerRegistros($sql, $arraySql);
-
-        if (isset($registro[0]['id_cliente'])){
-            $this->id_cliente = $registro[0]['id_cliente'];
-            $this->mail = $registro[0]['mail'];
-
+            public function login($mail, $contrasena){
+                $sql = "SELECT * FROM clientes WHERE mail = :mail AND contrasena = :contrasena AND estado = 'A'";
+                $arraySql = array("mail" => $mail, "contrasena" => md5($contrasena));
             
+                $registro = $this->traerRegistros($sql, $arraySql);
+            
+                if (isset($registro[0]['id_cliente'])){
+                    $this->id_cliente = $registro[0]['id_cliente'];
+                    $this->mail = $registro[0]['mail'];
+                    $this->rol = $registro[0]['rol'];
+            
+                    // Almacenar el rol en la sesión.
+                    $_SESSION['usuario']['rol'] = $this->rol;
+            
+                    return true;
+                } else {
+                    return false;
+                }
+            }
 
-          return true;
-        } else {
-            return false;
-        }
+    public function obtenerRol() {
+        return $this->rol;
     }
-
- 
+    
 
 
 

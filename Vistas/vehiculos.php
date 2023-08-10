@@ -42,65 +42,114 @@ $listaVehiculos=$objVehiculos->listar($arrayFiltro);
 
 
 
-<h1>Vehiculos, paginas <?=$pagina?>/<?=$totalPaginas?>, total registros:<?=$totalRegistros?></h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            background: #ffecb3;
+            
+        }
 
+        main {
+            flex: 1 0 auto;
+            padding: 20px;
+        }
 
-<table class="striped">
-        <thead>
-          <tr>
-      <th colspan="9">
-        <a href="sistema.php?r=ingresar_vehiculos" class="btn blue">
-          <i class="material-icons">add</i> Nuevo
-</a>
+        .container {
+            margin-top: 0;
+        }
+
+        .vehiculos-title {
+            text-align: center;
+            color: black;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            border: 2px solid #e57373;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #e57373;
+        }
+
         
-    </th>
+        .table-container td {
+            color: #000;
+            text-align: center;
+            padding: 10px;
+        }
 
-</tr>
-          <tr>
-              <th>#</th>
-              <th>Tipo</th>
-              <th>Color</th>
-              <th>Cantidad de pasajeros</th>
-              <th>Marca</th>
-              <th>Modelo</th>
-              <th>Precio</th>
-              <th>Estado</th>
-              <th>Imagen</th>
-              <th style="width:150px"></th>
+        .table-container th {
+            background-color: #d32f2f;
+        }
+        .nuevo-botton{
+          text-align: center;
+          margin-bottom: 20px;
+        }
 
-          </tr>
-        </thead>
+       
+      
+    </style>
+</head>
 
-        <tbody>
-
-
-<?php foreach($listaVehiculos as $vehiculo){ ?>
-          <tr>
-            <td><?=$vehiculo['id_vehiculo'] ?></td>
-            <td><?=$vehiculo['tipo'] ?></td>
-            <td><?=$vehiculo['color'] ?></td>
-            <td><?=$vehiculo['cantidad_pasajeros'] ?></td>
-            <td><?=$vehiculo['marca'] ?></td>
-            <td><?=$vehiculo['modelo'] ?></td>
-            <td><?=$vehiculo['precio'] ?></td>
-            <td><?=$vehiculo['estado'] ?></td>
-            <td><?=$vehiculo['img'] ?></td>
-            <td>
-              <a href="sistema.php?r=editar_vehiculos&id_vehiculo=<?=$vehiculo['id_vehiculo'] ?>" class="btn blue">
-                <i class="material-icons">edit</i>
-              </a>
-              <a href="sistema.php?r=borrar_vehiculos&id_vehiculo=<?=$vehiculo['id_vehiculo'] ?>" class="btn red">
-                <i class="material-icons">delete</i>
-              </a>
-            </td>
-
-
-          </tr>
-<?php }?>
-  <tr>
-      <td colspan="9">
-        
-  <ul class="pagination center-align">
+<body>
+    <main>
+        <div class="container">
+            <h1 class="vehiculos-title">Lista de vehículos, páginas <?=$pagina?>/<?=$totalPaginas?>, total registros:<?=$totalRegistros?></h1>
+            <div class="nuevo-botton">
+                <a href="sistema.php?r=ingresar_vehiculos" class="btn blue ">
+                    <i class="material-icons">add</i> Nuevo
+                </a>
+            </div>
+            <div class="table-container">
+                <table class="striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tipo</th>
+                            <th>Color</th>
+                            <th>Cantidad de pasajeros</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Precio</th>
+                            <th>Estado</th>
+                            <th>Imagen</th>
+                            <th style="width: 150px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($listaVehiculos as $vehiculo) { ?>
+                        <tr>
+                            <td><?=$vehiculo['id_vehiculo']?></td>
+                            <td><?=$vehiculo['tipo']?></td>
+                            <td><?=$vehiculo['color']?></td>
+                            <td><?=$vehiculo['cantidad_pasajeros']?></td>
+                            <td><?=$vehiculo['marca']?></td>
+                            <td><?=$vehiculo['modelo']?></td>
+                            <td><?=$vehiculo['precio']?></td>
+                            <td><?=$vehiculo['estado']?></td>
+                            <td>
+                                <img src="web/archivos/<?=$vehiculo['img']?>" width="150px" />
+                            </td>
+                            <td>
+                                <a href="sistema.php?r=editar_vehiculos&id_vehiculo=<?=$vehiculo['id_vehiculo']?>"
+                                    class="btn blue"><i class="material-icons">edit</i></a>
+                                <a href="sistema.php?r=borrar_vehiculos&id_vehiculo=<?=$vehiculo['id_vehiculo']?>"
+                                    class="btn red"><i class="material-icons">delete</i></a>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                        <tr>
+                            <td colspan="12">
+                                <ul class="pagination center-align">
     <li class="waves-effect"><a href="sistema.php?r=vehiculos&pagina=1"><i class="material-icons">fast_rewind</i></a></li>
     <li class="waves-effect"><a href="sistema.php?r=vehiculos&pagina=<?=$paginaAnterior?>"><i class="material-icons">chevron_left</i></a></li>
     <!--
@@ -127,11 +176,14 @@ $listaVehiculos=$objVehiculos->listar($arrayFiltro);
   
     <li class="waves-effect"><a href="sistema.php?r=vehiculos&pagina=<?=$paginaSiguiente?>"><i class="material-icons">chevron_right</i></a></li>
     <li class="waves-effect"><a href="sistema.php?r=vehiculos&pagina=<?=$totalPaginas?>"><i class="material-icons">fast_forward</i></a></li>
-  </ul>
+    </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
 
-      </td>
-  </tr>
-          
-        </tbody>
-      </table>
-            
+</html>

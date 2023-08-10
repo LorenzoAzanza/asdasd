@@ -38,6 +38,7 @@ class vehiculos extends generico{
         $this->precio=$arrayDatos['precio'];
         $this->estado=$arrayDatos['estado'];
         $this->img=$arrayDatos['img'];
+        $this->id_vehiculo= isset($arrayDatos['id_vehiculo'])?$arrayDatos['id_vehiculo']:"";
     
 
     }
@@ -60,6 +61,7 @@ class vehiculos extends generico{
             $this->estado = $lista[0]['estado'];
             $this->id_vehiculo = $lista[0]['id_vehiculo'];
             $this->img=$lista[0]['img'];
+
             $retorno = true;
         } else {
             $retorno = false;
@@ -96,7 +98,7 @@ class vehiculos extends generico{
         modelo =:modelo,
         precio =:precio,
         estado =:estado,
-        img =:img
+        img =:img;
 
     ";
     $arrayDatos=array(
@@ -107,7 +109,7 @@ class vehiculos extends generico{
         "modelo" => $this->modelo,
         "precio" => $this->precio,
         "estado" => $this->estado,
-        "img" => $this->img
+        "img" => $this->img,
     );
 
 
@@ -118,41 +120,43 @@ class vehiculos extends generico{
 
      }
 
-    public function editar(){
-//para editar los registros///
+     public function editar(){
+        //para editar los registros///
+        $sql = "UPDATE vehiculo SET
+        tipo = :tipo,
+        color = :color,
+        cantidad_pasajeros = :cantidad_pasajeros,
+        marca = :marca,
+        modelo = :modelo,
+        precio = :precio,
+        estado = :estado";
 
-    $sql="UPDATE vehiculo SET
-        tipo =:tipo,
-        color =:color,
-        cantidad_pasajeros =:cantidad_pasajeros,
-        marca =:marca,
-        modelo =:modelo,
-        precio =:precio,
-        estado =:estado,
-        img =:img
-        where id_vehiculo = :id_vehiculo;
+        if ($this->img) {
+                $sql .= ", img = '$this->img'";
+        }
 
-    ";
-    $arrayDatos=array(
-        "tipo" => $this->tipo,
-        "color" => $this->color,
-        "cantidad_pasajeros" => $this->cantidad_pasajeros,
-        "marca" => $this->marca,
-        "modelo" => $this->modelo,
-        "precio" => $this->precio,
-        "estado" => $this->estado,
-        "id_vehiculo" => $this->id_vehiculo,
-        "img" => $this->img
-    );
+        $sql .= " WHERE id_vehiculo=:id_vehiculo";
+            
+           
+            
+        
+        $arrayDatos=array(
+            "tipo" => $this->tipo,
+            "color" => $this->color,
+            "cantidad_pasajeros" => $this->cantidad_pasajeros,
+            "marca" => $this->marca,
+            "modelo" => $this->modelo,
+            "precio" => $this->precio,
+            "estado" => $this->estado,
+            "id_vehiculo" => $this->id_vehiculo,
+           
+            
+        );
     
-
-
-    $respuesta=$this->ejecutar($sql,$arrayDatos);
-    return $respuesta;
-
-
+        $respuesta = $this->ejecutar($sql, $arrayDatos);
+        return $respuesta;
     }
-
+    
     public function borrar(){
         // Primero, verifica si el vehículo existe antes de eliminarlo
         $existe = $this->cargar($this->id_vehiculo);
