@@ -7,7 +7,9 @@ class reserva extends generico{
     // Identificador de registro autonumerico
     public $id_reserva;
 
-    public $fecha;
+    public $fechaInicio;
+
+    public $fechaFin;
     
     public $id_cliente;
 
@@ -18,7 +20,9 @@ class reserva extends generico{
     protected $tabla = "reserva";
 
     public function constructor($arrayDatos = array()){
-        $this->fecha = $arrayDatos['fecha'];
+        $this->fechaInicio = $arrayDatos['fechaInicio'];
+        $this->fechaFin = $arrayDatos['fechaFin'];
+
         $this->id_cliente = $arrayDatos['id_cliente'];
         $this->id_vehiculo = $arrayDatos['id_vehiculo'];
         $this->estado = $arrayDatos['estado'];
@@ -31,7 +35,8 @@ class reserva extends generico{
         $lista = $this->traerRegistros($sql, $arraySql);
     
         if (isset($lista[0]['id_reserva'])){
-            $this->fecha = $lista[0]['fecha'];
+            $this->fechaInicio = $lista[0]['fechaInicio'];
+            $this->fechaFin = $lista[0]['fechaFin'];
             $this->id_cliente = $lista[0]['id_cliente'];
             $this->id_vehiculo = $lista[0]['id_vehiculo'];
             $this->estado = $lista[0]['estado'];
@@ -58,13 +63,15 @@ class reserva extends generico{
     public function ingresar(){
         // Se encarga de ingresar registros
         $sql = "INSERT reserva SET
-            fecha = :fecha,
+            fechaInicio = :fechaInicio,
+            fechaFin = :fechaFin,
             id_cliente = :id_cliente,
             id_vehiculo = :id_vehiculo,
             estado = :estado";
 
         $arrayDatos = array(
-            "fecha" => $this->fecha,
+            "fechaInicio" => $this->fechaInicio,
+            "fechaFin" => $this->fechaFin,
             "id_cliente" => $this->id_cliente,
             "id_vehiculo" => $this->id_vehiculo,
             "estado" => $this->estado
@@ -76,14 +83,17 @@ class reserva extends generico{
     public function editar(){
         // Para editar los registros
         $sql = "UPDATE reserva SET
-            fecha = :fecha,
+            fechaInicio = :fechaInicio,
+            fechaFin= :fechaFin,
+
             id_cliente = :id_cliente,
             id_vehiculo = :id_vehiculo,
             estado = :estado
             WHERE id_reserva = :id_reserva";
 
         $arrayDatos = array(
-            "fecha" => $this->fecha,
+            "fechaInicio" => $this->fechaInicio,
+            "fechaFin" => $this->fechaFin,
             "id_cliente" => $this->id_cliente,
             "id_vehiculo" => $this->id_vehiculo,
             "estado" => $this->estado,

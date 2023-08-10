@@ -49,9 +49,13 @@
 
                 include("Vistas/reservas.php");
                  
-        }elseif($formulario=="usuarios"){
+        }elseif($formulario=="tipo_usuario"){
 
-                include("Vistas/usuarios.php");
+                include("Vistas/tipo_usuario.php");
+                 
+        }elseif($formulario=="editar_tipoUsuario"){
+
+                include("Vistas/editar_tipoUsuario.php");
                  
         }
 

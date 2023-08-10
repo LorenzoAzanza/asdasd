@@ -38,7 +38,7 @@
     <a href="sistema.php" class="brand-logo center"><i class="material-icons">local_taxi</i>RentACar</a>
     <ul class="right hide-on-med-and-down">
         <li><a href="sistema.php?r=clientes" class="enlace-icono black-text"><img src="web/img/grupo-de-chat.png" width="30" height="30">Clientes</a></li>
-        <li><a href="sistema.php?r=usuarios" class="enlace-icono black-text"><img src="web/img/grupo-de-chat.png" width="30" height="30">Usuarios</a></li>
+        <li><a href="sistema.php?r=tipo_usuario" class="enlace-icono black-text"><img src="web/img/grupo-de-chat.png" width="30" height="30">Usuarios</a></li>
 
         <li><a href="sistema.php?r=reservas" class="enlace-icono black-text"><img src="web/img/grupo-de-chat.png" width="30" height="30">Reservas</a></li>
         <li><a href="sistema.php?r=vehiculos" class="enlace-icono black-text"><img src="web/img/servicio.png" width="30" height="30">Vehículos</a></li>

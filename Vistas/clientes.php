@@ -75,6 +75,9 @@ $listaclientes = $objClientes->listar($arrayFiltro);
             background-color: #e57373;
             overflow: auto;
         }
+        .pagination .active a {
+            background-color: blue;
+        }
 
     </style>
 </head>

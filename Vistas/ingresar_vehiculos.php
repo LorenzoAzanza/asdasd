@@ -154,7 +154,7 @@
                         </div>
                         <div class="input-field col s6">
                             <input id="precio" type="number" class="validate" name="txtPrecio">
-                            <label for="precio">Precio</label>
+                            <label for="precio">Precio por dia $U</label>
                         </div>
                         <div class="input-field col s6">
                             <select name="txtEstado">

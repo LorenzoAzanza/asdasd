@@ -94,6 +94,9 @@ $listaVehiculos=$objVehiculos->listar($arrayFiltro);
           text-align: center;
           margin-bottom: 20px;
         }
+        .pagination .active a {
+            background-color: blue;
+        }
 
        
       
@@ -119,7 +122,7 @@ $listaVehiculos=$objVehiculos->listar($arrayFiltro);
                             <th>Cantidad de pasajeros</th>
                             <th>Marca</th>
                             <th>Modelo</th>
-                            <th>Precio</th>
+                            <th>Precio por dia $U</th>
                             <th>Estado</th>
                             <th>Imagen</th>
                             <th style="width: 150px"></th>

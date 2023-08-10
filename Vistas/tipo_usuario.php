@@ -33,7 +33,7 @@ $arrayFiltro=array();
 $arrayFiltro['inicio']=($pagina-1)*$cantidad;
 $arrayFiltro['cantidad']=$cantidad;
 
-$listaUsuario=$objTipo_usuario->listar($arrayFiltro);
+$lista_TipoUsuario=$objTipo_usuario->listar($arrayFiltro);
 
 
 
@@ -80,6 +80,9 @@ $listaUsuario=$objTipo_usuario->listar($arrayFiltro);
             background-color: #e57373;
             overflow: auto;
         }
+        .pagination .active a {
+            background-color: blue;
+        }
 
     </style>
 </head>
@@ -107,23 +110,23 @@ $listaUsuario=$objTipo_usuario->listar($arrayFiltro);
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($listaUsuario as $usuario) { ?>
+                        <?php foreach($lista_TipoUsuario as $tipo_usuario) { ?>
                         <tr>
-                            <td><?=$usuario['id_tipo_usuario']?></td>
-                            <td><?=$usuario['nombre']?></td>
-                            <td><?=$usuario['apellido']?></td>
-                            <td><?=$usuario['direccion']?></td>
-                            <td><?=$usuario['telefono']?></td>
-                            <td><?=$usuario['mail']?></td>
-                            <td><?=$usuario['tipo_documento']?></td>
-                            <td><?=$usuario['numero_documento']?></td>
-                            <td><?=$usuario['rol']?></td>
-                            <td><?=$usuario['estado']?></td>
+                            <td><?=$tipo_usuario['id_tipo_usuario']?></td>
+                            <td><?=$tipo_usuario['nombre']?></td>
+                            <td><?=$tipo_usuario['apellido']?></td>
+                            <td><?=$tipo_usuario['direccion']?></td>
+                            <td><?=$tipo_usuario['telefono']?></td>
+                            <td><?=$tipo_usuario['mail']?></td>
+                            <td><?=$tipo_usuario['tipo_documento']?></td>
+                            <td><?=$tipo_usuario['numero_documento']?></td>
+                            <td><?=$tipo_usuario['rol']?></td>
+                            <td><?=$tipo_usuario['estado']?></td>
                             <td>
-                                <a href="sistema.php?r=editar_usuarios&id_tipo_usuario=<?=$usuario['id_tipo_usuario']?>" class="btn blue">
+                                <a href="sistema.php?r=editar_tipoUsuario&id_tipo_usuario=<?=$tipo_usuario['id_tipo_usuario']?>" class="btn blue">
                                     <i class="material-icons">edit</i>
                                 </a>
-                                <a href="sistema.php?r=borrar_usuarios&id_tipo_usuario=<?=$usuario['id_tipo_usuario']?>" class="btn red">
+                                <a href="sistema.php?r=borrar_tipoUsuario&id_tipo_usuario=<?=$tipo_usuario['id_tipo_usuario']?>" class="btn red">
                                     <i class="material-icons">delete</i>
                                 </a>
                             </td>
@@ -132,8 +135,8 @@ $listaUsuario=$objTipo_usuario->listar($arrayFiltro);
                         <tr>
                             <td colspan="12">
                                 <ul class="pagination center-align">
-                                    <li class="waves-effect"><a href="sistema.php?r=usuarios&pagina=1"><i class="material-icons">fast_rewind</i></a></li>
-                                    <li class="waves-effect"><a href="sistema.php?r=usuarios&pagina=<?=$paginaAnterior?>"><i class="material-icons">chevron_left</i></a></li>
+                                    <li class="waves-effect"><a href="sistema.php?r=tipo_usuario&pagina=1"><i class="material-icons">fast_rewind</i></a></li>
+                                    <li class="waves-effect"><a href="sistema.php?r=tipo_usuario&pagina=<?=$paginaAnterior?>"><i class="material-icons">chevron_left</i></a></li>
                                     <?php
                                         for($i = ($pagina-2); $i <= ($pagina+2); $i++){
                                             if($i < 1 || $i > $totalPaginas ){
@@ -144,10 +147,10 @@ $listaUsuario=$objTipo_usuario->listar($arrayFiltro);
                                                 $color = "active";
                                             }
                                     ?>
-                                    <li class="<?=$color?>"><a href="sistema.php?r=usuarios&pagina=<?=$i?>"><?=$i?></a></li>
+                                    <li class="<?=$color?>"><a href="sistema.php?r=tipo_usuario&pagina=<?=$i?>"><?=$i?></a></li>
                                     <?php } ?>
-                                    <li class="waves-effect"><a href="sistema.php?r=usuarios&pagina=<?=$paginaSiguiente?>"><i class="material-icons">chevron_right</i></a></li>
-                                    <li class="waves-effect"><a href="sistema.php?r=usuarios&pagina=<?=$totalPaginas?>"><i class="material-icons">fast_forward</i></a></li>
+                                    <li class="waves-effect"><a href="sistema.php?r=tipo_usuario&pagina=<?=$paginaSiguiente?>"><i class="material-icons">chevron_right</i></a></li>
+                                    <li class="waves-effect"><a href="sistema.php?r=tipo_usuario&pagina=<?=$totalPaginas?>"><i class="material-icons">fast_forward</i></a></li>
                                 </ul>
                             </td>
                         </tr>

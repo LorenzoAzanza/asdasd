@@ -10,13 +10,29 @@
         public $rol;
         public $estado;
         public $id_cliente;
+        public $nombre;
+        public $apellido;
+        public $direccion;
+        public $telefono;
+        public $tipo_documento;
+        public $numero_documento;
+
+
+
 
         public function constructor($arrayDatos){
-            $this->id_tipo_usuario = $arrayDatos['id_tipo_usuario'];
             $this->mail = $arrayDatos['mail'];
-            $this->contrasena = $arrayDatos['contrasena'];
             $this->rol = $arrayDatos['rol'];
-            $this->id_cliente= $arrayDatos['id_cliente'];
+            $this->estado=$arrayDatos['estado'];
+            $this->nombre=$arrayDatos['nombre'];
+            $this->apellido=$arrayDatos['apellido'];
+            $this->direccion=$arrayDatos['direccion'];
+            $this->telefono=$arrayDatos['telefono'];
+            $this->tipo_documento=$arrayDatos['tipo_documento'];
+            $this->numero_documento=$arrayDatos['numero_documento'];
+         
+
+
         }
 
        // ...
@@ -80,6 +96,17 @@ public function obtenerRol() {
                 $this->mail = $lista[0]['mail'];
                 $this->id_tipo_usuario=$lista[0]['id_tipo_usuario'];
                 $this->rol=$lista[0]['rol'];
+                $this->nombre=$lista[0]['nombre'];
+                $this->apellido=$lista[0]['apellido'];
+                $this->direccion=$lista[0]['direccion'];
+                $this->telefono=$lista[0]['telefono'];
+                $this->tipo_documento=$lista[0]['tipo_documento'];
+                $this->numero_documento=$lista[0]['numero_documento'];
+                $this->estado=$lista[0]['estado'];
+
+
+
+
                 
                 $retorno = true;
             } else {
@@ -95,12 +122,28 @@ public function obtenerRol() {
         public function editar() {
             //para editar los registros///
             $sql = "UPDATE tipo_usuario SET
-                mail = :mail
+                nombre =:nombre,
+                apellido =:apellido,
+                direccion =:direccion,
+                telefono =:telefono,
+                mail = :mail,
+                tipo_documento=:tipo_documento,
+                numero_documento=:numero_documento,
+                rol=:rol,
+                estado=:estado
                 WHERE id_tipo_usuario = :id_tipo_usuario";
             $arrayDatos = array(
                 "mail" => $this->mail,
-                "id_tipo_usuario" => $this->id_tipo_usuario
-            );
+                "id_tipo_usuario" => $this->id_tipo_usuario,
+                "nombre"=>$this->nombre,
+                "apellido"=>$this->apellido,
+                "direccion"=>$this->direccion,
+                "telefono"=>$this->telefono,
+                "tipo_documento"=>$this->tipo_documento,
+                "numero_documento"=>$this->numero_documento,
+                "rol"=>$this->rol,
+                "estado"=>$this->estado
+ );
         
             $respuesta = $this->ejecutar($sql, $arrayDatos);
             return $respuesta;

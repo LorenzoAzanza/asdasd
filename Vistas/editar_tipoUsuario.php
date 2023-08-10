@@ -1,24 +1,24 @@
-
 <?php
+    require_once("Modelos/tipo_usuario.php");
     require_once("Modelos/BDClientes.php");
 
 
     $mensaje="";
     $respuesta="";
     $boton= isset($_POST['boton'])?$_POST['boton']:"";
-    $id_cliente= isset($_GET['id_cliente'])?$_GET['id_cliente']:"";
+    $id_tipo_usuario= isset($_GET['id_tipo_usuario'])?$_GET['id_tipo_usuario']:"";
 
-    $objClientes= new cliente();
-    $objClientes->cargar($id_cliente);
+    $objTipoUsuario= new tipo_usuario();
+    $objTipoUsuario->cargar($id_tipo_usuario);
     
-    if(isset($_POST['boton']) && $_POST['boton'] == "guardar" && isset($_POST['id_cliente']) && $_POST['id_cliente']>0 &&  isset($_POST['txtNombre']) && $_POST['txtNombre']!=""
+    if(isset($_POST['boton']) && $_POST['boton'] == "guardar" && isset($_POST['id_tipo_usuario']) && $_POST['id_tipo_usuario']>0 &&  isset($_POST['txtNombre']) && $_POST['txtNombre']!=""
     &&  isset($_POST['txtApellido']) && $_POST['txtApellido']!="" &&  isset($_POST['txtDireccion']) && $_POST['txtDireccion']!=""
     &&  isset($_POST['txtTelefono']) && $_POST['txtTelefono']!="" &&  isset($_POST['txtMail']) && $_POST['txtMail']!=""
     &&  isset($_POST['txtTipo_documento']) && $_POST['txtTipo_documento']!="" &&  isset($_POST['txtNumero_documento'])&& $_POST['txtNumero_documento']!="" && 
     isset($_POST['txtEstado']) && $_POST['txtEstado']!="" && 
     isset($_POST['txtRol']) && $_POST['txtRol']!=""){
 
-        $id_cliente=$_POST['id_cliente'];
+        $id_tipo_usuario=$_POST['id_tipo_usuario'];
         $arrayDatos= array(
         "nombre"=>$_POST['txtNombre'],
         "apellido"=>$_POST['txtApellido'],
@@ -32,9 +32,9 @@
         );
         
 
-        $objClientes->cargar($id_cliente);
-        $objClientes->constructor($arrayDatos);
-        $respuesta= $objClientes->editar();
+        $objTipoUsuario->cargar($id_tipo_usuario);
+        $objTipoUsuario->constructor($arrayDatos);
+        $respuesta= $objTipoUsuario->editar();
 
         if($respuesta==true){
             $mensaje="Se edito correctamente";
@@ -51,7 +51,7 @@
 
 
     if(isset($_POST['boton']) && $_POST['boton'] == "cancelar"){
-        header("Location: sistema.php?r=clientes");
+        header("Location: sistema.php?r=tipo_usuario");
        }
   
  ?>
@@ -114,14 +114,14 @@
 <body>
     <main>
         <div class="container">
-            <h1 class="editar-title">Editar Cliente Nº: <?=$id_cliente?></h1>
+            <h1 class="editar-title">Editar Usuario Nº: <?=$id_tipo_usuario?></h1>
             <div class="form-container">
-                <form method="POST" action="sistema.php?r=editar_clientes">
+                <form method="POST" action="sistema.php?r=editar_tipoUsuario">
                     <div class="row">
                         <?php if ($respuesta == true): ?>
                             <div class="card-panel blue center-align">
                                 <?=$mensaje?>
-                                <a href="sistema.php?r=clientes" class="btn green">Regresar</a>
+                                <a href="sistema.php?r=tipo_usuario" class="btn green">Regresar</a>
                             </div>
                         <?php elseif ($respuesta == false && $mensaje != ""): ?>
                             <div class="card-panel red center-align">
@@ -130,55 +130,56 @@
                         <?php endif; ?>
 
                         <div class="input-field col s6">
-                            <input id="nombre" type="text" class="validate" name="txtNombre" value="<?=$objClientes->nombre?>">
+                            <input id="nombre" type="text" class="validate" name="txtNombre" value="<?=$objTipoUsuario->nombre?>">
                             <label for="nombre">Nombre</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="apellido" type="text" class="validate" name="txtApellido" value="<?=$objClientes->apellido?>">
+                            <input id="apellido" type="text" class="validate" name="txtApellido" value="<?=$objTipoUsuario->apellido?>">
                             <label for="apellido">Apellido</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="direccion" type="text" class="validate" name="txtDireccion" value="<?=$objClientes->direccion?>">
+                            <input id="direccion" type="text" class="validate" name="txtDireccion" value="<?=$objTipoUsuario->direccion?>">
                             <label for="direccion">Direccion</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="telefono" type="number" class="validate" name="txtTelefono" value="<?=$objClientes->telefono?>">
+                            <input id="telefono" type="number" class="validate" name="txtTelefono" value="<?=$objTipoUsuario->telefono?>">
                             <label for="telefono">Telefono</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="mail" type="email" class="validate" name="txtMail" value="<?=$objClientes->mail?>">
+                            <input id="mail" type="email" class="validate" name="txtMail" value="<?=$objTipoUsuario->mail?>">
                             <label for="mail">Mail</label>
                         </div>
                         <div class="input-field col s6">
                             
                             <select id="txtTipo_documento" name="txtTipo_documento" required>
                                 <option value="" disabled selected>Seleccione un tipo de documento</option>
-                                <option value="CI" <?=$objClientes->tipo_documento == 'CI' ? 'selected' : ''?>>CI</option>
-                                <option value="Pasaporte" <?=$objClientes->tipo_documento == 'Pasaporte' ? 'selected' : ''?>>Pasaporte</option>
+                                <option value="CI" <?=$objTipoUsuario->tipo_documento == 'CI' ? 'selected' : ''?>>CI</option>
+                                <option value="Pasaporte" <?=$objTipoUsuario->tipo_documento == 'Pasaporte' ? 'selected' : ''?>>Pasaporte</option>
                             </select>
                             <label for="txtTipo_documento">Tipo de Documento</label>
                         </div>
+                        
                         <div class="input-field col s6">
-                            <input id="numero_documento" type="number" class="validate" name="txtNumero_documento" value="<?=$objClientes->numero_documento?>">
+                            <input id="numero_documento" type="number" class="validate" name="txtNumero_documento" value="<?=$objTipoUsuario->numero_documento?>">
                             <label for="numero_documento">Numero de documento</label>
                         </div>
                         <div class="input-field col s6"> 
                             <select name="txtRol">
-                                <option value="cliente" <?=$objClientes->rol == 'cliente' ? 'selected' : ''?>>Cliente</option>
-                                <option value="Administrador" <?=$objClientes->rol == 'Administrador' ? 'selected' : ''?>>Administrador</option>
-                                <option value="vendedor" <?=$objClientes->rol == 'vendedor' ? 'selected' : ''?>>Vendedor</option>
+                                <option value="cliente" <?=$objTipoUsuario->rol == 'cliente' ? 'selected' : ''?>>Cliente</option>
+                                <option value="Administrador" <?=$objTipoUsuario->rol == 'Administrador' ? 'selected' : ''?>>Administrador</option>
+                                <option value="vendedor" <?=$objTipoUsuario->rol == 'vendedor' ? 'selected' : ''?>>Vendedor</option>
                             </select>
                             <label>Rol</label>
                         </div>
                         <div class="input-field col s6">
                             <select name="txtEstado">
-                                <option value="A" <?=$objClientes->estado == 'A' ? 'selected' : ''?>>A</option>
-                                <option value="S" <?=$objClientes->estado == 'S' ? 'selected' : ''?>>S</option>
+                                <option value="A" <?=$objTipoUsuario->estado == 'A' ? 'selected' : ''?>>A</option>
+                                <option value="S" <?=$objTipoUsuario->estado == 'S' ? 'selected' : ''?>>S</option>
                             </select>
                             <label>Estado</label>
                         </div>
                         <div class="col s10">
-                            <input type="hidden" name="id_cliente" value="<?=$objClientes->id_cliente?>" >
+                            <input type="hidden" name="id_tipo_usuario" value="<?=$objTipoUsuario->id_tipo_usuario?>" >
                             <div class="submit-buttons">
                                 <button class="btn waves-effect waves-light blue" type="submit" name="boton" value="guardar">
                                     Guardar <i class="material-icons right blue">save</i>
@@ -187,6 +188,7 @@
                                     Cancelar <i class="material-icons right red">cancel</i>
                                 </button>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </form>
