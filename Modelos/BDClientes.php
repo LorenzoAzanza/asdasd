@@ -246,9 +246,9 @@ class cliente extends generico{
                 $respuesta_tipo_usuario = $this->agregarNuevoUsuarioEnTipoUsuario($this->rol);
     
                 if ($respuesta_tipo_usuario) {
-                    $mensaje .= " El cliente se ha agregado a la tabla tipo_usuario con el nuevo rol.";
+                    $mensaje .= " El cliente se ha agregado a la tabla clientes con el nuevo rol.";
                 } else {
-                    $mensaje .= " Error al agregar el cliente a la tabla tipo_usuario.";
+                    $mensaje .= " Error al agregar el cliente a la tabla clientes.";
                 }
             }
         } else {
@@ -311,7 +311,50 @@ class cliente extends generico{
     public function obtenerRol() {
         return $this->rol;
     }
+    public function cambiarContrasena($contrasena,$nuevaContrasena,$confirmarContrasena){
+
+        //$largoContrasena=strlen($nuevaContrasena);
+
+        $resultado = preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/', $nuevaContrasena);
+
+        if($resultado==0){
+
+            $retorno="La clave no cumple con las condiciones de seguridad. <br>
+                    Tiene que tener un minimo de 8 caracteres, los cuales incluyan
+                    mayusculas, minusculas, numeros y alguno de estos caracteres
+                    @$!%*#?&";
+
+            return $retorno;
+
+        }
+
+        if(!($nuevaContrasena===$confirmarContrasena)){
+
+            $retorno="Las Contraseñas no coinciden";
+            return $retorno;
+        }
+        $sql = "SELECT * FROM clientes WHERE  id_cliente=".$this->id_cliente." AND contrasena = :contrasena";
+        $arraySql = array("contrasena" => md5($contrasena));
+
+        $registro = $this->traerRegistros($sql, $arraySql);
+
+        if (!isset($registro[0]['id_cliente'])){
+            $retorno="La Contraseña no es correcta";
+            return $retorno;
+        
+        }
+        $sql = "UPDATE clientes SET
+            contrasena = :contrasena
+            WHERE id_cliente = :id_cliente";
+        $arrayDatos = array(
+            "contrasena" => md5($nuevaContrasena),
+            "id_cliente" => $this->id_cliente
+        );
     
+        $respuesta = $this->ejecutar($sql, $arrayDatos);
+        return $respuesta;
+
+    }
 
 
 

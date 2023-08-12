@@ -41,7 +41,7 @@
         <li><a class='dropdown-trigger btn green lighten-2 black-text' href='#' data-target='dropdown1'><img src="web/img/avatar.png" width="30" height="30">Cuenta</a></li>
         <ul id='dropdown1' class='dropdown-content'>
             <li><a class="red-text" href="login.php"><i class="material-icons red-text">close</i>Salir</a></li>
-            <li><a href="sistema.php?r=mi_panel" class="black-text"><i class="material-icons">edit</i>Perfil</a></li>
+            <li><a href="sistema.php?r=mi_panel_cliente" class="black-text"><i class="material-icons">edit</i>Perfil</a></li>
           
         </ul>
     </ul>

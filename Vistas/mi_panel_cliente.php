@@ -4,27 +4,36 @@
     $nuevaContrasena = trim("TTDSADS432432^");
     $resultado = preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/', $nuevaContrasena);
 
-require_once("Modelos/tipo_usuario.php");
+require_once("Modelos/BDClientes.php");
 
 
     $mensaje="";
     $respuesta="";
 
     $boton= isset($_POST['boton'])?$_POST['boton']:"";
-    $id_tipo_usuario= isset($_SESSION['id_tipo_usuario'])?$_SESSION['id_tipo_usuario']:"";
+    $id_cliente= isset($_SESSION['id_cliente'])?$_SESSION['id_cliente']:"";
 
-    $objTipo_usuario= new tipo_usuario();
-    $objTipo_usuario->cargar($id_tipo_usuario);
+    $objCliente= new cliente();
+    $objCliente->cargar($id_cliente);
     
-      if($boton == "guardar" && $id_tipo_usuario!=""
+      if($boton == "guardar" && $id_cliente!=""
            
-          && isset($_POST['txtMail']) && $_POST['txtMail']!=""){
+          && isset($_POST['txtMail']) && $_POST['txtMail']!="" && isset($_POST['txtNombre']) && $_POST['txtNombre']!="" && isset($_POST['txtApellido']) && $_POST['txtApellido']!=""
+          && isset($_POST['txtDireccion']) && $_POST['txtDireccion']!="" && isset($_POST['txtTelefono']) && $_POST['txtTelefono']!="" 
+          && isset($_POST['txtTipo_documento']) && $_POST['txtTipo_documento']!="" && isset($_POST['txtNumero_documento']) && $_POST['txtNumero_documento']!=""){
 
     
         
-       $objTipo_usuario->mail=$_POST['txtMail'];
+       $objCliente->mail=$_POST['txtMail'];
+       $objCliente->nombre=$_POST['txtNombre'];
+       $objCliente->apellido=$_POST['txtApellido'];
+       $objCliente->direccion=$_POST['txtDireccion'];
+       $objCliente->telefono=$_POST['txtTelefono'];
+       $objCliente->tipo_documento=$_POST['txtTipo_documento'];
+       $objCliente->numero_documento=$_POST['txtNumero_documento'];
 
-        $respuesta= $objTipo_usuario->editar();
+
+        $respuesta= $objCliente->editar();
 
       if($respuesta==true){
             $mensaje="Se edito correctamente";
@@ -39,9 +48,9 @@ require_once("Modelos/tipo_usuario.php");
 
 
 
-    if($boton == "contrasena" && $id_tipo_usuario!="" && $contrasena !="" && $nuevaContrasena !=""  && $confirmarContrasena !=""){
+    if($boton == "contrasena" && $id_cliente!="" && $contrasena !="" && $nuevaContrasena !=""  && $confirmarContrasena !=""){
 
-        $respuesta= $objTipo_usuario->cambiarContrasena($contrasena,$nuevaContrasena,$confirmarContrasena);
+        $respuesta= $objCliente->cambiarContrasena($contrasena,$nuevaContrasena,$confirmarContrasena);
 
       if($respuesta===true){
             $mensaje="Se edito correctamente";
@@ -82,11 +91,34 @@ require_once("Modelos/tipo_usuario.php");
           
         
     <div class="input-field col s6">
-      <input  id="mail" type="email" class="validate" name="txtMail" value="<?=$objTipo_usuario->mail?>">
+      <input  id="mail" type="email" class="validate" name="txtMail" value="<?=$objCliente->mail?>">
         <label for="mail">Email</label>
     </div>
+    <div class="input-field col s6">
+      <input  id="nombre" type="text" class="validate" name="txtNombre" value="<?=$objCliente->nombre?>">
+        <label for="nombre">Nombre</label>
+    </div> <div class="input-field col s6">
+      <input  id="apellido" type="text" class="validate" name="txtApellido" value="<?=$objCliente->apellido?>">
+        <label for="apellido">Apellido</label>
+    </div>
+    </div> <div class="input-field col s6">
+      <input  id="direccion" type="text" class="validate" name="txtDireccion" value="<?=$objCliente->direccion?>">
+        <label for="direccion">Direccion</label>
+    </div>
+    </div> <div class="input-field col s6">
+      <input  id="telefono" type="number" class="validate" name="txtTelefono" value="<?=$objCliente->telefono?>">
+        <label for="telefono">Telefono</label>
+    </div>
+    </div> <div class="input-field col s6">
+      <input  id="tipo_documento" type="text" class="validate" name="txtTipo_documento" value="<?=$objCliente->tipo_documento?>">
+        <label for="tipo_documento">Tipo de documento</label>
+    </div>
+    </div> <div class="input-field col s6">
+      <input  id="numero_documento" type="number" class="validate" name="txtNumero_documento" value="<?=$objCliente->numero_documento?>">
+        <label for="numero_documento">Numero de documento</label>
+    </div>
     <div class="col s10">
-      <input type="hidden" name="id_tipo_usuario" value="<?=$objTipo_usuario->id_tipo_usuario?>" >
+      <input type="hidden" name="id_cliente" value="<?=$objCliente->id_cliente?>" >
         <button class="btn waves-effect waves-light blue" type="submit" name="boton" value="guardar">Guardar
           <i class="material-icons right blue">save</i>
         </button>
@@ -137,7 +169,7 @@ require_once("Modelos/tipo_usuario.php");
     </div>
 
     <div class="col s10">
-      <input type="hidden" name="id_tipo_usuario" value="<?=$objTipo_usuario->id_tipo_usuario?>" >
+      <input type="hidden" name="id_cliente" value="<?=$objCliente->id_cliente?>" >
         <button class="btn waves-effect waves-light blue" type="submit" name="boton" value="contrasena">Guardar
           <i class="material-icons right blue">save</i>
         </button>

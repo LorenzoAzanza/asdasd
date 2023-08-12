@@ -38,9 +38,9 @@
         }elseif($formulario=="editar_clientes"){
         
                 include("Vistas/editar_clientes.php");
-        }elseif($formulario=="mi_panel"){
+        }elseif($formulario=="mi_panel_cliente"){
         
-                include("Vistas/mi_panel.php");
+                include("Vistas/mi_panel_cliente.php");
         }elseif($formulario==""){
 
                 include("Vistas/principal.php");
