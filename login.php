@@ -1,44 +1,59 @@
 <?php
-
-require_once("Modelos/tipo_usuario.php");
-require_once("Modelos/BDClientes.php"); // Asegúrate de tener la ruta correcta al archivo BDClientes.php
-
 session_start();
-unset($_SESSION['usuario']);
-$respuesta=false;
+require_once("Modelos/tipo_usuario.php");
+require_once("Modelos/BDClientes.php"); 
+include("Configuracion/db.php");
+
+
+
+
 $mail = isset($_POST['txtMail']) ? $_POST['txtMail'] : "";
 $contrasena = isset($_POST['passContrasena']) ? $_POST['passContrasena'] : "";
 
+$respuesta="";
 $mensaje = "";
 
 if (isset($_POST['boton']) && $_POST['boton'] == "ingresar") {
-    if (strlen($mail) > 0 && strlen($contrasena) > 0) {
-        // Intentamos primero autenticar al usuario como tipo_usuario.
+    if ($mail != "" && $contrasena != "") {
         $objTipo_usuario = new tipo_usuario();
         $respuesta_tipo_usuario = $objTipo_usuario->login($mail, $contrasena);
 
         if ($respuesta_tipo_usuario) {
-            // Si el usuario es tipo_usuario, almacenamos la información en la sesión.
             $_SESSION['usuario']['tipo'] = 'tipo_usuario';
             $_SESSION['usuario']['mail'] = $objTipo_usuario->mail;
-            $_SESSION['usuario']['id'] = $objTipo_usuario->id_tipo_usuario;
-            $_SESSION['usuario']['rol'] = $objTipo_usuario->obtenerRol(); // Asegurémonos de guardar el rol en la sesión.
+            $_SESSION['usuario']['nombre'] = $objTipo_usuario->nombre;
+            $_SESSION['usuario']['apellido'] = $objTipo_usuario->apellido;
+            $_SESSION['usuario']['direccion'] = $objTipo_usuario->direccion;
+            $_SESSION['usuario']['telefono'] = $objTipo_usuario->telefono;
+            $_SESSION['usuario']['tipo_documento'] = $objTipo_usuario->tipo_documento;
+            $_SESSION['usuario']['numero_documento'] = $objTipo_usuario->numero_documento;
+            $_SESSION['id_tipo_usuario'] = $objTipo_usuario->id_tipo_usuario;
+            $_SESSION['usuario']['id_cliente'] = $objTipo_usuario->id_cliente;
+
+            $_SESSION['usuario']['rol'] = $objTipo_usuario->obtenerRol();
+
+         
 
             header("location: sistema.php");
-            exit; // Asegurémonos de salir del script después de redireccionar.
+            exit();
         } else {
-            // Si el usuario no es tipo_usuario, intentamos autenticarlo como cliente.
-            $objCliente = new cliente(); // Asegúrate de que la clase se llame "cliente" en el archivo BDClientes.php
+            $objCliente = new cliente();
             $respuesta_cliente = $objCliente->login($mail, $contrasena);
 
             if ($respuesta_cliente) {
-                // Si el usuario es cliente, almacenamos la información en la sesión.
-                $_SESSION['usuario']['tipo'] = 'clientes';
+                $_SESSION['usuario']['tipo'] = 'cliente';
                 $_SESSION['usuario']['mail'] = $objCliente->mail;
-                $_SESSION['usuario']['id'] = $objCliente->id_cliente;
-
+                $_SESSION['usuario']['nombre'] = $objCliente->nombre;
+                $_SESSION['usuario']['apellido'] = $objCliente->apellido;
+                $_SESSION['usuario']['direccion'] = $objCliente->direccion;
+                $_SESSION['usuario']['telefono'] = $objCliente->telefono;
+                $_SESSION['usuario']['tipo_documento'] = $objCliente->tipo_documento;
+                $_SESSION['usuario']['numero_documento'] = $objCliente->numero_documento;
+                $_SESSION['usuario']['id_cliente'] = $objCliente->id_cliente;
+                $_SESSION['usuario']['rol'] = $objCliente->obtenerRol();
+                $_SESSION['id_cliente'] = $objCliente->id_cliente;
                 header("location: sistema.php");
-                exit; // Asegurémonos de salir del script después de redireccionar.
+                exit();
             } else {
                 $mensaje = "Error en los datos de inicio de sesión.";
             }
@@ -49,6 +64,7 @@ if (isset($_POST['boton']) && $_POST['boton'] == "ingresar") {
 }
 
 ?>
+
 
 
 

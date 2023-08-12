@@ -1,13 +1,6 @@
 <?php
 require_once("Modelos/generico.php");
-$baseDatos = [
-    'host' => "localhost",
-    'puerto' => "3306",
-    'usuario' => "root",
-    'clave' => "",
-    'db' => "proyecto"
-];
-
+require_once("Configuracion/db.php");
 class cliente extends generico{
 
     //identificador de registro autonumerico
@@ -33,6 +26,8 @@ class cliente extends generico{
 
     public $rol;
 
+    public $activo;
+
     
 
     public function constructor($arrayDatos=array()){
@@ -45,7 +40,8 @@ class cliente extends generico{
         $this->numero_documento=$arrayDatos['numero_documento'];
         $this->estado=$arrayDatos['estado'];
         $this->contrasena = $arrayDatos['contrasena'];
-        $this->rol=$arrayDatos['rol'];
+      
+        
    
       
         
@@ -73,6 +69,7 @@ class cliente extends generico{
             $this->id_cliente = $lista[0]['id_cliente'];
             $this->rol=$lista[0]['rol'];
             $this->contrasena=$lista[0]['contrasena'];
+            $this->activo=$lista[0]['activo'];
 
             $retorno = true;
         } else {
@@ -116,7 +113,7 @@ class cliente extends generico{
             numero_documento = :numero_documento,
             estado = :estado,
             contrasena = :contrasena,
-            rol = :rol"; // No es necesario incluir el rol en esta consulta
+            rol = :rol"; 
     
         $arrayDatos = array(
             "nombre" => $this->nombre,
@@ -356,7 +353,32 @@ class cliente extends generico{
 
     }
 
+    public function obtenerDatosUsuario($correoElectronico) {
+        // Crear una instancia de la clase cliente
+        $objCliente = new cliente();
 
+        // Usar el método login para cargar los datos del usuario
+        $loginExitoso = $objCliente->login($correoElectronico, $contrasena); // Debes tener la contraseña del usuario
+
+        if ($loginExitoso) {
+            // Obtener los datos del usuario cargados en la instancia
+            $datosUsuario = array(
+                'id_cliente' => $objCliente->id_cliente,
+                'nombre' => $objCliente->nombre,
+                'apellido' => $objCliente->apellido,
+                'direccion' => $objCliente->direccion,
+                'telefono' => $objCliente->telefono,
+                'mail' => $objCliente->mail,
+                'tipo_documento' => $objCliente->tipo_documento,
+                'numero_documento' => $objCliente->numero_documento,
+                // Y otros campos que necesites
+            );
+
+            return $datosUsuario;
+        } else {
+            return false; // El inicio de sesión no fue exitoso
+        }
+    }
 
 }
 

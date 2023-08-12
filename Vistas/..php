@@ -1,10 +1,12 @@
 <?php
 
 
+require_once("Modelos/BDClientes.php");
+
     $nuevaContrasena = trim("TTDSADS432432^");
     $resultado = preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/', $nuevaContrasena);
 
-require_once("Modelos/BDClientes.php");
+
 
 
     $mensaje="";
@@ -31,7 +33,6 @@ require_once("Modelos/BDClientes.php");
        $objCliente->telefono=$_POST['txtTelefono'];
        $objCliente->tipo_documento=$_POST['txtTipo_documento'];
        $objCliente->numero_documento=$_POST['txtNumero_documento'];
-
 
         $respuesta= $objCliente->editar();
 
@@ -65,9 +66,12 @@ require_once("Modelos/BDClientes.php");
        }
   
  ?>
+ 
 <h1>Editar Perfil</h1>
 
   <form method="POST" action="sistema.php?r=mi_panel">
+  <input type="hidden" name="id_cliente" value="<?=$objCliente->id_cliente?>">
+
     <div class="row">
 <?php
       if($respuesta==true && $boton=="guardar"){
@@ -90,42 +94,47 @@ require_once("Modelos/BDClientes.php");
 ?>
           
         
+          <div class="row">
     <div class="input-field col s6">
-      <input  id="mail" type="email" class="validate" name="txtMail" value="<?=$objCliente->mail?>">
+    <input id="mail" type="email" class="validate" name="txtMail" value="<?= $objCliente->mail ?>">
         <label for="mail">Email</label>
     </div>
+    
     <div class="input-field col s6">
-      <input  id="nombre" type="text" class="validate" name="txtNombre" value="<?=$objCliente->nombre?>">
+        <input id="nombre" type="text" class="validate" name="txtNombre" value="<?=$objCliente->nombre?>">
         <label for="nombre">Nombre</label>
-    </div> <div class="input-field col s6">
-      <input  id="apellido" type="text" class="validate" name="txtApellido" value="<?=$objCliente->apellido?>">
+    </div>
+    <div class="input-field col s6">
+        <input id="apellido" type="text" class="validate" name="txtApellido" value="<?=$objCliente->apellido?>">
         <label for="apellido">Apellido</label>
     </div>
-    </div> <div class="input-field col s6">
-      <input  id="direccion" type="text" class="validate" name="txtDireccion" value="<?=$objCliente->direccion?>">
+    <div class="input-field col s6">
+        <input id="direccion" type="text" class="validate" name="txtDireccion" value="<?=$objCliente->direccion?>">
         <label for="direccion">Direccion</label>
     </div>
-    </div> <div class="input-field col s6">
-      <input  id="telefono" type="number" class="validate" name="txtTelefono" value="<?=$objCliente->telefono?>">
+    <div class="input-field col s6">
+        <input id="telefono" type="number" class="validate" name="txtTelefono" value="<?=$objCliente->telefono?>">
         <label for="telefono">Telefono</label>
     </div>
-    </div> <div class="input-field col s6">
-      <input  id="tipo_documento" type="text" class="validate" name="txtTipo_documento" value="<?=$objCliente->tipo_documento?>">
+    <div class="input-field col s6">
+        <input id="tipo_documento" type="text" class="validate" name="txtTipo_documento" value="<?=$objCliente->tipo_documento?>">
         <label for="tipo_documento">Tipo de documento</label>
     </div>
-    </div> <div class="input-field col s6">
-      <input  id="numero_documento" type="number" class="validate" name="txtNumero_documento" value="<?=$objCliente->numero_documento?>">
+    <div class="input-field col s6">
+        <input id="numero_documento" type="number" class="validate" name="txtNumero_documento" value="<?=$objCliente->numero_documento?>">
         <label for="numero_documento">Numero de documento</label>
     </div>
-    <div class="col s10">
-      <input type="hidden" name="id_cliente" value="<?=$objCliente->id_cliente?>" >
+    <div class="col s12">
+        <input type="hidden" name="id_cliente" value="<?=$objCliente->id_cliente?>">
         <button class="btn waves-effect waves-light blue" type="submit" name="boton" value="guardar">Guardar
-          <i class="material-icons right blue">save</i>
+            <i class="material-icons right blue">save</i>
         </button>
         <button class="btn waves-effect waves-light red" type="submit" name="boton" value="cancelar">Cancelar
-          <i class="material-icons right red">cancel</i>
+            <i class="material-icons right red">cancel</i>
         </button>
     </div>
+</div>
+
         
        
 

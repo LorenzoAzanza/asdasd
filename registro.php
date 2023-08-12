@@ -20,7 +20,7 @@ if ($boton == "registrarse") {
         'confirmarContrasena' => isset($_POST['txtConfirmarContrasena']) ? $_POST['txtConfirmarContrasena'] : ""
     );
 
-    var_dump($arrayDatos);
+   
     // Validación de contraseñas
     $resultado = preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/', $arrayDatos['contrasena']);
     if ($resultado == 0) {
@@ -146,7 +146,9 @@ if ($boton == "registrarse") {
     <main>
         <div class="container">
             <form class="col s12" method="POST" action="registro.php">
-                <div class="campos">
+                <div class="campos" >
+                <input type="hidden" name="rol" value="cliente">
+
                     <h1 class="login-title">Registrarse</h1>
                     <?php if ($mensaje != ""): ?>
                     <!-- Mostrar mensaje de error si existe -->
@@ -233,6 +235,7 @@ if ($boton == "registrarse") {
 
                     <div class="row center-align">
                         <div class="input-field col s12">
+
                             <button class="btn waves-effect waves-light blue" type="submit" name="boton" value="registrarse">Registrarse
                                 <i class="material-icons right">send</i>
                             </button>
