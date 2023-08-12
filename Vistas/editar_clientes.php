@@ -158,6 +158,8 @@
         <option value="cliente" <?=$objClientes->rol == 'cliente' ? 'selected' : ''?>>Cliente</option>
         <option value="administrador" <?=$objClientes->rol == 'administrador' ? 'selected' : ''?>>Administrador</option>
         <option value="vendedor" <?=$objClientes->rol == 'vendedor' ? 'selected' : ''?>>Vendedor</option>
+        <option value="encargado" <?=$objClientes->rol == 'encargado' ? 'selected' : ''?>>Encargado</option>
+
     </select>
     <label>Rol</label>
 </div>

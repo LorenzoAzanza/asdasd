@@ -241,9 +241,9 @@ class cliente extends generico{
             $mensaje = "Se editó correctamente";
     
             // Verificar si el nuevo rol es 'vendedor'
-            if ($this->rol == 'vendedor') {
+            if ($this->rol == 'vendedor' || $this->rol=='administrador' || $this->rol=='encargado') {
                 // Agregar al cliente en la tabla tipo_usuario
-                $respuesta_tipo_usuario = $this->agregarNuevoUsuarioEnTipoUsuario('vendedor');
+                $respuesta_tipo_usuario = $this->agregarNuevoUsuarioEnTipoUsuario($this->rol);
     
                 if ($respuesta_tipo_usuario) {
                     $mensaje .= " El cliente se ha agregado a la tabla tipo_usuario con el nuevo rol.";

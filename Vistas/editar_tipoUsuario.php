@@ -166,8 +166,10 @@
                         <div class="input-field col s6"> 
                             <select name="txtRol">
                                 <option value="cliente" <?=$objTipoUsuario->rol == 'cliente' ? 'selected' : ''?>>Cliente</option>
-                                <option value="Administrador" <?=$objTipoUsuario->rol == 'Administrador' ? 'selected' : ''?>>Administrador</option>
+                                <option value="administrador" <?=$objTipoUsuario->rol == 'administrador' ? 'selected' : ''?>>Administrador</option>
                                 <option value="vendedor" <?=$objTipoUsuario->rol == 'vendedor' ? 'selected' : ''?>>Vendedor</option>
+                                <option value="encargado" <?=$objTipoUsuario->rol == 'encargado' ? 'selected' : ''?>>Encargado</option>
+
                             </select>
                             <label>Rol</label>
                         </div>
