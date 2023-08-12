@@ -120,35 +120,60 @@ public function obtenerRol() {
 
 
         public function editar() {
-            //para editar los registros///
+            // Para editar los registros
+        
             $sql = "UPDATE tipo_usuario SET
-                nombre =:nombre,
-                apellido =:apellido,
-                direccion =:direccion,
-                telefono =:telefono,
-                mail = :mail,
-                tipo_documento=:tipo_documento,
-                numero_documento=:numero_documento,
-                rol=:rol,
-                estado=:estado
-                WHERE id_tipo_usuario = :id_tipo_usuario";
-            $arrayDatos = array(
-                "mail" => $this->mail,
-                "id_tipo_usuario" => $this->id_tipo_usuario,
-                "nombre"=>$this->nombre,
-                "apellido"=>$this->apellido,
-                "direccion"=>$this->direccion,
-                "telefono"=>$this->telefono,
-                "tipo_documento"=>$this->tipo_documento,
-                "numero_documento"=>$this->numero_documento,
-                "rol"=>$this->rol,
-                "estado"=>$this->estado
- );
+            nombre = :nombre,
+            apellido = :apellido,
+            direccion = :direccion,
+            telefono = :telefono,
+            mail = :mail,
+            tipo_documento = :tipo_documento,
+            numero_documento = :numero_documento,
+            estado = :estado,
+            rol = :rol";
+    
+        $arrayDatos = array(
+            "nombre" => $this->nombre,
+            "apellido" => $this->apellido,
+            "direccion" => $this->direccion,
+            "telefono" => $this->telefono,
+            "mail" => $this->mail,
+            "tipo_documento" => $this->tipo_documento,
+            "numero_documento" => $this->numero_documento,
+            "estado" => $this->estado,
+            "rol" => $this->rol,
+            "id_tipo_usuario" => $this->id_tipo_usuario
+        );
+        
+           // Verificar si se proporciona una nueva contraseña
+        if (!empty($this->contrasena)) {
+            $sql .= ", contrasena = :contrasena";
+            $arrayDatos["contrasena"] = md5($this->contrasena);
+        }
+    
+        $sql .= " WHERE id_tipo_usuario = :id_tipo_usuario";
         
             $respuesta = $this->ejecutar($sql, $arrayDatos);
+        
+            if ($respuesta == true) {
+                $mensaje = "Se editó correctamente";
+                // Verificar si el nuevo rol es 'vendedor'
+                if ($this->rol == 'cliente') {
+                    // Agregar al cliente en la tabla tipo_usuario
+                    $respuesta_cliente = $this->agregarNuevoCliente('cliente');
+                    if ($respuesta_cliente) {
+                        $mensaje .= " El cliente se ha agregado a la tabla tipo_usuario con el nuevo rol.";
+                    } else {
+                        $mensaje .= " Error al agregar el cliente a la tabla tipo_usuario.";
+                    }
+                }
+            } else {
+                $mensaje = "No se pudo editar";
+            }
+        
             return $respuesta;
         }
-
 
         public function cambiarContrasena($contrasena,$nuevaContrasena,$confirmarContrasena){
 
@@ -197,7 +222,7 @@ public function obtenerRol() {
         public function listar($filtro=array()){
             // retorna una lista de registros de la base de datos//
             
-            $sql= "SELECT * FROM tipo_usuario ORDER BY rol LIMIT ".$filtro['inicio'].", ".$filtro['cantidad']."";
+            $sql= "SELECT * FROM tipo_usuario WHERE activo='1' ORDER BY rol LIMIT ".$filtro['inicio'].", ".$filtro['cantidad']."";
             
             $lista=$this->traerRegistros($sql);
             
@@ -205,6 +230,68 @@ public function obtenerRol() {
             return $lista;
             
                 }
+                public function agregarNuevoCliente($rol) {
+                    // Verificar si el cliente ya tiene una entrada en la tabla clientes
+                    $sql = "SELECT * FROM clientes WHERE mail = :mail";
+                    $arrayDatos = array("mail" => $this->mail);
+                
+                    $resultado = $this->traerRegistros($sql, $arrayDatos);
+                
+                    if ($resultado && count($resultado) > 0) {
+                        // El cliente ya tiene una entrada en la tabla clientes, actualizar los datos
+                        $sql = "UPDATE clientes SET 
+                                rol = :rol, 
+                                estado = :estado, 
+                                nombre = :nombre, 
+                                apellido = :apellido, 
+                                direccion = :direccion, 
+                                telefono = :telefono, 
+                                tipo_documento = :tipo_documento, 
+                                numero_documento = :numero_documento,
+                                contrasena = :contrasena,
+                                activo = '1'
+                                WHERE mail = :mail";
+                
+                        // Obtener la contraseña del cliente desde la tabla 'tipo_usuario'
+                        $sql_contraseña = "SELECT contrasena FROM tipo_usuario WHERE mail = :mail";
+                        $resultado_contraseña = $this->traerRegistros($sql_contraseña, $arrayDatos);
+                        $contrasena = isset($resultado_contraseña[0]['contrasena']) ? $resultado_contraseña[0]['contrasena'] : null;
+                    } else {
+                        // El cliente no tiene una entrada en la tabla clientes, insertar un nuevo registro
+                        // Inicializar $contrasena con un valor predeterminado
+                        $contrasena = "contrasena_predeterminada";
+                
+                        $sql = "INSERT INTO clientes (rol, estado, mail, nombre, apellido, direccion, telefono, tipo_documento, numero_documento, contrasena) 
+                                VALUES (:rol, :estado, :mail, :nombre, :apellido, :direccion, :telefono, :tipo_documento, :numero_documento, :contrasena)";
+                    }
+                
+                    // Ejecutar la consulta con los nuevos datos
+                    $arrayDatos = array(
+                        "rol" => $rol,
+                        "estado" => $this->estado,
+                        "mail" => $this->mail,
+                        "nombre" => $this->nombre,
+                        "apellido" => $this->apellido,
+                        "direccion" => $this->direccion,
+                        "telefono" => $this->telefono,
+                        "tipo_documento" => $this->tipo_documento,
+                        "numero_documento" => $this->numero_documento,
+                        "contrasena" => $contrasena
+                    );
+                
+                    $respuesta = $this->ejecutar($sql, $arrayDatos);
+                
+                    // Si la inserción o actualización en tipo_usuario fue exitosa, proceder a desactivar al cliente en la tabla clientes
+                    if ($respuesta) {
+                        $sql_desactivar_cliente = "UPDATE tipo_usuario SET activo = 0 WHERE id_tipo_usuario = :id_tipo_usuario";
+                        $arrayDatos_desactivar_cliente = array("id_tipo_usuario" => $this->id_tipo_usuario);
+                        $this->ejecutar($sql_desactivar_cliente, $arrayDatos_desactivar_cliente);
+                    }
+                
+                    return $respuesta;
+                }
+                
+               
         
 
     }

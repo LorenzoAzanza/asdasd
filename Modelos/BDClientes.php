@@ -45,6 +45,7 @@ class cliente extends generico{
         $this->numero_documento=$arrayDatos['numero_documento'];
         $this->estado=$arrayDatos['estado'];
         $this->contrasena = $arrayDatos['contrasena'];
+        $this->rol=$arrayDatos['rol'];
    
       
         
@@ -71,6 +72,7 @@ class cliente extends generico{
             $this->estado = $lista[0]['estado'];
             $this->id_cliente = $lista[0]['id_cliente'];
             $this->rol=$lista[0]['rol'];
+            $this->contrasena=$lista[0]['contrasena'];
 
             $retorno = true;
         } else {
@@ -152,14 +154,18 @@ class cliente extends generico{
                     telefono = :telefono, 
                     tipo_documento = :tipo_documento, 
                     numero_documento = :numero_documento,
-                    contrasena = :contrasena
+                    contrasena = :contrasena,
+                    activo = '1'
                     WHERE id_cliente = :id_cliente";
+
+                      $sql_contraseña = "SELECT contrasena FROM clientes WHERE id_cliente = :id_cliente";
+                      $resultado_contraseña = $this->traerRegistros($sql_contraseña, $arrayDatos);
+                      $contrasena = isset($resultado_contraseña[0]['contrasena']) ? $resultado_contraseña[0]['contrasena'] : null;
         } else {
             // El cliente no tiene una entrada en la tabla tipo_usuarios, insertar un nuevo registro
             // Obtener la contraseña del cliente desde la tabla 'clientes'
-            $sql_contraseña = "SELECT contrasena FROM clientes WHERE id_cliente = :id_cliente";
-            $resultado_contraseña = $this->traerRegistros($sql_contraseña, $arrayDatos);
-            $contrasena = isset($resultado_contraseña[0]['contrasena']) ? $resultado_contraseña[0]['contrasena'] : null;
+            $contrasena = "contrasena_predeterminada";
+
     
             $sql = "INSERT INTO tipo_usuario (id_cliente, rol, estado, mail, nombre, apellido, direccion, telefono, tipo_documento, numero_documento, contrasena) 
                     VALUES (:id_cliente, :rol, :estado, :mail, :nombre, :apellido, :direccion, :telefono, :tipo_documento, :numero_documento, :contrasena)";
@@ -191,9 +197,10 @@ class cliente extends generico{
     
         return $respuesta;
     }
+   
     
 
-    public function editar(){
+    public function editar() {
         //para editar los registros///
     
         $sql = "UPDATE clientes SET
@@ -205,8 +212,7 @@ class cliente extends generico{
             tipo_documento = :tipo_documento,
             numero_documento = :numero_documento,
             estado = :estado,
-            rol = :rol
-            WHERE id_cliente = :id_cliente";
+            rol = :rol";
     
         $arrayDatos = array(
             "nombre" => $this->nombre,
@@ -220,6 +226,14 @@ class cliente extends generico{
             "rol" => $this->rol,
             "id_cliente" => $this->id_cliente
         );
+    
+        // Verificar si se proporciona una nueva contraseña
+        if (!empty($this->contrasena)) {
+            $sql .= ", contrasena = :contrasena";
+            $arrayDatos["contrasena"] = md5($this->contrasena);
+        }
+    
+        $sql .= " WHERE id_cliente = :id_cliente";
     
         $respuesta = $this->ejecutar($sql, $arrayDatos);
     
