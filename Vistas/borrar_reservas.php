@@ -16,7 +16,7 @@
         
         $existe= $objReserva->cargar($id_reserva);
         if($existe){
-            var_dump($objReserva);
+          
             $respuesta=$objReserva->borrar();
             if($respuesta){
                 $mensaje="El registro se borro correctamente";

@@ -145,7 +145,11 @@ public function obtenerRol() {
             "rol" => $this->rol,
             "id_tipo_usuario" => $this->id_tipo_usuario
         );
-        
+        $sql_clientes="UPDATE clientes SET estado=:estado WHERE mail=:mail";
+        $arrayDatos_clientes=array(
+            "estado"=>$this->estado,
+            "mail"=>$this->mail
+        );
            // Verificar si se proporciona una nueva contraseña
         if (!empty($this->contrasena)) {
             $sql .= ", contrasena = :contrasena";
@@ -155,6 +159,7 @@ public function obtenerRol() {
         $sql .= " WHERE id_tipo_usuario = :id_tipo_usuario";
         
             $respuesta = $this->ejecutar($sql, $arrayDatos);
+            $respuesta=$this->ejecutar($sql_clientes,$arrayDatos_clientes);
         
             if ($respuesta == true) {
                 $mensaje = "Se editó correctamente";

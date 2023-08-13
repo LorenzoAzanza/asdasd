@@ -165,9 +165,9 @@
                         </div>
                         <div class="input-field col s6">
                             <select name="txtEstado">
-                                <option value="A" <?=$objVehiculos->estado == 'A' ? 'selected' : ''?>>A</option>
-                                <option value="O" <?=$objVehiculos->estado == 'O' ? 'selected' : ''?>>O</option>
-                                <option value="S" <?=$objVehiculos->estado == 'S' ? 'selected' : ''?>>S</option>
+                                <option value="A" <?=$objVehiculos->estado == 'A' ? 'selected' : ''?>>Activado</option>
+                                <option value="D" <?=$objVehiculos->estado == 'D' ? 'selected' : ''?>>Desactivado</option>
+                                <option value="B" <?=$objVehiculos->estado == 'B' ? 'selected' : ''?>>Borrado</option>
                             </select>
                             <label>Estado</label>
                         </div>

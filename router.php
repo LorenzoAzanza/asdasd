@@ -69,6 +69,10 @@
 
                 include("Vistas/ingresar_reservas.php");
                  
+        }elseif($formulario=="perfil_usuarios"){
+
+                include("Vistas/perfil_usuarios.php");
+                 
         }
 
 

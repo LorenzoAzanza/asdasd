@@ -40,6 +40,7 @@ class cliente extends generico{
         $this->numero_documento=$arrayDatos['numero_documento'];
         $this->estado=$arrayDatos['estado'];
         $this->contrasena = $arrayDatos['contrasena'];
+        $this->rol=$arrayDatos['rol'];
       
         
    
@@ -277,7 +278,7 @@ class cliente extends generico{
 
 
     public function listar($filtros = array()) {
-        $sql = "SELECT * FROM clientes WHERE activo=1 ORDER BY id_cliente  LIMIT " . $filtros['inicio'] . ", " . $filtros['cantidad'] . "";
+$sql = "SELECT * FROM clientes WHERE activo = 1 AND estado <> 'B' ORDER BY id_cliente LIMIT " . $filtros['inicio'] . ", " . $filtros['cantidad'] . "";
 
         $lista = $this->traerRegistros($sql);
         

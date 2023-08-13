@@ -175,8 +175,10 @@
                         </div>
                         <div class="input-field col s6">
                             <select name="txtEstado">
-                                <option value="A" <?=$objTipoUsuario->estado == 'A' ? 'selected' : ''?>>A</option>
-                                <option value="S" <?=$objTipoUsuario->estado == 'S' ? 'selected' : ''?>>S</option>
+                                <option value="A" <?=$objTipoUsuario->estado == 'A' ? 'selected' : ''?>>Activado</option>
+                                <option value="D" <?=$objTipoUsuario->estado == 'D' ? 'selected' : ''?>>Desactivado</option>
+                                <option value="B" <?=$objTipoUsuario->estado == 'B' ? 'selected' : ''?>>Borrado</option>
+
                             </select>
                             <label>Estado</label>
                         </div>

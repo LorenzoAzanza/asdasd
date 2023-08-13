@@ -1,7 +1,7 @@
 <?php
 
 
-require_once("Modelos/BDClientes.php");
+require_once("Modelos/tipo_usuario.php");
 
 
 
@@ -15,23 +15,23 @@ require_once("Modelos/BDClientes.php");
     $respuesta="";
 
     $boton= isset($_POST['boton'])?$_POST['boton']:"";
-    $id_cliente= isset($_SESSION['id_cliente'])?$_SESSION['id_cliente']:"";
+    $id_tipo_usuario= isset($_SESSION['id_tipo_usuario'])?$_SESSION['id_tipo_usuario']:"";
 
-    $objCliente= new cliente();
-    $objCliente->cargar($id_cliente);
+    $objTipoUsuario= new tipo_usuario();
+    $objTipoUsuario->cargar($id_tipo_usuario);
    
     
-    if ($boton == "guardar" && $id_cliente != "") {
-      $objCliente->mail = isset($_POST['txtMail']) && $_POST['txtMail'] != "" ? $_POST['txtMail'] : $objCliente->mail;
-      $objCliente->nombre = isset($_POST['txtNombre']) && $_POST['txtNombre'] != "" ? $_POST['txtNombre'] : $objCliente->nombre;
-      $objCliente->apellido = isset($_POST['txtApellido']) && $_POST['txtApellido'] != "" ? $_POST['txtApellido'] : $objCliente->apellido;
-      $objCliente->direccion = isset($_POST['txtDireccion']) && $_POST['txtDireccion'] != "" ? $_POST['txtDireccion'] : $objCliente->direccion;
-      $objCliente->telefono = isset($_POST['txtTelefono']) && $_POST['txtTelefono'] != "" ? $_POST['txtTelefono'] : $objCliente->telefono;
-      $objCliente->tipo_documento = isset($_POST['txtTipo_documento']) && $_POST['txtTipo_documento'] != "" ? $_POST['txtTipo_documento'] : $objCliente->tipo_documento;
-      $objCliente->numero_documento = isset($_POST['txtNumero_documento']) && $_POST['txtNumero_documento'] != "" ? $_POST['txtNumero_documento'] : $objCliente->numero_documento;
+    if ($boton == "guardar" && $id_tipo_usuario != "") {
+      $objTipoUsuario->mail = isset($_POST['txtMail']) && $_POST['txtMail'] != "" ? $_POST['txtMail'] : $objTipoUsuario->mail;
+      $objTipoUsuario->nombre = isset($_POST['txtNombre']) && $_POST['txtNombre'] != "" ? $_POST['txtNombre'] : $objTipoUsuario->nombre;
+      $objTipoUsuario->apellido = isset($_POST['txtApellido']) && $_POST['txtApellido'] != "" ? $_POST['txtApellido'] : $objTipoUsuario->apellido;
+      $objTipoUsuario->direccion = isset($_POST['txtDireccion']) && $_POST['txtDireccion'] != "" ? $_POST['txtDireccion'] : $objTipoUsuario->direccion;
+      $objTipoUsuario->telefono = isset($_POST['txtTelefono']) && $_POST['txtTelefono'] != "" ? $_POST['txtTelefono'] : $objTipoUsuario->telefono;
+      $objTipoUsuario->tipo_documento = isset($_POST['txtTipo_documento']) && $_POST['txtTipo_documento'] != "" ? $_POST['txtTipo_documento'] : $objTipoUsuario->tipo_documento;
+      $objTipoUsuario->numero_documento = isset($_POST['txtNumero_documento']) && $_POST['txtNumero_documento'] != "" ? $_POST['txtNumero_documento'] : $objTipoUsuario->numero_documento;
   
   
-          $respuesta= $objCliente->editar();
+          $respuesta= $objTipoUsuario->editar();
 
       if($respuesta==true){
             $mensaje="Se edito correctamente";
@@ -46,9 +46,9 @@ require_once("Modelos/BDClientes.php");
 
   
 
-    if($boton == "contrasena" && $id_cliente!="" && $contrasena !="" && $nuevaContrasena !=""  && $confirmarContrasena !=""){
+    if($boton == "contrasena" && $id_tipo_usuario !="" && $contrasena !="" && $nuevaContrasena !=""  && $confirmarContrasena !=""){
 
-        $respuesta= $objCliente->cambiarContrasena($contrasena,$nuevaContrasena,$confirmarContrasena);
+        $respuesta= $objTipoUsuario->cambiarContrasena($contrasena,$nuevaContrasena,$confirmarContrasena);
 
       if($respuesta===true){
             $mensaje="Se edito correctamente";
@@ -137,7 +137,7 @@ require_once("Modelos/BDClientes.php");
         <div class="container">
             <h1 class="form-title">Editar Perfil</h1>
             <div class="form-container">
-                <form method="POST" action="sistema.php?r=perfil">
+                <form method="POST" action="sistema.php?r=perfil_usuarios">
                     <?php if ($respuesta == true && $boton == "guardar"): ?>
                         <div class="card-panel blue center-align">
                             <?=$mensaje?>
@@ -152,23 +152,23 @@ require_once("Modelos/BDClientes.php");
         
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="mail" type="email" class="validate" name="txtMail" value="<?= $objCliente->mail ?>">
+                            <input id="mail" type="email" class="validate" name="txtMail" value="<?= $objTipoUsuario->mail ?>">
                             <label for="mail">Email</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="nombre" type="text" class="validate" name="txtNombre" value="<?=$objCliente->nombre?>">
+                            <input id="nombre" type="text" class="validate" name="txtNombre" value="<?=$objTipoUsuario->nombre?>">
                             <label for="nombre">Nombre</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="apellido" type="text" class="validate" name="txtApellido" value="<?=$objCliente->apellido?>">
+                            <input id="apellido" type="text" class="validate" name="txtApellido" value="<?=$objTipoUsuario->apellido?>">
                             <label for="apellido">Apellido</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="direccion" type="text" class="validate" name="txtDireccion" value="<?=$objCliente->direccion?>">
+                            <input id="direccion" type="text" class="validate" name="txtDireccion" value="<?=$objTipoUsuario->direccion?>">
                             <label for="direccion">Apellido</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="telefono" type="number" class="validate" name="txtTelefono" value="<?=$objCliente->telefono?>">
+                            <input id="telefono" type="number" class="validate" name="txtTelefono" value="<?=$objTipoUsuario->telefono?>">
                             <label for="telefono">Apellido</label>
                         </div>
                         
@@ -177,18 +177,18 @@ require_once("Modelos/BDClientes.php");
 
                         <div class="input-field col s6">
                            <select id="txtTipo_documento" name="txtTipo_documento">
-                                <option value="" disabled selected><?=$objCliente->tipo_documento?></option>
+                                <option value="" disabled selected><?=$objTipoUsuario->tipo_documento?></option>
                                 <option value="CI">CI</option>
                                 <option value="Pasaporte">Pasaporte</option>
                            </select>
                               <label for="txtTipo_documento">Tipo de Documento</label>
                         </div>
                         <div class="input-field col s6">
-                              <input id="numero_documento" type="number" class="validate" name="txtNumero_documento" value="<?=$objCliente->numero_documento?>">
+                              <input id="numero_documento" type="number" class="validate" name="txtNumero_documento" value="<?=$objTipoUsuario->numero_documento?>">
                               <label for="numero_documento">Numero de documento</label>
                         </div>
                         <div class="col s12 btn-container">
-                              <input type="hidden" name="id_cliente" value="<?=$objCliente->id_cliente?>" >
+                              <input type="hidden" name="id_tipo_usuario" value="<?=$objTipoUsuario->id_tipo_usuario?>" >
                                   <button class="btn waves-effect waves-light blue" type="submit" name="boton" value="guardar">Guardar
                                     <i class="material-icons right">save</i>
                                   </button>
@@ -203,7 +203,7 @@ require_once("Modelos/BDClientes.php");
             </div>
   </form>
 
-<form method="POST" action="sistema.php?r=perfil">
+<form method="POST" action="sistema.php?r=perfil_usuarios">
     <div class="row">
 <?php
       if($respuesta==true && $boton=="contrasena"){
@@ -228,7 +228,7 @@ require_once("Modelos/BDClientes.php");
           <div class="container">
             <h1 class="form-title">Cambio de Contraseña</h1>
             <div class="form-container">
-                <form method="POST" action="sistema.php?r=perfil">
+                <form method="POST" action="sistema.php?r=perfil_usuarios">
                     <div class="row">
                         <!-- Campo de contraseña actual -->
                         <div class="input-field col s6">
@@ -247,7 +247,7 @@ require_once("Modelos/BDClientes.php");
                         </div>
                         <!-- Botones de guardar y cancelar -->
                         <div class="col s12 btn-container">
-                            <input type="hidden" name="id_cliente" value="<?=$objCliente->id_cliente?>" >
+                            <input type="hidden" name="id_tipo_usuario" value="<?=$objTipoUsuario->id_tipo_usuario?>" >
                             <button class="btn waves-effect waves-light blue" type="submit" name="boton" value="contrasena">Guardar
                                 <i class="material-icons right">save</i>
                             </button>

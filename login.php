@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 require_once("Modelos/tipo_usuario.php");
 require_once("Modelos/BDClientes.php"); 
 include("Configuracion/db.php");
@@ -17,8 +18,8 @@ if (isset($_POST['boton']) && $_POST['boton'] == "ingresar") {
     if ($mail != "" && $contrasena != "") {
         $objTipo_usuario = new tipo_usuario();
         $respuesta_tipo_usuario = $objTipo_usuario->login($mail, $contrasena);
-
-        if ($respuesta_tipo_usuario) {
+        if ($respuesta_tipo_usuario && $objTipo_usuario->estado !== 'D' && $objTipo_usuario->estado !== 'B') {
+       
             $_SESSION['usuario']['tipo'] = 'tipo_usuario';
             $_SESSION['usuario']['mail'] = $objTipo_usuario->mail;
             $_SESSION['usuario']['nombre'] = $objTipo_usuario->nombre;
@@ -27,8 +28,9 @@ if (isset($_POST['boton']) && $_POST['boton'] == "ingresar") {
             $_SESSION['usuario']['telefono'] = $objTipo_usuario->telefono;
             $_SESSION['usuario']['tipo_documento'] = $objTipo_usuario->tipo_documento;
             $_SESSION['usuario']['numero_documento'] = $objTipo_usuario->numero_documento;
+            $_SESSION['usuario']['id_tipo_usuario'] = $objTipo_usuario->numero_documento;
+
             $_SESSION['id_tipo_usuario'] = $objTipo_usuario->id_tipo_usuario;
-            $_SESSION['usuario']['id_cliente'] = $objTipo_usuario->id_cliente;
 
             $_SESSION['usuario']['rol'] = $objTipo_usuario->obtenerRol();
 
@@ -40,7 +42,7 @@ if (isset($_POST['boton']) && $_POST['boton'] == "ingresar") {
             $objCliente = new cliente();
             $respuesta_cliente = $objCliente->login($mail, $contrasena);
 
-            if ($respuesta_cliente) {
+            if ($respuesta_cliente && $objCliente->estado !== 'D' && $objCliente->estado !== 'B') {
                 $_SESSION['usuario']['tipo'] = 'cliente';
                 $_SESSION['usuario']['mail'] = $objCliente->mail;
                 $_SESSION['usuario']['nombre'] = $objCliente->nombre;
