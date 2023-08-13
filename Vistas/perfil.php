@@ -21,24 +21,17 @@ require_once("Modelos/BDClientes.php");
     $objCliente->cargar($id_cliente);
     var_dump($id_cliente);
     
-    if($boton == "guardar" && $id_cliente!=""
-    
-           
-          && isset($_POST['txtMail']) && $_POST['txtMail']!="" && isset($_POST['txtNombre']) && $_POST['txtNombre']!="" && isset($_POST['txtApellido']) && $_POST['txtApellido']!=""
-          && isset($_POST['txtDireccion']) && $_POST['txtDireccion']!="" && isset($_POST['txtTelefono']) && $_POST['txtTelefono']!="" 
-          && isset($_POST['txtTipo_documento']) && $_POST['txtTipo_documento']!="" && isset($_POST['txtNumero_documento']) && $_POST['txtNumero_documento']!=""){
-
-    
-        
-       $objCliente->mail=$_POST['txtMail'];
-       $objCliente->nombre=$_POST['txtNombre'];
-       $objCliente->apellido=$_POST['txtApellido'];
-       $objCliente->direccion=$_POST['txtDireccion'];
-       $objCliente->telefono=$_POST['txtTelefono'];
-       $objCliente->tipo_documento=$_POST['txtTipo_documento'];
-       $objCliente->numero_documento=$_POST['txtNumero_documento'];
-
-        $respuesta= $objCliente->editar();
+    if ($boton == "guardar" && $id_cliente != "") {
+      $objCliente->mail = isset($_POST['txtMail']) && $_POST['txtMail'] != "" ? $_POST['txtMail'] : $objCliente->mail;
+      $objCliente->nombre = isset($_POST['txtNombre']) && $_POST['txtNombre'] != "" ? $_POST['txtNombre'] : $objCliente->nombre;
+      $objCliente->apellido = isset($_POST['txtApellido']) && $_POST['txtApellido'] != "" ? $_POST['txtApellido'] : $objCliente->apellido;
+      $objCliente->direccion = isset($_POST['txtDireccion']) && $_POST['txtDireccion'] != "" ? $_POST['txtDireccion'] : $objCliente->direccion;
+      $objCliente->telefono = isset($_POST['txtTelefono']) && $_POST['txtTelefono'] != "" ? $_POST['txtTelefono'] : $objCliente->telefono;
+      $objCliente->tipo_documento = isset($_POST['txtTipo_documento']) && $_POST['txtTipo_documento'] != "" ? $_POST['txtTipo_documento'] : $objCliente->tipo_documento;
+      $objCliente->numero_documento = isset($_POST['txtNumero_documento']) && $_POST['txtNumero_documento'] != "" ? $_POST['txtNumero_documento'] : $objCliente->numero_documento;
+  
+  
+          $respuesta= $objCliente->editar();
 
       if($respuesta==true){
             $mensaje="Se edito correctamente";
@@ -123,7 +116,7 @@ require_once("Modelos/BDClientes.php");
     </div>
     <div class="input-field col s6">
                      
-                            <select id="txtTipo_documento" name="txtTipo_documento" required >
+                            <select id="txtTipo_documento" name="txtTipo_documento"  >
                                 <option value="" disabled selected><?=$objCliente->tipo_documento?></option>
                                 <option value="CI">CI</option>
                                 <option value="Pasaporte">Pasaporte</option>

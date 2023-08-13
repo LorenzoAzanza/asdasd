@@ -69,11 +69,11 @@ require_once("Modelos/BDClientes.php");
  
 <h1>Editar Perfil</h1>
 
-  <form method="POST" action="sistema.php?r=mi_panel">
+  <form method="POST" action="sistema.php?r=perfil">
   <input type="hidden" name="id_cliente" value="<?=$objCliente->id_cliente?>">
 
     <div class="row">
-<?php
+    <?php
       if($respuesta==true && $boton=="guardar"){
 ?>
     <div class="card-panel blue center-align">
@@ -82,8 +82,7 @@ require_once("Modelos/BDClientes.php");
     </div>
 
 <?php
-        }elseif(($respuesta==false && $mensaje!="") && $boton=="guardar" ){ 
-          
+        }elseif(($respuesta==false && $mensaje!="") && $boton=="guardar"){ 
 ?>
     <div class="card-panel red center-align">
         <?=$mensaje?>
