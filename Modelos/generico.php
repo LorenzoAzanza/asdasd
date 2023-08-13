@@ -4,7 +4,7 @@ class generico{
   
 
 
-    protected function traerRegistros($sql,$arrayDatos=array()){
+    public function traerRegistros($sql,$arrayDatos=array()){
         try{
             if(file_exists("Configuracion/db.php")){
                 include("Configuracion/db.php");
