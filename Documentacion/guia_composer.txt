@@ -1,0 +1,12 @@
+
+-- C:\laragon\bin\php\php-8.1.10-Win32-vs16-x64\php .\composer.phar
+
+inicializar composer
+C:\laragon\bin\php\php-8.1.10-Win32-vs16-x64\php .\composer.phar init
+
+
+instalar composer
+
+C:\laragon\bin\php\php-8.1.10-Win32-vs16-x64\php .\composer.phar install
+
+C:\laragon\bin\php\php-8.1.10-Win32-vs16-x64\php .\composer.phar require phpmailer/phpmailer

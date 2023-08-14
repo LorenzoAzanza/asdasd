@@ -73,6 +73,14 @@
 
                 include("Vistas/perfil_usuarios.php");
                  
+        }elseif($formulario=="reservar"){
+
+                include("Vistas/reservar.php");
+                 
+        }elseif($formulario=="enviar"){
+
+                include("Modelos/enviar.php");
+                 
         }
 
 

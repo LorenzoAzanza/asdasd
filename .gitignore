@@ -1,4 +1,5 @@
 
 Configuracion/db.php
 
-web/archivos/
+web/archivos//vendor/
+/vendor/

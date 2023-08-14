@@ -380,6 +380,22 @@ $sql = "SELECT * FROM clientes WHERE activo = 1 AND estado <> 'B' ORDER BY id_cl
             return false; // El inicio de sesión no fue exitoso
         }
     }
+    
+    public function crearReserva($id_vehiculo, $id_cliente, $fechaInicio, $fechaFin) {
+        $sql = "INSERT INTO reserva (id_vehiculo, id_cliente, fechaInicio, fechaFin,estado) 
+                VALUES (:id_vehiculo, :id_cliente, :fechaInicio, :fechaFin,:estado)";
+        
+        $arrayDatos = array(
+            "id_vehiculo" => $id_vehiculo,
+            "id_cliente" => $id_cliente,
+            "fechaInicio" => $fechaInicio->format('Y-m-d'), // Asegura el formato correcto de la fecha
+            "fechaFin" => $fechaFin->format('Y-m-d'),       // Asegura el formato correcto de la fecha
+            "estado" => "A"
+        );
+    
+        $respuesta = $this->ejecutar($sql, $arrayDatos);
+        return $respuesta;
+    }
 
 }
 

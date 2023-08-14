@@ -188,9 +188,49 @@ $lista = $this->traerRegistros($sql);
 return $lista;
 
     }
-  
+    public function getPrecio() {
+        return $this->precio; // Suponiendo que el precio del vehículo está almacenado en la propiedad $precio
+    }
     
+    public function obtenerInformacionDelVehiculo($id_vehiculo) {
+        $vehiculoInfo = array();
+        
+        $sql = "SELECT * FROM vehiculo WHERE id_vehiculo = :id_vehiculo";
+        $arraySql = array("id_vehiculo" => $id_vehiculo);
+
+        $vehiculoData = $this->traerRegistros($sql, $arraySql);
+
+        if (!empty($vehiculoData[0])) {
+            $vehiculoInfo = $vehiculoData[0];
+        }
+
+        return $vehiculoInfo;
+    }
+    public function verificarReservasActivas($idVehiculo) {
+        $sql = "SELECT COUNT(*) as total FROM reserva WHERE id_vehiculo = :id_vehiculo AND estado = 'A'";
+        $arraySql = array("id_vehiculo" => $idVehiculo);
     
+        $result = $this->traerRegistros($sql, $arraySql);
+    
+        if (isset($result[0]['total']) && $result[0]['total'] > 0) {
+            return true; // El vehículo tiene reservas activas
+        } else {
+            return false; // El vehículo no tiene reservas activas
+        }
+    }
+    public function obtenerVehiculosSimilares($precioOriginal) {
+        $sql = "SELECT * FROM vehiculo WHERE precio >= :precio_minimo AND precio <= :precio_maximo AND estado = 'A'";
+        
+        $precioMinimo = $precioOriginal * 0.8; // Considerar vehículos con un precio hasta un 20% más bajo
+        $precioMaximo = $precioOriginal * 2; // Considerar vehículos con un precio hasta un 20% más alto
+        
+        $arrayDatos = array(
+            "precio_minimo" => $precioMinimo,
+            "precio_maximo" => $precioMaximo
+        );
+
+        return $this->traerRegistros($sql, $arrayDatos);
+    }
 }
 
 

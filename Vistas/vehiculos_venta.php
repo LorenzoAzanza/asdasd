@@ -25,16 +25,22 @@ $listaVehiculos = $objVehiculo->listar(array(
         .card-panel {
             margin: 10px;
         }
+        input::placeholder {
+        color: black;
+        
+    }
+    
+    
     </style>
-    <title>Vehículos para alquilar</title>
+    <title>Vehículos disponibles</title>
 </head>
-<body>
+<body style="background-image: url('web/img/pexels-fondo.webp'); background-size:complete;">
 
-<div class="container">
-    <h1 class="center-align teal-text text-darken-3">Vehículos para alquilar</h1>
+<div class="container indigo lighten-4">
+    <h1 class="center-align black-text text-darken-3">Vehículos disponibles</h1>
     
     <!-- Filtros -->
-    <form id="filterForm">
+    <form id="filterForm"  action="sistema.php?r=reservar&id_vehiculo=<?php echo $vehiculo['id_vehiculo']; ?>" method="POST">
          <!-- Select para filtrar por color -->
     <select name="color">
         <option value="">Seleccionar color</option>
@@ -54,7 +60,7 @@ $listaVehiculos = $objVehiculo->listar(array(
      <!-- Input para filtrar por precio máximo -->
     <input type="number" name="precio" placeholder="Precio máximo">
        <!-- Botón para ejecutar la búsqueda -->
-    <button type="submit">Buscar</button>
+    <button type="submit" class="blue">Buscar</button>
 </form>
     
        <!-- Contenedor de los vehículos -->
@@ -67,8 +73,9 @@ $listaVehiculos = $objVehiculo->listar(array(
                     <h5 class="white-text text-darken-3"><?php echo $vehiculo['tipo']; ?> <?php echo $vehiculo['color']; ?></h5>
                     <p><?php echo $vehiculo['modelo']; ?> - <?php echo $vehiculo['marca']; ?></p>
                     <p>Pasajeros: <?php echo $vehiculo['cantidad_pasajeros']; ?></p>
-                    <p>Precio: $<?php echo $vehiculo['precio']; ?></p>
-                    <a class="btn blue" href="#">Reservar</a>
+                    <p>Precio $U por dia: $<?php echo $vehiculo['precio']; ?></p>
+                    <a class="btn blue" href="sistema.php?r=reservar&id_vehiculo=<?php echo $vehiculo['id_vehiculo']; ?>">Reservar</a>
+                    
                 </div>
             </div>
         <?php } ?>

@@ -7,7 +7,7 @@
     <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" media="screen,projection">
     <title>Rentadora de Vehículos</title>
 </head>
-<body style="background-image: url('web/img/pexels-fondo.jpg'); background-size:2100px 1115px;">
+<body style="background-image: url('web/img/pexels-fondo.webp'); background-size:2100px 1115px;">
 
 
 <!-- Contenido Principal -->
@@ -29,7 +29,7 @@
     <div class="col s12 m6">
     <div class="card-panel red lighten-2">
         <div class="card-image">
-            <img src="web/img/pexels-inicio.jpg" width="560" height="400" alt="Explora nuestros Vehículos">
+            <img src="web/img/pexels-inicio.webp" width="560" height="400" alt="Explora nuestros Vehículos">
         </div>
         <div class="card-content black-text"> <!-- Cambiado a black-text para texto negro -->
             <span class="card-title black-text">Explora nuestros Vehículos</span>
@@ -46,7 +46,7 @@
 <div class="col s12 m4">
     <div class="card-panel red lighten-2">
         <div class="card-image">
-            <img src="web/img/pexels-formulario.jpg" alt="Formulario" class="responsive-img">
+            <img src="web/img/pexels-formulario.webp" alt="Formulario" class="responsive-img">
         </div>
         <div class="card-content black-text">
             <span class="card-title">Formulario</span>
@@ -62,7 +62,7 @@
 <div class="col s12 m4">
     <div class="card-panel red lighten-2">
         <div class="card-image">
-            <img src="web/img/pexels-reserva.jpg" width="360" height="140" alt="Reserva">
+            <img src="web/img/pexels-reserva.webp" width="360" height="140" alt="Reserva">
         </div>
         <div class="card-content black-text">
             <span class="card-title">Consulta tu reserva</span>

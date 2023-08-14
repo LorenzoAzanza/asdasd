@@ -24,4 +24,5 @@ if ($rol === 'administrador') {
     // Si no es Administrador, Encargado ni Vendedor, redirigir al layout predeterminado.
     include("Vistas/layout.php");
 }
+
 ?>

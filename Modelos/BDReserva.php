@@ -139,4 +139,21 @@ class reserva extends generico{
 	 " . $filtro['inicio'] . ", " . $filtro['cantidad'];
         return $this->traerRegistros($sql);
     }
+    public function verificarReservasEnFechas($idVehiculo, $fechaInicio, $fechaFin) {
+        // Verificar si hay una reserva activa para el vehículo en las fechas dadas
+        $sql = "SELECT COUNT(*) as total FROM reserva WHERE id_vehiculo = :id_vehiculo AND estado = 'A' AND fechaInicio <= :fechaFin AND fechaFin >= :fechaInicio";
+        $arraySql = array(
+            "id_vehiculo" => $idVehiculo,
+            "fechaInicio" => $fechaInicio->format('Y-m-d'),
+            "fechaFin" => $fechaFin->format('Y-m-d')
+        );
+    
+        $result = $this->traerRegistros($sql, $arraySql);
+    
+        if (isset($result[0]['total']) && $result[0]['total'] > 0) {
+            return true; // El vehículo tiene reservas activas en esas fechas
+        } else {
+            return false; // El vehículo no tiene reservas activas en esas fechas
+        }
+    }
 }
