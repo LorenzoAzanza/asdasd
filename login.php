@@ -171,6 +171,7 @@ if (isset($_POST['boton']) && $_POST['boton'] == "ingresar") {
                                     <label for="contrasena">Contraseña</label>
                                 </div>
                             </div>
+                            
                             <div class="row center-align">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect red lighten-2" type="submit" name="boton" value="ingresar">Ingresar

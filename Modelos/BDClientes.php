@@ -353,7 +353,7 @@ $sql = "SELECT * FROM clientes WHERE activo = 1 AND estado <> 'B' ORDER BY id_cl
         return $respuesta;
 
     }
-
+    
     public function obtenerDatosUsuario($correoElectronico) {
         // Crear una instancia de la clase cliente
         $objCliente = new cliente();
@@ -395,6 +395,21 @@ $sql = "SELECT * FROM clientes WHERE activo = 1 AND estado <> 'B' ORDER BY id_cl
     
         $respuesta = $this->ejecutar($sql, $arrayDatos);
         return $respuesta;
+    }
+    public function cargarPorCorreoDocumento($correoElectronico, $numeroDocumento) {
+        $sql = "SELECT * FROM clientes WHERE mail = :mail AND numero_documento = :numero_documento";
+        $arraySql = array("mail" => $correoElectronico, "numero_documento" => $numeroDocumento);
+
+        $lista = $this->traerRegistros($sql, $arraySql);
+
+        if (isset($lista[0]['id_cliente'])) {
+            $this->nombre = $lista[0]['nombre'];
+            $this->apellido = $lista[0]['apellido'];
+            // ... (asignar otros campos si es necesario)
+            return true; // El registro existe
+        } else {
+            return false; // El registro no existe
+        }
     }
     
 

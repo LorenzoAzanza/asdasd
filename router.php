@@ -5,7 +5,7 @@
 
         if($formulario=="formulario"){
            
-            include("Vistas/formulario.php");
+            include("sendemail/formulario.php");
 
         }elseif($formulario=="vehiculos"){
 
@@ -79,10 +79,9 @@
                  
         }elseif($formulario=="enviar"){
 
-                include("Modelos/enviar.php");
+                include("sendemail/enviar.php");
                  
         }
-
 
         else{ 
             
