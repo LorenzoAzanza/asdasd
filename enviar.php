@@ -2,39 +2,52 @@
 require_once("Modelos/BDFormulario.php");
 require_once("Modelos/BDClientes.php");
 
-require 'vendor/autoload.php'; // Asegúrate de que la ruta sea correcta
+require 'vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-$mail = filter_var($_POST['mail'], FILTER_SANITIZE_EMAIL);
-$nombre = $_POST['nombre'];
+$mail = filter_var($_POST['txtMail'], FILTER_SANITIZE_EMAIL);
+$nombre = $_POST['txtNombre'];
 $mensaje = $_POST['mensaje'];
+$asunto = $_POST['txtAsunto'];
 
-if (!empty($mail) && !empty($nombre) && !empty($mensaje)) {
-    $destino = 'azanzalorenzo@gmail.com';
-    $asunto = 'mail de prueba';
+if (!empty($mail) && !empty($nombre) && !empty($mensaje) && !empty($asunto)) {
+    // Guardar en la base de datos
+    $objFormulario = new formulario();
+    $objFormulario->guardarFormulario($nombre, $mail, $asunto, $mensaje);
+
+    $destino = 'rentacarproyectogit@gmail.com';
 
     $cuerpo = '
     <html>
     <head>
-        <title>prueba</title>
+        <title>' . $asunto . '</title>
     </head>
     <body>
-        <h1>Email de ' . $nombre . '</h1>
+        <h1>Mensaje de ' . $mail . '</h1>
         <p>' . $mensaje . '</p>
     </body>
     </html>';
 
-    $headers = "MIME-version: 1.0\r\n";
-    $headers .= "Content-type: text/html; charset=utf-8\r\n";
+    $mail = new PHPMailer();
+    // Configurar el servidor SMTP y otras opciones aquí
 
-    $headers .= "From: $nombre <$mail>\r\n";
-    $headers .= "Return-path: $destino\r\n";
-    mail($destino, $asunto, $cuerpo, $headers);
-    echo "Email enviado correctamente";
-} else {
-    echo "Error";
+    $mail->setFrom($mail->Username, $nombre);
+    $mail->addAddress($destino);
+    $mail->Subject = $asunto;
+    $mail->isHTML(true);
+    $mail->Body = $cuerpo;
+
+    if ($mail->send()) {
+        // Establecer el mensaje en la variable de sesión
+        $_SESSION['mensaje_enviado'] = true;
+
+        header("Location: sistema.php?r=formulario");
+        exit();
+    } else {
+        echo "Error al enviar el correo.";
+    }
 }
 ?>

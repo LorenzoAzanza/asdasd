@@ -2,6 +2,7 @@
 
 
 require_once("Modelos/BDClientes.php");
+require_once("Modelos/BDReserva.php");
 
 
 
@@ -62,6 +63,11 @@ require_once("Modelos/BDClientes.php");
         header("Location: sistema.php");
        }
   
+       $objReserva = new reserva();
+       $reservasActivas = $objReserva->getReservasActivasCliente($objCliente->id_cliente);
+
+
+
  ?>
 <html lang="es">
 
@@ -134,6 +140,39 @@ require_once("Modelos/BDClientes.php");
  
 <body>
     <main>
+    <div class="container">
+    <!-- Sección: Reservas Activas -->
+    <div class="row">
+        <?php if (!empty($reservasActivas)): ?>
+            <h1 class="form-title">Reservas Activas</h1>
+            <ul class="red lighten-2">
+                <?php foreach ($reservasActivas as $reserva): ?>
+                    <li class="">
+                        <div class="card-panel red lighten-2 black-text">
+                            <p>Reserva ID: <?= $reserva['id_reserva'] ?></p>
+                        </div>
+                        <div class="card-panel red lighten-2 black-text">
+                            <p>Fecha de Inicio: <?= $reserva['fechaInicio'] ?></p>
+                        </div>
+                        <div class="card-panel red lighten-2 black-text">
+                            <p>Fecha de Fin: <?= $reserva['fechaFin'] ?></p>
+                        </div>
+                        <div class="card-panel red lighten-2 black-text">
+                            <p>Vehículo: <?= $reserva['marcaVehiculo'] ?></p>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p>No tienes reservas activas.</p>
+        <?php endif; ?>
+    </div>
+</div>
+
+
+
+
+
         <div class="container">
             <h1 class="form-title">Editar Perfil</h1>
             <div class="form-container">
@@ -186,7 +225,10 @@ require_once("Modelos/BDClientes.php");
                         <div class="input-field col s6">
                               <input id="numero_documento" type="number" class="validate" name="txtNumero_documento" value="<?=$objCliente->numero_documento?>">
                               <label for="numero_documento">Numero de documento</label>
+                              
                         </div>
+                        
+                        
                         <div class="col s12 btn-container">
                               <input type="hidden" name="id_cliente" value="<?=$objCliente->id_cliente?>" >
                                   <button class="btn waves-effect waves-light blue" type="submit" name="boton" value="guardar">Guardar

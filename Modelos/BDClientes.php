@@ -396,6 +396,7 @@ $sql = "SELECT * FROM clientes WHERE activo = 1 AND estado <> 'B' ORDER BY id_cl
         $respuesta = $this->ejecutar($sql, $arrayDatos);
         return $respuesta;
     }
+    
 
 }
 

@@ -156,4 +156,16 @@ class reserva extends generico{
             return false; // El vehículo no tiene reservas activas en esas fechas
         }
     }
+    public function getReservasActivasCliente($idCliente) {
+        // Obtener las reservas activas de un cliente específico
+        $sql = "SELECT
+            r.id_reserva, r.fechaInicio, r.fechaFin, CONCAT(v.marca, ' ID ', v.id_vehiculo) as marcaVehiculo
+            FROM reserva r
+            INNER JOIN vehiculo v ON r.id_vehiculo = v.id_vehiculo
+            WHERE r.id_cliente = :id_cliente AND r.estado = 'A'";
+        
+        $arraySql = array("id_cliente" => $idCliente);
+        
+        return $this->traerRegistros($sql, $arraySql);
+    }
 }

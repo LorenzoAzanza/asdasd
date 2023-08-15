@@ -8,12 +8,14 @@ class formulario extends generico{
     public $nombre;
     public $mail;
     public $mensaje;
-    protected $tabla = "formulario";
-
+    public $asunto;
+    
     public function constructor($arrayDatos = array()){
         $this->nombre = $arrayDatos['nombre'];
         $this->mail = $arrayDatos['mail'];
         $this->mensaje = $arrayDatos['mensaje'];
+        $this->asunto = $arrayDatos['asunto'];
+
     }
 
     public function cargar($id_formulario){
@@ -55,7 +57,18 @@ class formulario extends generico{
 
         return $lista;
     }
+    
+    public function guardarFormulario($nombre, $email, $asunto, $mensaje) {
+        $sql = "INSERT INTO formulario (nombre, mail, asunto, mensaje) VALUES (:nombre, :mail, :asunto, :mensaje)";
+        $arrayDatos = array(
+            "nombre" => $nombre,
+            "mail" => $email,
+            "asunto" => $asunto,
+            "mensaje" => $mensaje
+        );
 
+        $this->ejecutar($sql, $arrayDatos); // Utiliza el método guardar de la clase generico
+    }
 
 
 }
