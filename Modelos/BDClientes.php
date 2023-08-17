@@ -1,9 +1,11 @@
 <?php
+//Incluimos los archivos de configuracion
 require_once("Modelos/generico.php");
 require_once("Configuracion/db.php");
+
 class cliente extends generico{
 
-    //identificador de registro autonumerico
+    //Propiedades que representan los campos de la tabla
     public $id_cliente;
 
     public $nombre;
@@ -49,16 +51,19 @@ class cliente extends generico{
     
 
     }
+    //Metodo para cargar los datos del cliente especifico
     public function cargar($id_cliente){
       
     
         $sql = "SELECT * FROM clientes WHERE id_cliente = :id_cliente";
         $arraySql = array("id_cliente" => $id_cliente);
     
-
+        //llamamos el metodo traerRegistros heredado de generico
         $lista = $this->traerRegistros($sql, $arraySql);
     
         if (isset($lista[0]['id_cliente'])){
+        // Si hay registros, se asignan los valores de la consulta a las propiedades de la clase cliente
+
             $this->nombre = $lista[0]['nombre'];
             $this->apellido = $lista[0]['apellido'];
             $this->direccion = $lista[0]['direccion'];
@@ -72,13 +77,14 @@ class cliente extends generico{
             $this->contrasena=$lista[0]['contrasena'];
             $this->activo=$lista[0]['activo'];
 
-            $retorno = true;
+                $retorno = true;
         } else {
-            $retorno = false;
+                $retorno = false;
         }
     
         return $retorno;
     }
+
     public function totalRegistros(){
  
         $sql = "SELECT  count(*) as total FROM clientes WHERE activo='1'" ;
@@ -101,7 +107,7 @@ class cliente extends generico{
 
     public function ingresar(){
         // Se establece el rol por defecto como "cliente"
-        $defaultRol = "cliente";
+        $RolPredeterminado = "cliente";
     
         // Consulta SQL para insertar el registro en la base de datos
         $sql="INSERT clientes SET
@@ -126,15 +132,19 @@ class cliente extends generico{
             "numero_documento" => $this->numero_documento,
             "estado" => $this->estado,
             "contrasena" => md5($this->contrasena),
-            "rol" => $defaultRol // Se asigna el rol por defecto
+            "rol" => $RolPredeterminado // Se asigna el rol por defecto
         );
     
         $respuesta = $this->ejecutar($sql, $arrayDatos);
     
         return $respuesta;
     }
+
+
+    //Esta funcion sirve por si queremos registrar un vendedor o encargado , le cambiamos el rol de cliente a vendedor por ejemplo
+    //Se cambia el campo activo, y ya no se muestra en la tabla clientes pero si en la de tipo_usuarios
      public function agregarNuevoUsuarioEnTipoUsuario($rol) {
-        // Verificar si el cliente ya tiene una entrada en la tabla tipo_usuarios
+
         $sql = "SELECT * FROM tipo_usuario WHERE id_cliente = :id_cliente";
         $arrayDatos = array("id_cliente" => $this->id_cliente);
     
@@ -160,11 +170,8 @@ class cliente extends generico{
                       $resultado_contraseña = $this->traerRegistros($sql_contraseña, $arrayDatos);
                       $contrasena = isset($resultado_contraseña[0]['contrasena']) ? $resultado_contraseña[0]['contrasena'] : null;
         } else {
-            // El cliente no tiene una entrada en la tabla tipo_usuarios, insertar un nuevo registro
-            // Obtener la contraseña del cliente desde la tabla 'clientes'
-            $contrasena = "contrasena_predeterminada";
-
-    
+            
+         
             $sql = "INSERT INTO tipo_usuario (id_cliente, rol, estado, mail, nombre, apellido, direccion, telefono, tipo_documento, numero_documento, contrasena) 
                     VALUES (:id_cliente, :rol, :estado, :mail, :nombre, :apellido, :direccion, :telefono, :tipo_documento, :numero_documento, :contrasena)";
         }
@@ -181,7 +188,7 @@ class cliente extends generico{
             "telefono" => $this->telefono,
             "tipo_documento" => $this->tipo_documento,
             "numero_documento" => $this->numero_documento,
-            "contrasena" => $contrasena
+            "contrasena" => md5($this->contrasena)
         );
     
         $respuesta = $this->ejecutar($sql, $arrayDatos);
@@ -238,7 +245,7 @@ class cliente extends generico{
         if ($respuesta == true) {
             $mensaje = "Se editó correctamente";
     
-            // Verificar si el nuevo rol es 'vendedor'
+            // Verificar si el nuevo rol es distinto a cliente
             if ($this->rol == 'vendedor' || $this->rol=='administrador' || $this->rol=='encargado') {
                 // Agregar al cliente en la tabla tipo_usuario
                 $respuesta_tipo_usuario = $this->agregarNuevoUsuarioEnTipoUsuario($this->rol);
@@ -257,13 +264,13 @@ class cliente extends generico{
     }
 
     public function borrar(){
-        // Primero, verifica si el vehículo existe antes de eliminarlo
+        // Primero, verificar si el cliente existe
         $existe = $this->cargar($this->id_cliente);
         if ($existe) {
-            // Verificar si hay reservas activas para este vehículo antes de borrarlo
-            // (puedes implementar este código, como el comentario que tienes en el código)
+           
+           
     
-            // Si no hay reservas activas, procede a eliminar el vehículo
+            // Si no hay reservas activas, procede a eliminar el cliente
             $sql = "DELETE FROM clientes WHERE id_cliente = :id_cliente";
             $arrayDatos = array("id_cliente" => $this->id_cliente);
     
@@ -271,21 +278,23 @@ class cliente extends generico{
     
             return $respuesta;
         } else {
-            // El vehículo no existe, no es posible eliminarlo
+            // no exisate
             return false;
         }
     }
 
 
     public function listar($filtros = array()) {
-$sql = "SELECT * FROM clientes WHERE activo = 1 AND estado <> 'B' ORDER BY id_cliente LIMIT " . $filtros['inicio'] . ", " . $filtros['cantidad'] . "";
+            $sql = "SELECT * FROM clientes WHERE activo = 1 AND estado <> 'B' ORDER BY id_cliente LIMIT " . $filtros['inicio'] . ", " . $filtros['cantidad'] . "";
 
-        $lista = $this->traerRegistros($sql);
+            $lista = $this->traerRegistros($sql);
         
-        return $lista;
+            return $lista;
         
-            }
+    }
+
     
+
             public function login($mail, $contrasena){
                 $sql = "SELECT * FROM clientes WHERE mail = :mail AND contrasena = :contrasena AND estado = 'A'";
                 $arraySql = array("mail" => $mail, "contrasena" => md5($contrasena));
@@ -306,13 +315,12 @@ $sql = "SELECT * FROM clientes WHERE activo = 1 AND estado <> 'B' ORDER BY id_cl
                 }
             }
 
-    public function obtenerRol() {
-        return $this->rol;
-    }
+    
+
+
     public function cambiarContrasena($contrasena,$nuevaContrasena,$confirmarContrasena){
 
-        //$largoContrasena=strlen($nuevaContrasena);
-
+        //validamos que la contraseña cumpla con los requisitos
         $resultado = preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/', $nuevaContrasena);
 
         if($resultado==0){
@@ -331,6 +339,8 @@ $sql = "SELECT * FROM clientes WHERE activo = 1 AND estado <> 'B' ORDER BY id_cl
             $retorno="Las Contraseñas no coinciden";
             return $retorno;
         }
+
+        
         $sql = "SELECT * FROM clientes WHERE  id_cliente=".$this->id_cliente." AND contrasena = :contrasena";
         $arraySql = array("contrasena" => md5($contrasena));
 
@@ -354,78 +364,29 @@ $sql = "SELECT * FROM clientes WHERE activo = 1 AND estado <> 'B' ORDER BY id_cl
 
     }
     
-    public function obtenerDatosUsuario($correoElectronico) {
-        // Crear una instancia de la clase cliente
-        $objCliente = new cliente();
 
-        // Usar el método login para cargar los datos del usuario
-        $loginExitoso = $objCliente->login($correoElectronico, $contrasena); // Debes tener la contraseña del usuario
-
-        if ($loginExitoso) {
-            // Obtener los datos del usuario cargados en la instancia
-            $datosUsuario = array(
-                'id_cliente' => $objCliente->id_cliente,
-                'nombre' => $objCliente->nombre,
-                'apellido' => $objCliente->apellido,
-                'direccion' => $objCliente->direccion,
-                'telefono' => $objCliente->telefono,
-                'mail' => $objCliente->mail,
-                'tipo_documento' => $objCliente->tipo_documento,
-                'numero_documento' => $objCliente->numero_documento,
-                // Y otros campos que necesites
-            );
-
-            return $datosUsuario;
-        } else {
-            return false; // El inicio de sesión no fue exitoso
-        }
-    }
-    
+   
+    // Metodo para crear reservas
     public function crearReserva($id_vehiculo, $id_cliente, $fechaInicio, $fechaFin) {
+        // Construimos la consulta sql para insertar la reserva
         $sql = "INSERT INTO reserva (id_vehiculo, id_cliente, fechaInicio, fechaFin,estado) 
                 VALUES (:id_vehiculo, :id_cliente, :fechaInicio, :fechaFin,:estado)";
         
         $arrayDatos = array(
             "id_vehiculo" => $id_vehiculo,
             "id_cliente" => $id_cliente,
-            "fechaInicio" => $fechaInicio->format('Y-m-d'), // Asegura el formato correcto de la fecha
-            "fechaFin" => $fechaFin->format('Y-m-d'),       // Asegura el formato correcto de la fecha
+            "fechaInicio" => $fechaInicio->format('Y-m-d'), //  y-m-d formato de la fecha
+            "fechaFin" => $fechaFin->format('Y-m-d'),       
             "estado" => "A"
         );
     
         $respuesta = $this->ejecutar($sql, $arrayDatos);
         return $respuesta;
     }
-    public function cargarPorCorreoDocumento($correoElectronico, $numeroDocumento) {
-        $sql = "SELECT * FROM clientes WHERE mail = :mail AND numero_documento = :numero_documento";
-        $arraySql = array("mail" => $correoElectronico, "numero_documento" => $numeroDocumento);
 
-        $lista = $this->traerRegistros($sql, $arraySql);
-
-        if (isset($lista[0]['id_cliente'])) {
-            $this->nombre = $lista[0]['nombre'];
-            $this->apellido = $lista[0]['apellido'];
-            // ... (asignar otros campos si es necesario)
-            return true; // El registro existe
-        } else {
-            return false; // El registro no existe
-        }
-    }
     
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ?>

@@ -65,10 +65,7 @@
             padding: 20px;
         }
 
-        .container {
-            margin-top: 2;
-        }
-
+       
         .borrar-title {
             text-align: center;
             color: #333;
@@ -84,9 +81,6 @@
             background-color: #e57373;
         }
 
-        .form-container label {
-            color: #000;
-        }
 
         .submit-buttons {
             text-align: center;

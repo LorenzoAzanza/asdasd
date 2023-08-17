@@ -41,14 +41,14 @@ $listaVehiculos = $objVehiculo->listar(array(
     
     <!-- Filtros -->
     <form id="filterForm"  action="sistema.php?r=reservar&id_vehiculo=<?php echo $vehiculo['id_vehiculo']; ?>" method="POST">
-         <!-- Select para filtrar por color -->
+
     <select name="color">
         <option value="">Seleccionar color</option>
         <?php foreach ($listaVehiculos as $vehiculo) { ?>
             <option value="<?php echo $vehiculo['color']; ?>"><?php echo $vehiculo['color']; ?></option>
         <?php } ?>
     </select>
-    <!-- Select para filtrar por tipo -->
+    
     <select name="tipo">
         <option value="">Seleccionar tipo</option>
         <?php foreach ($listaVehiculos as $vehiculo) { ?>

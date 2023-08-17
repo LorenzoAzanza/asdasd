@@ -7,7 +7,6 @@
 
     $objVehiculo = new vehiculos();
 
-    // Obtener el ID del vehículo de la URL
     $idVehiculo = $_GET['id_vehiculo'] ?? null;
 
     // Obtener la información del vehículo
@@ -52,10 +51,8 @@
             $sqlActualizarEstado = "UPDATE vehiculo SET estado = 'D' WHERE id_vehiculo = :id_vehiculo";
             $arrayDatosActualizar = array("id_vehiculo" => $idVehiculo);
             $objVehiculo->ejecutar($sqlActualizarEstado, $arrayDatosActualizar);
-            // Manejar la reserva exitosa
             $mensaje = "Reserva exitosa. Precio total: $" . $precioTotal;
         } else {
-            // Manejar la reserva fallida
             $mensaje = "Error al realizar la reserva.";
         }
     }else{
@@ -84,7 +81,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Encabezado, metadatos, enlaces a estilos y scripts -->
+<title>Reservar</title>
     <style>
         .mensaje {
             background-color: #4CAF50;
@@ -97,9 +94,9 @@
         label{
         color: black;
         
-    }
-    .recomendacion {
-            background-color: #FFFF00; /* Cambia el color a amarillo */
+        }
+        .recomendacion {
+            background-color: #FFFF00; 
             color: black;
             padding: 20px;
             text-align: center;
@@ -110,28 +107,25 @@
 </head>
 <body style="background-image: url('web/img/pexels-bayram-musayev-17690357.webp'); background-size:1200px;">
     <title>Reservar</title>
-    <div class="container red lighten-2">
-    <h1 class="center-align black-text text-darken-3">Realizar reserva para <?php echo $vehiculo['marca'] . ' ' . $vehiculo['modelo']; ?></h1>
-    <!-- Formulario de reserva -->
-    <form action="sistema.php?r=reservar&id_vehiculo=<?php echo $idVehiculo; ?>" method="POST">
-        <label for="fechaInicio">Fecha de Inicio:</label>
-        <input type="date" name="fechaInicio" required>
+        <div class="container red lighten-2">
+            <h1 class="center-align black-text text-darken-3">Realizar reserva para <?php echo $vehiculo['marca'] . ' ' . $vehiculo['modelo']; ?></h1>
+                <form action="sistema.php?r=reservar&id_vehiculo=<?php echo $idVehiculo; ?>" method="POST">
+                    <label for="fechaInicio">Fecha de Inicio:</label>
+                    <input type="date" name="fechaInicio" required>
+                    <label for="fechaFin">Fecha de Fin:</label>
+                        <input type="date" name="fechaFin" required>
 
-        <label for="fechaFin">Fecha de Fin:</label>
-        <input type="date" name="fechaFin" required>
+                    <div class="input-field center-align">
+                        <button type="submit" class="btn blue darken-2">Reservar</button>
+                    </div>
+        </div>
+                </form>
 
-        <div class="input-field center-align">
-    <button type="submit" class="btn blue darken-2">Reservar</button>
-</div>
-    </form>
-
-    <!-- Mostrar el mensaje de reserva exitosa o fallida -->
     <?php
     if (isset($mensaje)) {
         echo '<div class="mensaje">' . $mensaje . '</div>';
     }
     ?>
 
-    <!-- Agrega aquí tus enlaces a scripts si es necesario -->
 </body>
 </html>

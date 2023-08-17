@@ -51,9 +51,6 @@ $listaReservas = $objReserva->listar($arrayFiltro);
             padding: 20px;
         }
 
-        .container {
-            margin-top: 0;
-        }
 
         .reservas-title {
             text-align: center;
@@ -69,14 +66,6 @@ $listaReservas = $objReserva->listar($arrayFiltro);
             border-radius: 10px;
             background-color: #e57373;
             overflow: auto;
-        }
-
-        .pagination {
-            background-color: #e57373;
-        }
-
-        .pagination a {
-            color: #fff;
         }
 
         .pagination .active a {

@@ -9,17 +9,15 @@
         
 
     if($boton=="cancelar"){
-        //redireccionar a la lista de proveedores
         header('Location: sistema.php?r=reservas');
 
     }elseif($boton=="ingresar"){
       
 
-      //$respuestaCopy=copy($_FILES['fileImg']['tmp_name'] , "web/archivos/".$_FILES['fileImg']['name']);
-      //print_r($respuestaCopy);
+     
                
       $arrayDatos=array();
-        //si vale ingresar , ingresamos el registro 
+      
        
 
         $arrayDatos['fechaInicio']= isset($_POST['txtFechaInicio'])?$_POST['txtFechaInicio']:"";
@@ -58,6 +56,7 @@
 <html lang="es">
 
 <head>
+    <title>Ingresar Reservas</title>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />
@@ -73,10 +72,6 @@
         main {
             flex: 1 0 auto;
             padding: 20px;
-        }
-
-        .container {
-            margin-top: 0;
         }
 
         .ingresar-title {

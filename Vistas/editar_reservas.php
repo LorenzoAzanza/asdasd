@@ -54,6 +54,7 @@
 <html lang="es">
 
 <head>
+    <title>Editar reservas</title>
     <meta charset="UTF-8">
     
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -71,9 +72,7 @@
             padding: 20px;
         }
 
-        .container {
-            margin-top: 2;
-        }
+      
 
         .editar-title {
             text-align: center;

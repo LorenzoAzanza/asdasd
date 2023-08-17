@@ -52,7 +52,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Borrar Vehículo</title>
+    <title>Borrar Reserva</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />
     <style>
@@ -68,10 +68,7 @@
             padding: 20px;
         }
 
-        .container {
-            margin-top: 2;
-        }
-
+       
         .borrar-title {
             text-align: center;
             color: #333;
@@ -87,10 +84,7 @@
             background-color: #e57373;
         }
 
-        .form-container label {
-            color: #000;
-        }
-
+      
         .submit-buttons {
             text-align: center;
             margin-top: 20px;
@@ -105,7 +99,7 @@
 <body>
     <main>
         <div class="container">
-            <h1 class="borrar-title">Borrar Vehículo</h1>
+            <h1 class="borrar-title">Borrar Reservas</h1>
             <div class="form-container">
                 <form method="POST" action="sistema.php?r=borrar_reserva">
                     <div class="row">

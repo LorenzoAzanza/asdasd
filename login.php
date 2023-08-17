@@ -32,7 +32,7 @@ if (isset($_POST['boton']) && $_POST['boton'] == "ingresar") {
 
             $_SESSION['id_tipo_usuario'] = $objTipo_usuario->id_tipo_usuario;
 
-            $_SESSION['usuario']['rol'] = $objTipo_usuario->obtenerRol();
+            $_SESSION['usuario']['rol'] = $objTipo_usuario->rol;
 
          
 
@@ -52,7 +52,7 @@ if (isset($_POST['boton']) && $_POST['boton'] == "ingresar") {
                 $_SESSION['usuario']['tipo_documento'] = $objCliente->tipo_documento;
                 $_SESSION['usuario']['numero_documento'] = $objCliente->numero_documento;
                 $_SESSION['usuario']['id_cliente'] = $objCliente->id_cliente;
-                $_SESSION['usuario']['rol'] = $objCliente->obtenerRol();
+                $_SESSION['usuario']['rol'] = $objCliente->rol;
                 $_SESSION['id_cliente'] = $objCliente->id_cliente;
                 header("location: sistema.php");
                 exit();
@@ -105,36 +105,36 @@ if (isset($_POST['boton']) && $_POST['boton'] == "ingresar") {
 
         footer.page-footer {
             margin-top: 50px;
-            background-color: #d32f2f; /* Cambia este color para el footer si lo deseas */
+            background-color: #d32f2f;
         }
 
         footer.page-footer .container {
             text-align: right;
-            color: #000000; /* Cambia este color para el texto del footer si lo deseas */
+            color: #000000; 
         }
 
-        /* Ajustar tamaño de los campos */
+      
         .input-field input[type="email"],
         .input-field input[type="password"] {
             font-size: 14px;
         }
 
-        /* Ajustar tamaño de los íconos */
+       
         .material-icons {
             font-size: 20px;
         }
 
-        /* Cambiar color del borde de la tarjeta */
+        
         .campos {
             border: 2px solid #e57373;
             padding: 20px;
             border-radius: 10px;
-            background-color: #e57373; /* Cambia este color para el fondo dentro del borde */
+            background-color: #e57373; 
         }
 
-        /* Cambiar color de las etiquetas (labels) dentro del borde */
+       
         .campos label {
-            color: #000; /* Cambia este color para el texto dentro del borde */
+            color: #000; 
         }
     </style>
 </head>

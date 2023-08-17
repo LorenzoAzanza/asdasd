@@ -11,18 +11,16 @@
         
 
     if($boton=="cancelar"){
-        //redireccionar a la lista de proveedores
+       
         header('Location: sistema.php?r=vehiculos');
 
     }elseif($boton=="guardar"){
       
-      //$respuestaCopy=copy($_FILES['fileImg']['tmp_name'] , "web/archivos/".$_FILES['fileImg']['name']);
-      //print_r($respuestaCopy);
-      
+     
       $img = $objVehiculos->subirImagen($_FILES['fileImg'], 150, 150);
          
       $arrayDatos=array();
-        //si vale ingresar , ingresamos el registro 
+        
 
        
         $arrayDatos['id_vehiculo']=isset($_POST['id_vehiculo'])?$_POST['id_vehiculo']:"";
@@ -85,10 +83,6 @@
         main {
             flex: 1 0 auto;
             padding: 20px;
-        }
-
-        .container {
-            margin-top: 2;
         }
 
         .editar-title {

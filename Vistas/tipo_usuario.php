@@ -45,6 +45,7 @@ $lista_TipoUsuario=$objTipo_usuario->listar($arrayFiltro);
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<title>Lista de usuarios</title>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />
@@ -59,10 +60,6 @@ $lista_TipoUsuario=$objTipo_usuario->listar($arrayFiltro);
         main {
             flex: 1 0 auto;
             padding: 20px;
-        }
-
-        .container {
-            margin-top: 0;
         }
 
         .usuarios-title {

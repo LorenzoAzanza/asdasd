@@ -1,5 +1,6 @@
 <?php
 require_once("Modelos/generico.php");
+require_once("Configuracion/db.php");
 
 
 
@@ -89,27 +90,27 @@ class vehiculos extends generico{
     
     }
     public function ingresar(){
-//se encarga de ingresar registros//
-    $sql="INSERT vehiculo SET
-        tipo =:tipo,
-        color =:color,
-        cantidad_pasajeros =:cantidad_pasajeros,
-        marca =:marca,
-        modelo =:modelo,
-        precio =:precio,
-        estado =:estado,
-        img =:img;
+    //se encarga de ingresar registros//
+        $sql="INSERT vehiculo SET
+            tipo =:tipo,
+            color =:color,
+            cantidad_pasajeros =:cantidad_pasajeros,
+            marca =:marca,
+            modelo =:modelo,
+            precio =:precio,
+            estado =:estado,
+            img =:img;
 
     ";
-    $arrayDatos=array(
-        "tipo" => $this->tipo,
-        "color" => $this->color,
-        "cantidad_pasajeros" => $this->cantidad_pasajeros,
-        "marca" => $this->marca,
-        "modelo" => $this->modelo,
-        "precio" => $this->precio,
-        "estado" => $this->estado,
-        "img" => $this->img,
+        $arrayDatos=array(
+            "tipo" => $this->tipo,
+            "color" => $this->color,
+            "cantidad_pasajeros" => $this->cantidad_pasajeros,
+            "marca" => $this->marca,
+            "modelo" => $this->modelo,
+            "precio" => $this->precio,
+            "estado" => $this->estado,
+            "img" => $this->img,
     );
 
 
@@ -123,17 +124,17 @@ class vehiculos extends generico{
      public function editar(){
         //para editar los registros///
         $sql = "UPDATE vehiculo SET
-        tipo = :tipo,
-        color = :color,
-        cantidad_pasajeros = :cantidad_pasajeros,
-        marca = :marca,
-        modelo = :modelo,
-        precio = :precio,
-        estado = :estado";
+            tipo = :tipo,
+            color = :color,
+            cantidad_pasajeros = :cantidad_pasajeros,
+            marca = :marca,
+            modelo = :modelo,
+            precio = :precio,
+            estado = :estado";
 
-        if ($this->img) {
+    if ($this->img) {
                 $sql .= ", img = '$this->img'";
-        }
+    }
 
         $sql .= " WHERE id_vehiculo=:id_vehiculo";
             
@@ -161,9 +162,6 @@ class vehiculos extends generico{
         // Primero, verifica si el vehículo existe antes de eliminarlo
         $existe = $this->cargar($this->id_vehiculo);
         if ($existe) {
-            // Verificar si hay reservas activas para este vehículo antes de borrarlo
-            // (puedes implementar este código, como el comentario que tienes en el código)
-    
             // Si no hay reservas activas, procede a eliminar el vehículo
             $sql = "DELETE FROM vehiculo WHERE id_vehiculo = :id_vehiculo";
             $arrayDatos = array("id_vehiculo" => $this->id_vehiculo);
@@ -181,43 +179,47 @@ class vehiculos extends generico{
 // retorna una lista de registros de la base de datos//
 
 
-$sql = "SELECT * FROM vehiculo ORDER BY id_vehiculo LIMIT " . $filtro['inicio'] . ", " . $filtro['cantidad'] . "";
+        $sql = "SELECT * FROM vehiculo ORDER BY id_vehiculo LIMIT " . $filtro['inicio'] . ", " . $filtro['cantidad'] . "";
 
-$lista = $this->traerRegistros($sql);
+        $lista = $this->traerRegistros($sql);
 
-return $lista;
+        return $lista;
 
     }
-    public function getPrecio() {
-        return $this->precio; // Suponiendo que el precio del vehículo está almacenado en la propiedad $precio
-    }
-    
+
+
+    //Funcion utilizada en reservar.php
     public function obtenerInformacionDelVehiculo($id_vehiculo) {
         $vehiculoInfo = array();
         
         $sql = "SELECT * FROM vehiculo WHERE id_vehiculo = :id_vehiculo";
         $arraySql = array("id_vehiculo" => $id_vehiculo);
 
-        $vehiculoData = $this->traerRegistros($sql, $arraySql);
+        $DatosVehiculo = $this->traerRegistros($sql, $arraySql);
 
-        if (!empty($vehiculoData[0])) {
-            $vehiculoInfo = $vehiculoData[0];
-        }
+    if (!empty($DatosVehiculo[0])) {
+            $vehiculoInfo = $DatosVehiculo[0];
+    }
 
         return $vehiculoInfo;
     }
+
+    //Funcion creada para verificar si un vehiculo tiene reservas activas 
     public function verificarReservasActivas($idVehiculo) {
+
         $sql = "SELECT COUNT(*) as total FROM reserva WHERE id_vehiculo = :id_vehiculo AND estado = 'A'";
         $arraySql = array("id_vehiculo" => $idVehiculo);
     
-        $result = $this->traerRegistros($sql, $arraySql);
+        $resultado = $this->traerRegistros($sql, $arraySql);
     
-        if (isset($result[0]['total']) && $result[0]['total'] > 0) {
+        if (isset($resultado[0]['total']) && $resultado[0]['total'] > 0) {
             return true; // El vehículo tiene reservas activas
         } else {
             return false; // El vehículo no tiene reservas activas
         }
     }
+
+    //Creada para obtener vehiculos similares en cuanto al precio para ofrecer si el cliente desea alquilar un vehiculo ya reservado
     public function obtenerVehiculosSimilares($precioOriginal) {
         $sql = "SELECT * FROM vehiculo WHERE precio >= :precio_minimo AND precio <= :precio_maximo AND estado = 'A'";
         
@@ -232,34 +234,6 @@ return $lista;
         return $this->traerRegistros($sql, $arrayDatos);
     }
 }
-
-
-
-
-
-
-
-    
-
-
-   
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ?>

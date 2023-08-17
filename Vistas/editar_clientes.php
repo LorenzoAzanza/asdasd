@@ -45,6 +45,7 @@
 <html lang="es">
 
 <head>
+    <title>Editar clientes</title>
     <meta charset="UTF-8">
     
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -62,9 +63,7 @@
             padding: 20px;
         }
 
-        .container {
-            margin-top: 2;
-        }
+      
 
         .editar-title {
             text-align: center;
@@ -79,10 +78,6 @@
             padding: 20px;
             border-radius: 10px;
             background-color: #e57373;
-        }
-
-        .form-container label {
-            color: #000;
         }
 
         .submit-buttons {
@@ -154,15 +149,15 @@
                         </div>
                         <div class="input-field col s6">
                         <div class="input-field col s6">
-    <select name="txtRol"> <!-- Asegúrate de que el atributo 'name' sea 'txtRol' -->
-        <option value="cliente" <?=$objClientes->rol == 'cliente' ? 'selected' : ''?>>Cliente</option>
-        <option value="administrador" <?=$objClientes->rol == 'administrador' ? 'selected' : ''?>>Administrador</option>
-        <option value="vendedor" <?=$objClientes->rol == 'vendedor' ? 'selected' : ''?>>Vendedor</option>
-        <option value="encargado" <?=$objClientes->rol == 'encargado' ? 'selected' : ''?>>Encargado</option>
+                            <select name="txtRol"> 
+                                <option value="cliente" <?=$objClientes->rol == 'cliente' ? 'selected' : ''?>>Cliente</option>
+                                <option value="administrador" <?=$objClientes->rol == 'administrador' ? 'selected' : ''?>>Administrador</option>
+                                <option value="vendedor" <?=$objClientes->rol == 'vendedor' ? 'selected' : ''?>>Vendedor</option>
+                                <option value="encargado" <?=$objClientes->rol == 'encargado' ? 'selected' : ''?>>Encargado</option>
 
-    </select>
-    <label>Rol</label>
-</div>
+                            </select>
+                            <label>Rol</label>
+                        </div>
                         <div class="input-field col s6">
                             <select name="txtEstado">
                                 <option value="A" <?=$objClientes->estado == 'A' ? 'selected' : ''?>>Activado</option>

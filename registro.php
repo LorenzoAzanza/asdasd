@@ -1,3 +1,4 @@
+
 <?php
 require_once("Modelos/BDClientes.php");
 
@@ -17,7 +18,9 @@ if ($boton == "registrarse") {
         'numero_documento' => isset($_POST['txtNumero_documento']) ? $_POST['txtNumero_documento'] : "",
         'estado' => isset($_POST['txtEstado']) ? $_POST['txtEstado'] : "",
         'contrasena' => isset($_POST['passContrasena']) ? $_POST['passContrasena'] : "",
-        'confirmarContrasena' => isset($_POST['txtConfirmarContrasena']) ? $_POST['txtConfirmarContrasena'] : ""
+        'confirmarContrasena' => isset($_POST['txtConfirmarContrasena']) ? $_POST['txtConfirmarContrasena'] : "",
+        'rol' => isset($_POST['txtRol']) ? $_POST['txtRol'] : ""
+        
     );
 
    
@@ -55,7 +58,7 @@ if ($boton == "registrarse") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingresar Cliente</title>
+    <title>Registrarse</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />
     <style>
@@ -92,12 +95,12 @@ if ($boton == "registrarse") {
         }
         footer.page-footer {
             margin-top: 50px;
-            background-color: #d32f2f; /* Cambia este color para el footer si lo deseas */
+            background-color: #d32f2f; 
         }
 
         footer.page-footer .container {
             text-align: right;
-            color: #000000; /* Cambia este color para el texto del footer si lo deseas */
+            color: #000000; 
         }
         .campos {
             border: 2px solid #e57373;
@@ -112,26 +115,26 @@ if ($boton == "registrarse") {
         
         .mensaje-exito {
             display: block;
-            background-color: #4caf50; /* Color de fondo verde */
-            color: #000000; /* Color del texto en blanco */
-            padding: 10px; /* Espaciado interno del mensaje */
-            border-radius: 5px; /* Bordes redondeados */
-            text-align: center; /* Alineación del texto al centro */
-            margin-bottom: 10px; /* Espaciado inferior del mensaje */
-            font-size: 18px; /* Tamaño de fuente más grande */
-            font-weight: bold; /* Texto en negrita */
-            text-transform: uppercase; /* Texto en mayúsculas */
-            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
+            background-color: #4caf50; 
+            color: #000000; 
+            padding: 10px; 
+            border-radius: 5px; 
+            text-align: center; 
+            margin-bottom: 10px; 
+            font-size: 18px; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            
         }
 
         .mensaje-error {
             display: block;
-            background-color: #ff3333; /* Color de fondo del mensaje de error */
-            color: #000000; /* Color del texto del mensaje de error */
-            padding: 10px; /* Espaciado interno del mensaje de error */
-            border-radius: 5px; /* Bordes redondeados */
-            text-align: center; /* Alineación del texto al centro */
-            margin-bottom: 10px; /* Espaciado inferior del mensaje de error */
+            background-color: #ff3333; 
+            color: #000000; 
+            padding: 10px; 
+            border-radius: 5px; 
+            text-align: center; 
+            margin-bottom: 10px; 
         }
    
     </style>
@@ -148,10 +151,9 @@ if ($boton == "registrarse") {
             <form class="col s12" method="POST" action="registro.php">
                 <div class="campos" >
                 <input type="hidden" name="rol" value="cliente">
-
+            
                     <h1 class="login-title">Registrarse</h1>
                     <?php if ($mensaje != ""): ?>
-                    <!-- Mostrar mensaje de error si existe -->
                     <div class="row center-align">
                         <div class="input-field col s12">
                             <span class="<?= $respuesta ? 'mensaje-exito' : 'mensaje-error' ?> center-align"><?= $mensaje ?></span>
@@ -223,6 +225,11 @@ if ($boton == "registrarse") {
                             <input id="txtNumero_documento" type="text" class="validate" name="txtNumero_documento" pattern="[0-9]+" required>
                             <label for="txtNumero_documento">Numero de documento</label>
                             <span class="helper-text" data-error="Solo se permiten números." data-success=""></span>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">perm_identity</i>
+                            <input id="txtRol" type="text" class="validate" name="txtRol" value="cliente" readonly>
+                            <label for="txtRol">Rol</label>
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">description</i>

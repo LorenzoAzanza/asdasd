@@ -66,6 +66,7 @@ require_once("Modelos/tipo_usuario.php");
 <html lang="es">
 
 <head>
+<title>Perfil de usuarios</title>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />
@@ -82,9 +83,6 @@ require_once("Modelos/tipo_usuario.php");
             padding: 20px;
         }
 
-        .container {
-            margin-top: 0;
-        }
 
         .form-title {
             text-align: center;
@@ -121,17 +119,6 @@ require_once("Modelos/tipo_usuario.php");
 
 
 
-
-
-
-
-
-
-
-
-
-
- 
 <body>
     <main>
         <div class="container">

@@ -13,9 +13,9 @@
         $id_cliente=$_POST['id_cliente'];
         $objClientes = new cliente();
         $existe= $objClientes->cargar($id_cliente);
-        if($existe){
+    if($existe){
             $respuesta=$objClientes->borrar();
-            if($respuesta){
+        if($respuesta){
                 $mensaje="El registro se borro correctamente";
 
             }else{
@@ -30,6 +30,7 @@
 
 
     }
+
    if(isset($_POST['boton']) && $_POST['boton'] == "cancelar"){
     header("Location: sistema.php?r=clientes");
    }
@@ -50,8 +51,8 @@
 <head>
     <meta charset="UTF-8">
  
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />
     <style>
         body {
             display: flex;
@@ -65,9 +66,7 @@
             padding: 20px;
         }
 
-        .container {
-            margin-top: 2;
-        }
+      
 
         .borrar-title {
             text-align: center;
@@ -84,10 +83,7 @@
             background-color: #e57373;
         }
 
-        .form-container label {
-            color: #000;
-        }
-
+       
         .submit-buttons {
             text-align: center;
             margin-top: 20px;
@@ -97,6 +93,7 @@
             margin-right: 10px;
         }
     </style>
+    <title>Borrar clientes</title>
 </head>
 
 <body>

@@ -1,5 +1,6 @@
 <?php
 
+require_once("Configuracion/db.php");
 require_once("Modelos/generico.php");
 
 class reserva extends generico{
@@ -22,7 +23,6 @@ class reserva extends generico{
     public function constructor($arrayDatos = array()){
         $this->fechaInicio = $arrayDatos['fechaInicio'];
         $this->fechaFin = $arrayDatos['fechaFin'];
-
         $this->id_cliente = $arrayDatos['id_cliente'];
         $this->id_vehiculo = $arrayDatos['id_vehiculo'];
         $this->estado = $arrayDatos['estado'];
@@ -108,15 +108,11 @@ class reserva extends generico{
     }
 
     public function borrar(){
-        // Primero, verifica si el vehículo existe antes de eliminarlo
-        var_dump("Método borrar() ejecutado");
+  
         $existe = $this->cargar($this->id_reserva);
-        var_dump($existe);
+     
         if ($existe) {
-            // Verificar si hay reservas activas para este vehículo antes de borrarlo
-            // (puedes implementar este código, como el comentario que tienes en el código)
-    
-            // Si no hay reservas activas, procede a eliminar el vehículo
+          
             $sql = "DELETE  FROM reserva WHERE id_reserva = :id_reserva";
             $arrayDatos = array("id_reserva" => $this->id_reserva);
     
@@ -124,13 +120,15 @@ class reserva extends generico{
     
             return $respuesta;
         } else {
-            // El vehículo no existe, no es posible eliminarlo
+           
             return false;
         }
     }
 
     public function listar($filtro = array()){
-        // Retorna una lista de registros de la base de datos
+
+         // Consulta SQL para obtener la lista de reservas junto con información relacionada
+
         $sql = "SELECT
 		r.id_reserva, r.fechaInicio , r.fechaFin , r.estado , CONCAT(v.marca,' ID ', v.id_vehiculo)as marcaVehiculo, CONCAT(c.nombre,' ',c.apellido,' ID ', c.id_cliente) as nombreCliente
 		from reserva r 
@@ -139,8 +137,10 @@ class reserva extends generico{
 	 " . $filtro['inicio'] . ", " . $filtro['cantidad'];
         return $this->traerRegistros($sql);
     }
+
+    // Este método verifica si hay reservas activas para un vehículo en las fechas especificadas
     public function verificarReservasEnFechas($idVehiculo, $fechaInicio, $fechaFin) {
-        // Verificar si hay una reserva activa para el vehículo en las fechas dadas
+        // Verificar si hay una reserva activa en las fechas dadas
         $sql = "SELECT COUNT(*) as total FROM reserva WHERE id_vehiculo = :id_vehiculo AND estado = 'A' AND fechaInicio <= :fechaFin AND fechaFin >= :fechaInicio";
         $arraySql = array(
             "id_vehiculo" => $idVehiculo,
@@ -151,12 +151,15 @@ class reserva extends generico{
         $result = $this->traerRegistros($sql, $arraySql);
     
         if (isset($result[0]['total']) && $result[0]['total'] > 0) {
-            return true; // El vehículo tiene reservas activas en esas fechas
+            return true; 
         } else {
-            return false; // El vehículo no tiene reservas activas en esas fechas
+            return false; 
         }
     }
-    public function getReservasActivasCliente($idCliente) {
+
+        //Funcion creada para mostrar las reservas del usuario en el perfil
+
+    public function ObtenerReservasActivasCliente($idCliente) {
         // Obtener las reservas activas de un cliente específico
         $sql = "SELECT
             r.id_reserva, r.fechaInicio, r.fechaFin, CONCAT(v.marca, ' ID ', v.id_vehiculo) as marcaVehiculo

@@ -8,20 +8,19 @@ class controlador_generico{
 	protected $horaFin;
 
 
-	public function __construct($arrayDatos = array()){
-				
-	}
+
 	
 	public function procesar(){
 
-		$this->horaInicio = date("Y-m-d H:i:s");
+		$this->horaInicio = date("Y-m-d H:i:s");     // Guarda la hora actual como inicio
 
-		sleep(5);
+		sleep(5); // Espera 5 segundos 
 
-		$this->horaFin = date("Y-m-d H:i:s");
+		$this->horaFin = date("Y-m-d H:i:s"); // Guarda la hora actual como final
 		
 	}
 
+	//Muestra las horas de inicio y fin
 	public function resultados(){
 
 		print_r("\nHora de inicio:".$this->horaInicio);

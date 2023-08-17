@@ -60,6 +60,7 @@
 <html lang="es">
 
 <head>
+    <title>Editar Usuarios</title>
     <meta charset="UTF-8">
     
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -75,10 +76,6 @@
         main {
             flex: 1 0 auto;
             padding: 20px;
-        }
-
-        .container {
-            margin-top: 2;
         }
 
         .editar-title {

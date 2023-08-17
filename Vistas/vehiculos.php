@@ -61,9 +61,6 @@ $listaVehiculos=$objVehiculos->listar($arrayFiltro);
             padding: 20px;
         }
 
-        .container {
-            margin-top: 0;
-        }
 
         .vehiculos-title {
             text-align: center;
@@ -102,7 +99,7 @@ $listaVehiculos=$objVehiculos->listar($arrayFiltro);
       
     </style>
 </head>
-
+<title>Lista de vehiculos</title>
 <body>
     <main>
         <div class="container">
@@ -155,9 +152,7 @@ $listaVehiculos=$objVehiculos->listar($arrayFiltro);
                                 <ul class="pagination center-align">
     <li class="waves-effect"><a href="sistema.php?r=vehiculos&pagina=1"><i class="material-icons">fast_rewind</i></a></li>
     <li class="waves-effect"><a href="sistema.php?r=vehiculos&pagina=<?=$paginaAnterior?>"><i class="material-icons">chevron_left</i></a></li>
-    <!--
-    <li class="active"><a href="sistema.php?r=vehiculos&pagina=1">1</a></li>
--->
+
 <?php
         for($i = ($pagina-2); $i <= ($pagina+2); $i++){
 

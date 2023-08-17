@@ -1,5 +1,6 @@
 <?php
 
+require_once("Configuracion/db.php");
 require_once("Modelos/generico.php");
 
 class formulario extends generico{
@@ -51,13 +52,7 @@ class formulario extends generico{
     }
 
 
-    public function listar($filtro = array()){
-        $sql = "SELECT * FROM formulario ORDER BY id_formulario LIMIT " . $filtro['inicio'] . ", " . $filtro['cantidad'] . "";
-        $lista = $this->traerRegistros($sql);
-
-        return $lista;
-    }
-    
+    //metodo para guardar el formulario en la base de datos
     public function guardarFormulario($nombre, $email, $asunto, $mensaje) {
         $sql = "INSERT INTO formulario (nombre, mail, asunto, mensaje) VALUES (:nombre, :mail, :asunto, :mensaje)";
         $arrayDatos = array(
@@ -72,10 +67,6 @@ class formulario extends generico{
 
 
 }
-
-
-
-
 
 
 

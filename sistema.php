@@ -5,7 +5,7 @@ $sessionActiva = isset($_SESSION['usuario']) ? true : false;
 
 if (!$sessionActiva) {
     header('Location: login.php');
-    exit(); // Asegurémonos de que el script termine después de la redirección.
+    exit(); 
 }
 
 // Verificar el rol almacenado en la sesión.

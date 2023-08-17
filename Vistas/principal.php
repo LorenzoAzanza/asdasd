@@ -10,7 +10,6 @@
 <body style="background-image: url('web/img/pexels-fondo.webp'); background-size:2100px 1115px;">
 
 
-<!-- Contenido Principal -->
 <div class="container">
     <div class="row">
         <div class="col s18">
@@ -31,17 +30,17 @@
         <div class="card-image">
             <img src="web/img/pexels-inicio.webp" width="560" height="400" alt="Explora nuestros Vehículos">
         </div>
-        <div class="card-content black-text"> <!-- Cambiado a black-text para texto negro -->
+        <div class="card-content black-text">
             <span class="card-title black-text">Explora nuestros Vehículos</span>
             <p class="black-text">Descubre nuestra amplia flota de vehículos disponibles para alquiler.</p>
         </div>
         <div class="card-action">
-            <a class="btn blue" href="sistema.php?r=vehiculos_venta"> <!-- Cambiado a btn blue para botón azul -->
+            <a class="btn blue" href="sistema.php?r=vehiculos_venta"> 
                 Ver Vehículos
             </a>
         </div>
     </div>
-</div>
+    </div>
 
 <div class="col s12 m4">
     <div class="card-panel red lighten-2">
@@ -69,7 +68,7 @@
             <p>Puedes consultar si tienes alguna reserva</p>
         </div>
         <div class="card-action">
-            <a class="btn blue" href="sistema.php?r=reservas">
+            <a class="btn blue" href="sistema.php?r=perfil">
                 Consultar
             </a>
         </div>

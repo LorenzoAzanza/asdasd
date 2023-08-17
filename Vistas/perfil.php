@@ -64,7 +64,7 @@ require_once("Modelos/BDReserva.php");
        }
   
        $objReserva = new reserva();
-       $reservasActivas = $objReserva->getReservasActivasCliente($objCliente->id_cliente);
+       $reservasActivas = $objReserva->ObtenerReservasActivasCliente($objCliente->id_cliente);
 
 
 
@@ -72,6 +72,7 @@ require_once("Modelos/BDReserva.php");
 <html lang="es">
 
 <head>
+<title>Perfil</title>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />
@@ -86,10 +87,6 @@ require_once("Modelos/BDReserva.php");
         main {
             flex: 1 0 auto;
             padding: 20px;
-        }
-
-        .container {
-            margin-top: 0;
         }
 
         .form-title {
@@ -141,7 +138,6 @@ require_once("Modelos/BDReserva.php");
 <body>
     <main>
     <div class="container">
-    <!-- Sección: Reservas Activas -->
     <div class="row">
         <?php if (!empty($reservasActivas)): ?>
             <h1 class="form-title">Reservas Activas</h1>

@@ -40,9 +40,10 @@ $listaclientes = $objClientes->listar($arrayFiltro);
 <html lang="es">
 
 <head>
+    <title>Lista de clientes </title>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />
     <style>
         body {
             display: flex;
@@ -56,9 +57,7 @@ $listaclientes = $objClientes->listar($arrayFiltro);
             padding: 20px;
         }
 
-        .container {
-            margin-top: 0;
-        }
+      
 
         .clientes-title {
             text-align: center;
