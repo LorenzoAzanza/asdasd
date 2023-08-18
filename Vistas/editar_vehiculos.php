@@ -1,4 +1,11 @@
 <?php
+$rolesPermitidos = array("administrador", "encargado"); // Definir los roles permitidos en un array
+
+if (!in_array($_SESSION['usuario']['rol'], $rolesPermitidos)) {
+    // Redirigir a una página de acceso denegado
+    header("Location: sistema.php");
+    exit();
+}
     require_once("Modelos/BDvehiculos.php");
 
     $id_vehiculo=isset($_GET['id_vehiculo'])?$_GET['id_vehiculo']:"";

@@ -1,4 +1,11 @@
 <?php
+$rolesPermitidos = array("administrador", "encargado"); // Definir los roles permitidos en un array
+
+if (!in_array($_SESSION['usuario']['rol'], $rolesPermitidos)) {
+    // Redirigir a una página de acceso denegado
+    header("Location: sistema.php");
+    exit();
+}
     require_once("Modelos/BDvehiculos.php");
 
 
@@ -155,9 +162,8 @@
                         </div>
                         <div class="input-field col s6">
                             <select name="txtEstado">
-                                <option value="A" selected>A</option>
-                                <option value="O">O</option>
-                                <option value="S">S</option>
+                                <option value="A" <?=$objVehiculos->estado == 'A' ? 'selected' : ''?>>Activado</option>
+                                <option value="D" <?=$objVehiculos->estado == 'D' ? 'selected' : ''?>>Desactivado</option>
                             </select>
                             <label>Estado</label>
                         </div>

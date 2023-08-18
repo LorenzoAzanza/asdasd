@@ -14,6 +14,9 @@
         }elseif($formulario=="ingresar_vehiculos"){
                 include("Vistas/ingresar_vehiculos.php");
 
+        }elseif($formulario=="ingresar_usuarios"){
+                include("Vistas/ingresar_usuarios.php");
+
         }
 
         elseif($formulario=="borrar_vehiculos"){
@@ -80,6 +83,10 @@
         }elseif($formulario=="enviar"){
 
                 include("sendemail/enviar.php");
+                 
+        }elseif($formulario=="borrar_tipoUsuario"){
+
+                include("Vistas/borrar_tipoUsuario.php");
                  
         }
 

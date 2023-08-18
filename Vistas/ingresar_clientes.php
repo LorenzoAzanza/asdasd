@@ -1,61 +1,80 @@
 <?php
     require_once("Modelos/BDClientes.php");
 
-    $mensaje = "";
-    $respuesta = "";
-    $boton = isset($_POST['boton']) ? $_POST['boton'] : "";
-    $id_cliente = isset($_GET['id_cliente']) ? $_GET['id_cliente'] : "";
 
-    $objClientes = new cliente();
-    $objClientes->cargar($id_cliente);
+    $mensaje="";
+    $respuesta="";
+   
+$boton = isset($_POST['boton']) ? $_POST['boton'] : "";
 
-    if (isset($_POST['boton']) && $_POST['boton'] == "guardar") {
-        $id_cliente = $_POST['id_cliente'];
-        $arrayDatos = array(
-            "nombre" => $_POST['txtNombre'],
-            "apellido" => $_POST['txtApellido'],
-            "direccion" => $_POST['txtDireccion'],
-            "telefono" => $_POST['txtTelefono'],
-            "mail" => $_POST['txtMail'],
-            "tipo_documento" => $_POST['txtTipo_documento'],
-            "numero_documento" => $_POST['txtNumero_documento'],
-            "estado" => $_POST['txtEstado'],
-            "rol" => $_POST['txtRol'],
-            
-            "contrasena" => $_POST['passContrasena']
-        );
-        $objClientes->cargar($id_cliente);
-        $objClientes->constructor($arrayDatos);
-        $respuesta = $objClientes->editar();
+    $objClientes= new cliente();
+        
+
+   
+
+   if($boton=="ingresar"){
+
+         
+      $arrayDatos=array();
+        //si vale ingresar , ingresamos el registro 
+       
+
+        $arrayDatos['nombre']= isset($_POST['txtNombre'])?$_POST['txtNombre']:"";
+        $arrayDatos['apellido']= isset($_POST['txtApellido'])?$_POST['txtApellido']:"";
+        $arrayDatos['direccion']= isset($_POST['txtDireccion'])?$_POST['txtDireccion']:"";
+        $arrayDatos['telefono']= isset($_POST['txtTelefono'])?$_POST['txtTelefono']:"";
+        $arrayDatos['mail']= isset($_POST['txtMail'])?$_POST['txtMail']:"";
+        $arrayDatos['tipo_documento']= isset($_POST['txtTipo_documento'])?$_POST['txtTipo_documento']:"";
+        $arrayDatos['numero_documento']= isset($_POST['txtNumero_documento'])?$_POST['txtNumero_documento']:"";
+        $arrayDatos['estado']= isset($_POST['txtEstado'])?$_POST['txtEstado']:"";
+        $arrayDatos['contrasena']= isset($_POST['passContrasena'])?$_POST['passContrasena']:"";
+        $arrayDatos['rol']= isset($_POST['txtRol'])?$_POST['txtRol']:"";
+       
+
+      
 
 
-        if ($respuesta == true) {
-            $mensaje = "Se editó correctamente";
-        } else {
-            $mensaje = "No se pudo editar";
+        if($arrayDatos['nombre']!="" && $arrayDatos['apellido']!="" && 
+        $arrayDatos['direccion']!=""&&$arrayDatos['telefono']!=""&&
+        $arrayDatos['mail']!=""&&$arrayDatos['tipo_documento']!=""&&$arrayDatos['numero_documento']!=""&&$arrayDatos['estado']!=""
+        &&$arrayDatos['contrasena']!=""&&$arrayDatos['rol']!="" ){
+            $objClientes->constructor($arrayDatos);
+            $respuesta= $objClientes->ingresar();
+
+            if($respuesta==true){
+                $mensaje="Se ingreso correctamente";
+            }else{
+                $mensaje="Error al ingresar registro";
+                $respuesta=false;
+            }
+
+
+        }else{
+            $mensaje="Por favor llenar todos los campos";
         }
+
     }
 
-    if (isset($_POST['boton']) && $_POST['boton'] == "cancelar") {
-        header("Location: sistema.php?r=clientes");
-    }
+
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-    <title>Editar clientes</title>
+    <title>Ingresar vehiculos</title>
     <meta charset="UTF-8">
-    
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />
+    
     <style>
         body {
             display: flex;
             flex-direction: column;
             background: #ffecb3;
-            
+           
         }
 
         main {
@@ -63,9 +82,7 @@
             padding: 20px;
         }
 
-      
-
-        .editar-title {
+        .ingresar-title {
             text-align: center;
             color: #333;
             font-size: 36px;
@@ -78,6 +95,10 @@
             padding: 20px;
             border-radius: 10px;
             background-color: #e57373;
+        }
+
+        .form-container label {
+            color: #000;
         }
 
         .submit-buttons {
@@ -94,9 +115,9 @@
 <body>
     <main>
         <div class="container">
-            <h1 class="editar-title">Editar Cliente Nº: <?=$id_cliente?></h1>
+            <h1 class="ingresar-title">Ingresar Clientes</h1>
             <div class="form-container">
-                <form method="POST" action="sistema.php?r=editar_clientes">
+                <form method="POST" action="sistema.php?r=ingresar_clientes" enctype="multipart/form-data">
                     <div class="row">
                         <?php if ($respuesta == true): ?>
                             <div class="card-panel blue center-align">
@@ -110,73 +131,64 @@
                         <?php endif; ?>
 
                         <div class="input-field col s6">
-                            <input id="nombre" type="text" class="validate" name="txtNombre" value="<?=$objClientes->nombre?>">
+                            <input id="nombre" type="text" class="validate" name="txtNombre" required>
                             <label for="nombre">Nombre</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="apellido" type="text" class="validate" name="txtApellido" value="<?=$objClientes->apellido?>">
+                            <input id="apellido" type="text" class="validate" name="txtApellido" required>
                             <label for="apellido">Apellido</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="direccion" type="text" class="validate" name="txtDireccion" value="<?=$objClientes->direccion?>">
+                            <input id="direccion" type="text" class="validate" name="txtDireccion" required>
                             <label for="direccion">Direccion</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="telefono" type="number" class="validate" name="txtTelefono" value="<?=$objClientes->telefono?>">
+                            <input id="telefono" type="number" class="validate" name="txtTelefono" required>
                             <label for="telefono">Telefono</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="mail" type="email" class="validate" name="txtMail" value="<?=$objClientes->mail?>">
+                            <input id="mail" type="email" class="validate" name="txtMail" required>
                             <label for="mail">Mail</label>
-                        </div>
-                        <div class="input-field col s6 offset-s3">
-                            <i class="material-icons prefix">lock</i>
-                            <input id="passContrasena" type="password" class="validate white-text" name="passContrasena">
-                            <label for="passContrasena">Contraseña</label>
                         </div>
                         <div class="input-field col s6">
                             
-                            <select id="txtTipo_documento" name="txtTipo_documento" required>
+                            <select id="txtTipo_documento" name="txtTipo_documento" >
                                 <option value="" disabled selected>Seleccione un tipo de documento</option>
                                 <option value="CI" <?=$objClientes->tipo_documento == 'CI' ? 'selected' : ''?>>CI</option>
                                 <option value="Pasaporte" <?=$objClientes->tipo_documento == 'Pasaporte' ? 'selected' : ''?>>Pasaporte</option>
                             </select>
-                            <label for="txtTipo_documento">Tipo de Documento</label>
+                            <label for="txtTipo_documento" required>Tipo de Documento</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="numero_documento" type="number" class="validate" name="txtNumero_documento" value="<?=$objClientes->numero_documento?>">
+                            <input id="numero_documento" type="number" class="validate" name="txtNumero_documento" required>
                             <label for="numero_documento">Numero de documento</label>
                         </div>
                         <div class="input-field col s6">
-                        <div class="input-field col s6">
-                            <select name="txtRol"> 
+                            <input id="contrasena" type="password" class="validate" name="passContrasena" required>
+                            <label for="contrasena">Contrasena</label>
+                        </div>
+                        <div class="input-field col s6" > 
+                            <select name="txtRol" required>
                                 <option value="cliente" <?=$objClientes->rol == 'cliente' ? 'selected' : ''?>>Cliente</option>
-                                <option value="vendedor" <?=$objClientes->rol == 'vendedor' ? 'selected' : ''?>>Vendedor</option>
-                                <option value="encargado" <?=$objClientes->rol == 'encargado' ? 'selected' : ''?>>Encargado</option>
+                                
 
                             </select>
                             <label>Rol</label>
                         </div>
+                    
                         <div class="input-field col s6">
                             <select name="txtEstado">
                                 <option value="A" <?=$objClientes->estado == 'A' ? 'selected' : ''?>>Activado</option>
                                 <option value="D" <?=$objClientes->estado == 'D' ? 'selected' : ''?>>Desactivado</option>
                                 <option value="B" <?=$objClientes->estado == 'B' ? 'selected' : ''?>>Borrado</option>
-
                             </select>
                             <label>Estado</label>
                         </div>
-                        <div class="col s10">
-                            <input type="hidden" name="id_cliente" value="<?=$objClientes->id_cliente?>" >
-                            <div class="submit-buttons">
-                                <button class="btn waves-effect waves-light blue" type="submit" name="boton" value="guardar">
-                                    Guardar <i class="material-icons right blue">save</i>
-                                </button>
-                                <button class="btn waves-effect waves-light red" type="submit" name="boton" value="cancelar">
-                                    Cancelar <i class="material-icons right red">cancel</i>
-                                </button>
-                            </div>
-                        </div>
+                    <div class="submit-buttons">
+                        <button class="btn waves-effect waves-light blue" type="submit" name="boton" value="ingresar">
+                                     Ingresar <i class="material-icons right blue">send</i>
+                        </button>
+                        <a href="sistema.php?r=clientes" class="btn red">Cancelar</a>
                     </div>
                 </form>
             </div>

@@ -141,9 +141,8 @@
             
                         <div class="input-field col s6">
                             <select name="txtEstado">
-                                <option value="A" selected>Activo</option>
-                                <option value="O">Ocupado</option>
-                                <option value="S">Suspendido</option>
+                                <option value="A" <?=$objReserva->estado == 'A' ? 'selected' : ''?>>Activa</option>
+                           
                             </select>
                             <label>Estado</label>
                         </div>

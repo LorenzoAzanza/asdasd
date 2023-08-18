@@ -1,6 +1,11 @@
 
 <?php
-
+$rolPermitido = "administrador"; // Cambia esto según la página y los roles permitidos
+if ($_SESSION['usuario']['rol'] !== $rolPermitido) {
+    // Redirigir a una página de acceso denegado
+    header("Location: sistema.php");
+    exit();
+}
 require_once("Modelos/tipo_usuario.php");
 
 $objTipo_usuario= new tipo_usuario();
@@ -86,9 +91,14 @@ $lista_TipoUsuario=$objTipo_usuario->listar($arrayFiltro);
 
 <body>
     <main>
+   
         <div class="container">
             <h1 class="usuarios-title">Lista de usuarios, páginas <?=$pagina?>/<?=$totalPaginas?>, total registros activos: <?=$totalRegistros?></h1>
-            
+            <div class="nuevo-botton">
+                <a href="sistema.php?r=ingresar_usuarios" class="btn blue ">
+                    <i class="material-icons">add</i> Nuevo
+                </a>
+            </div>
             <div class="table-container">
                 <table class="striped">
                     <thead>

@@ -143,42 +143,14 @@ class cliente extends generico{
 
     //Esta funcion sirve por si queremos registrar un vendedor o encargado , le cambiamos el rol de cliente a vendedor por ejemplo
     //Se cambia el campo activo, y ya no se muestra en la tabla clientes pero si en la de tipo_usuarios
-     public function agregarNuevoUsuarioEnTipoUsuario($rol) {
-
-        $sql = "SELECT * FROM tipo_usuario WHERE id_cliente = :id_cliente";
-        $arrayDatos = array("id_cliente" => $this->id_cliente);
-    
-        $resultado = $this->traerRegistros($sql, $arrayDatos);
-    
-        if ($resultado && count($resultado) > 0) {
-            // El cliente ya tiene una entrada en la tabla tipo_usuarios, actualizar los datos
-            $sql = "UPDATE tipo_usuario SET 
-                    rol = :rol, 
-                    estado = :estado, 
-                    mail = :mail, 
-                    nombre = :nombre, 
-                    apellido = :apellido, 
-                    direccion = :direccion, 
-                    telefono = :telefono, 
-                    tipo_documento = :tipo_documento, 
-                    numero_documento = :numero_documento,
-                    contrasena = :contrasena,
-                    activo = '1'
-                    WHERE id_cliente = :id_cliente";
-
-                      $sql_contraseña = "SELECT contrasena FROM clientes WHERE id_cliente = :id_cliente";
-                      $resultado_contraseña = $this->traerRegistros($sql_contraseña, $arrayDatos);
-                      $contrasena = isset($resultado_contraseña[0]['contrasena']) ? $resultado_contraseña[0]['contrasena'] : null;
-        } else {
-            
-         
-            $sql = "INSERT INTO tipo_usuario (id_cliente, rol, estado, mail, nombre, apellido, direccion, telefono, tipo_documento, numero_documento, contrasena) 
-                    VALUES (:id_cliente, :rol, :estado, :mail, :nombre, :apellido, :direccion, :telefono, :tipo_documento, :numero_documento, :contrasena)";
-        }
+    public function agregarNuevoUsuarioEnTipoUsuario($rol) {
+        $sql = "INSERT INTO tipo_usuario (rol, estado, mail, nombre, apellido, direccion, telefono, tipo_documento, numero_documento, contrasena) 
+                SELECT :rol, :estado, :mail, :nombre, :apellido, :direccion, :telefono, :tipo_documento, :numero_documento, :contrasena
+                FROM clientes
+                WHERE id_cliente = :id_cliente";
     
         // Ejecutar la consulta con los nuevos datos
         $arrayDatos = array(
-            "id_cliente" => $this->id_cliente,
             "rol" => $rol,
             "estado" => $this->estado,
             "mail" => $this->mail,
@@ -188,21 +160,24 @@ class cliente extends generico{
             "telefono" => $this->telefono,
             "tipo_documento" => $this->tipo_documento,
             "numero_documento" => $this->numero_documento,
-            "contrasena" => $contrasena
+            "contrasena" => md5($this->contrasena),
+            "id_cliente" => $this->id_cliente
         );
     
         $respuesta = $this->ejecutar($sql, $arrayDatos);
     
-        // Si la inserción o actualización en tipo_usuario fue exitosa, proceder a desactivar al cliente en la tabla clientes
         if ($respuesta) {
-            $sql_desactivar_cliente = "UPDATE clientes SET activo = 0 WHERE id_cliente = :id_cliente";
-            $arrayDatos_desactivar_cliente = array("id_cliente" => $this->id_cliente);
-            $this->ejecutar($sql_desactivar_cliente, $arrayDatos_desactivar_cliente);
+            // Eliminar el registro de la tabla clientes
+            $sql_eliminar_cliente = "DELETE FROM clientes WHERE id_cliente = :id_cliente";
+            $this->ejecutar($sql_eliminar_cliente, array("id_cliente" => $this->id_cliente));
+    
+            $mensaje = "El cliente se ha movido a la tabla tipo_usuario y se ha eliminado de la tabla clientes.";
+        } else {
+            $mensaje = "Error al agregar el cliente a la tabla tipo_usuario.";
         }
     
         return $respuesta;
     }
-   
     
 
     public function editar() {
@@ -217,6 +192,7 @@ class cliente extends generico{
             tipo_documento = :tipo_documento,
             numero_documento = :numero_documento,
             estado = :estado,
+          
             rol = :rol";
     
         $arrayDatos = array(
@@ -229,6 +205,7 @@ class cliente extends generico{
             "numero_documento" => $this->numero_documento,
             "estado" => $this->estado,
             "rol" => $this->rol,
+           
             "id_cliente" => $this->id_cliente
         );
         $sql_clientes="UPDATE tipo_usuario SET estado=:estado WHERE mail=:mail";

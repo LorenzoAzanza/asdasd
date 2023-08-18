@@ -84,8 +84,14 @@ $listaclientes = $objClientes->listar($arrayFiltro);
 <body>
     <main>
         <div class="container">
+            
             <h1 class="clientes-title">Lista de clientes, Páginas <?=$pagina?>/<?=$totalPaginas?>, Total Registros Activos: <?=$totalRegistros?></h1>
             <div class="table-container">
+            <div class="nuevo-botton">
+                <a href="sistema.php?r=ingresar_clientes" class="btn blue ">
+                    <i class="material-icons">add</i> Nuevo
+                </a>
+            </div>
                 <table class="striped">
                     <thead>
                         <tr>

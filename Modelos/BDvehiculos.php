@@ -179,7 +179,7 @@ class vehiculos extends generico{
 // retorna una lista de registros de la base de datos//
 
 
-        $sql = "SELECT * FROM vehiculo ORDER BY id_vehiculo LIMIT " . $filtro['inicio'] . ", " . $filtro['cantidad'] . "";
+$sql = "SELECT * FROM vehiculo WHERE estado <> 'B' ORDER BY id_vehiculo LIMIT " . $filtro['inicio'] . ", " . $filtro['cantidad'] . "";
 
         $lista = $this->traerRegistros($sql);
 

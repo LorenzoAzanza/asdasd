@@ -226,7 +226,7 @@
         public function listar($filtro=array()){
             // retorna una lista de registros de la base de datos//
             
-            $sql= "SELECT * FROM tipo_usuario WHERE activo='1' ORDER BY rol LIMIT ".$filtro['inicio'].", ".$filtro['cantidad']."";
+            $sql = "SELECT * FROM tipo_usuario WHERE activo = '1' AND estado <> 'B' ORDER BY rol LIMIT " . $filtro['inicio'] . ", " . $filtro['cantidad'] . "";
             
             $lista=$this->traerRegistros($sql);
             
@@ -236,62 +236,89 @@
                 }
         //metodo parecido al que hay en clientes para agregar tipo_usuario al cambiar el rol
         public function agregarNuevoCliente($rol) {
-            $sql = "SELECT * FROM clientes WHERE mail = :mail";
-            $arrayDatos = array("mail" => $this->mail);
-                
-            $resultado = $this->traerRegistros($sql, $arrayDatos);
-                
-            if ($resultado && count($resultado) > 0) {
-                        
-                $sql = "UPDATE clientes SET 
-                        rol = :rol, 
-                        estado = :estado, 
-                        nombre = :nombre, 
-                        apellido = :apellido, 
-                        direccion = :direccion, 
-                        telefono = :telefono, 
-                        tipo_documento = :tipo_documento, 
-                        numero_documento = :numero_documento,
-                        contrasena = :contrasena,
-                        activo = '1'
-                        WHERE mail = :mail";
-                
-                       
-                    $sql_contraseña = "SELECT contrasena FROM tipo_usuario WHERE mail = :mail";
-                    $resultado_contraseña = $this->traerRegistros($sql_contraseña, $arrayDatos);
-                    $contrasena = isset($resultado_contraseña[0]['contrasena']) ? $resultado_contraseña[0]['contrasena'] : null;
-                      } else {
-                        
-                
-                        $sql = "INSERT INTO clientes (rol, estado, mail, nombre, apellido, direccion, telefono, tipo_documento, numero_documento, contrasena) 
-                                VALUES (:rol, :estado, :mail, :nombre, :apellido, :direccion, :telefono, :tipo_documento, :numero_documento, :contrasena)";
-                    }
-                
-                    // Ejecutar la consulta con los nuevos datos
-                    $arrayDatos = array(
-                        "rol" => $rol,
-                        "estado" => $this->estado,
-                        "mail" => $this->mail,
-                        "nombre" => $this->nombre,
-                        "apellido" => $this->apellido,
-                        "direccion" => $this->direccion,
-                        "telefono" => $this->telefono,
-                        "tipo_documento" => $this->tipo_documento,
-                        "numero_documento" => $this->numero_documento,
-                        "contrasena" => $contrasena
-                    );
-                
-                    $respuesta = $this->ejecutar($sql, $arrayDatos);
-                
-                    if ($respuesta) {
-                        $sql_desactivar_cliente = "UPDATE tipo_usuario SET activo = 0 WHERE id_tipo_usuario = :id_tipo_usuario";
-                        $arrayDatos_desactivar_cliente = array("id_tipo_usuario" => $this->id_tipo_usuario);
-                        $this->ejecutar($sql_desactivar_cliente, $arrayDatos_desactivar_cliente);
-                    }
-                
-                    return $respuesta;
-                }
-                
+            $sql = "INSERT INTO clientes (rol, estado, mail, nombre, apellido, direccion, telefono, tipo_documento, numero_documento, contrasena) 
+                    SELECT :rol, :estado, :mail, :nombre, :apellido, :direccion, :telefono, :tipo_documento, :numero_documento, :contrasena
+                    FROM tipo_usuario
+                    WHERE id_tipo_usuario = :id_tipo_usuario";
+        
+            // Ejecutar la consulta con los nuevos datos
+            $arrayDatos = array(
+                "rol" => $rol,
+                "estado" => $this->estado,
+                "mail" => $this->mail,
+                "nombre" => $this->nombre,
+                "apellido" => $this->apellido,
+                "direccion" => $this->direccion,
+                "telefono" => $this->telefono,
+                "tipo_documento" => $this->tipo_documento,
+                "numero_documento" => $this->numero_documento,
+                "contrasena" => md5($this->contrasena),
+                "id_tipo_usuario" => $this->id_tipo_usuario
+            );
+        
+            $respuesta = $this->ejecutar($sql, $arrayDatos);
+        
+            if ($respuesta) {
+                // Eliminar el registro de la tabla clientes
+                $sql_eliminar_cliente = "DELETE FROM tipo_usuario WHERE id_tipo_usuario = :id_tipo_usuario";
+                $this->ejecutar($sql_eliminar_cliente, array("id_tipo_usuario" => $this->id_tipo_usuario));
+        
+                $mensaje = "El cliente se ha movido a la tabla tipo_usuario y se ha eliminado de la tabla clientes.";
+            } else {
+                $mensaje = "Error al agregar el cliente a la tabla tipo_usuario.";
+            }
+        
+            return $respuesta;
+        }
+
+        public function ingresar(){
+         
+  
+            $sql="INSERT tipo_usuario SET
+                nombre = :nombre,
+                apellido = :apellido,
+                direccion = :direccion,
+                telefono = :telefono,
+                mail = :mail,
+                tipo_documento = :tipo_documento,
+                numero_documento = :numero_documento,
+                estado = :estado,
+                contrasena = :contrasena,
+                rol = :rol"; 
+        
+            $arrayDatos = array(
+                "nombre" => $this->nombre,
+                "apellido" => $this->apellido,
+                "direccion" => $this->direccion,
+                "telefono" => $this->telefono,
+                "mail" => $this->mail,
+                "tipo_documento" => $this->tipo_documento,
+                "numero_documento" => $this->numero_documento,
+                "estado" => $this->estado,
+                "contrasena" => md5($this->contrasena),
+                "rol" => $this->rol 
+            );
+        
+            $respuesta = $this->ejecutar($sql, $arrayDatos);
+        
+            return $respuesta;
+        }
+        public function borrar() {
+            // Primero, verificar si el registro existe
+            $existe = $this->cargar($this->id_tipo_usuario);
+            if ($existe) {
+                // Si existe, proceder a eliminar el registro
+                $sql = "DELETE FROM tipo_usuario WHERE id_tipo_usuario = :id_tipo_usuario";
+                $arrayDatos = array("id_tipo_usuario" => $this->id_tipo_usuario);
+        
+                $respuesta = $this->ejecutar($sql, $arrayDatos);
+        
+                return $respuesta;
+            } else {
+                // No existe el registro
+                return false;
+            }
+        }
                
         
 

@@ -2,6 +2,8 @@
 
 
 require_once("Modelos/tipo_usuario.php");
+require_once("Modelos/BDclientes.php");
+
 
 
 

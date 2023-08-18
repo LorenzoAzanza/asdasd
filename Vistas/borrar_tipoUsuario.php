@@ -1,54 +1,51 @@
 <?php
-$rolesPermitidos = array("administrador", "encargado"); // Definir los roles permitidos en un array
-
-if (!in_array($_SESSION['usuario']['rol'], $rolesPermitidos)) {
+$rolPermitido = "administrador"; // Cambia esto según la página y los roles permitidos
+if ($_SESSION['usuario']['rol'] !== $rolPermitido) {
     // Redirigir a una página de acceso denegado
     header("Location: sistema.php");
     exit();
 }
-    require_once("Modelos/BDvehiculos.php");
+require_once("Modelos/tipo_usuario.php");
 
 
-    $mensaje="";
-    $respuesta="";
+$mensaje="";
+$respuesta="";
 
 
-    $id_vehiculo = isset($_GET['id_vehiculo'])?$_GET['id_vehiculo']:"";
+$id_tipo_usuario = isset($_GET['id_tipo_usuario'])?$_GET['id_tipo_usuario']:"";
 
-    if(isset($_POST['id_vehiculo']) && $_POST['id_vehiculo']>0 && isset($_POST['boton']) && $_POST['boton'] == "borrar" ){
+if(isset($_POST['id_tipo_usuario']) && $_POST['id_tipo_usuario']>0 && isset($_POST['boton']) && $_POST['boton'] == "borrar" ){
 
-        $id_vehiculo=$_POST['id_vehiculo'];
-        $objVehiculos = new vehiculos();
-        $existe= $objVehiculos->cargar($id_vehiculo);
-        if($existe){
-            $respuesta=$objVehiculos->borrar();
-            if($respuesta){
-                $mensaje="El registro se borro correctamente";
-
-            }else{
-            $mensaje="Error no se pudo borrar el registro";
-
-            }
+    $id_tipo_usuario=$_POST['id_tipo_usuario'];
+    $objTipo_usuario = new tipo_usuario();
+    $existe= $objTipo_usuario->cargar($id_tipo_usuario);
+if($existe){
+        $respuesta=$objTipo_usuario->borrar();
+    if($respuesta){
+            $mensaje="El registro se borro correctamente";
 
         }else{
-            $respuesta=false;
-            $mensaje="No existe ese registro";
+        $mensaje="Error no se pudo borrar el registro";
+
         }
 
-
+    }else{
+        $respuesta=false;
+        $mensaje="No existe ese registro";
     }
-   if(isset($_POST['boton']) && $_POST['boton'] == "cancelar"){
-    header("Location: sistema.php?r=vehiculos");
-   }
+
+
+}
+
+if(isset($_POST['boton']) && $_POST['boton'] == "cancelar"){
+header("Location: sistema.php?r=tipo_usuario");
+}
+
+
 
 
 
 ?>
-
-
-
-
-
 
 
 <!DOCTYPE html>
@@ -56,9 +53,9 @@ if (!in_array($_SESSION['usuario']['rol'], $rolesPermitidos)) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Borrar Vehículo</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />
+ 
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />
     <style>
         body {
             display: flex;
@@ -72,7 +69,8 @@ if (!in_array($_SESSION['usuario']['rol'], $rolesPermitidos)) {
             padding: 20px;
         }
 
-       
+      
+
         .borrar-title {
             text-align: center;
             color: #333;
@@ -88,7 +86,7 @@ if (!in_array($_SESSION['usuario']['rol'], $rolesPermitidos)) {
             background-color: #e57373;
         }
 
-
+       
         .submit-buttons {
             text-align: center;
             margin-top: 20px;
@@ -98,31 +96,32 @@ if (!in_array($_SESSION['usuario']['rol'], $rolesPermitidos)) {
             margin-right: 10px;
         }
     </style>
+    <title>Borrar Usuarios</title>
 </head>
 
 <body>
     <main>
         <div class="container">
-            <h1 class="borrar-title">Borrar Vehículo</h1>
+            <h1 class="borrar-title">Borrar Usuario</h1>
             <div class="form-container">
-                <form method="POST" action="sistema.php?r=borrar_vehiculos">
+                <form method="POST" action="sistema.php?r=borrar_tipoUsuario">
                     <div class="row">
                         <?php if ($respuesta == true): ?>
                             <div class="card-panel blue center-align">
                                 <?=$mensaje?>
-                                <a href="sistema.php?r=vehiculos" class="btn green">Regresar</a>
+                                <a href="sistema.php?r=tipo_usuario" class="btn green">Regresar</a>
                             </div>
                         <?php elseif ($respuesta == false && $mensaje != ""): ?>
                             <div class="card-panel red center-align">
                                 <?=$mensaje?>
-                                <a href="sistema.php?r=vehiculos" class="btn red">Regresar</a>
+                                <a href="sistema.php?r=tipo_usuario" class="btn red">Regresar</a>
                             </div>
                         <?php else: ?>
                             <div class="col s10">
-                                <h3>¿Está seguro de que desea borrar el registro Nº: <?=$id_vehiculo?>?</h3>
+                                <h3>¿Está seguro de que desea borrar el registro Nº: <?=$id_tipo_usuario?>?</h3>
                             </div>
                             <div class="col s10">
-                                <input type="hidden" name="id_vehiculo" value="<?=$id_vehiculo?>">
+                                <input type="hidden" name="id_tipo_usuario" value="<?=$id_tipo_usuario?>">
                                 <div class="submit-buttons">
                                     <button class="btn waves-effect waves-light blue" type="submit" name="boton" value="borrar">
                                         Borrar <i class="material-icons right blue">send</i>

@@ -20,7 +20,9 @@
         // Obtener las fechas de inicio y fin de la reserva
         $fechaInicio = new DateTime($_POST['fechaInicio']);
         $fechaFin = new DateTime($_POST['fechaFin']);
-        
+        if ($vehiculo['estado'] !== 'A') {
+            $mensaje = "Este vehículo no está disponible por el momento.";
+        }else{
         $objReserva = new reserva();
         $vehiculoDisponible = !$objReserva->verificarReservasEnFechas($idVehiculo, $fechaInicio, $fechaFin);
 
@@ -48,7 +50,7 @@
         $reservaExitosa = $objCliente->crearReserva($idVehiculo, $id_cliente, $fechaInicio, $fechaFin, $precioTotal);
 
         if ($reservaExitosa) {
-            $sqlActualizarEstado = "UPDATE vehiculo SET estado = 'D' WHERE id_vehiculo = :id_vehiculo";
+            $sqlActualizarEstado = "UPDATE vehiculo SET estado = 'A' WHERE id_vehiculo = :id_vehiculo";
             $arrayDatosActualizar = array("id_vehiculo" => $idVehiculo);
             $objVehiculo->ejecutar($sqlActualizarEstado, $arrayDatosActualizar);
             $mensaje = "Reserva exitosa. Precio total: $" . $precioTotal;
@@ -72,6 +74,7 @@
         }
     }
     }
+}
     ?>
 
 

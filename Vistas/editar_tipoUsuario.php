@@ -1,4 +1,10 @@
 <?php
+$rolPermitido = "administrador"; // Cambia esto según la página y los roles permitidos
+if ($_SESSION['usuario']['rol'] !== $rolPermitido) {
+    // Redirigir a una página de acceso denegado
+    header("Location: sistema.php");
+    exit();
+}
     require_once("Modelos/tipo_usuario.php");
     require_once("Modelos/BDClientes.php");
 
@@ -169,7 +175,6 @@
                         <div class="input-field col s6"> 
                             <select name="txtRol">
                                 <option value="cliente" <?=$objTipoUsuario->rol == 'cliente' ? 'selected' : ''?>>Cliente</option>
-                                <option value="administrador" <?=$objTipoUsuario->rol == 'administrador' ? 'selected' : ''?>>Administrador</option>
                                 <option value="vendedor" <?=$objTipoUsuario->rol == 'vendedor' ? 'selected' : ''?>>Vendedor</option>
                                 <option value="encargado" <?=$objTipoUsuario->rol == 'encargado' ? 'selected' : ''?>>Encargado</option>
 
