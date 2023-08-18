@@ -188,7 +188,7 @@ class cliente extends generico{
             "telefono" => $this->telefono,
             "tipo_documento" => $this->tipo_documento,
             "numero_documento" => $this->numero_documento,
-            "contrasena" => md5($this->contrasena)
+            "contrasena" => $contrasena
         );
     
         $respuesta = $this->ejecutar($sql, $arrayDatos);
@@ -231,6 +231,11 @@ class cliente extends generico{
             "rol" => $this->rol,
             "id_cliente" => $this->id_cliente
         );
+        $sql_clientes="UPDATE tipo_usuario SET estado=:estado WHERE mail=:mail";
+            $arrayDatos_clientes=array(
+                "estado"=>$this->estado,
+                "mail"=>$this->mail
+            );
     
         // Verificar si se proporciona una nueva contraseña
         if (!empty($this->contrasena)) {
@@ -241,6 +246,7 @@ class cliente extends generico{
         $sql .= " WHERE id_cliente = :id_cliente";
     
         $respuesta = $this->ejecutar($sql, $arrayDatos);
+        $respuesta=$this->ejecutar($sql_clientes,$arrayDatos_clientes);
     
         if ($respuesta == true) {
             $mensaje = "Se editó correctamente";

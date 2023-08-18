@@ -29,6 +29,8 @@
             $this->direccion=$arrayDatos['direccion'];
             $this->telefono=$arrayDatos['telefono'];
             $this->tipo_documento=$arrayDatos['tipo_documento'];
+            $this->contrasena = $arrayDatos['contrasena'];
+
             $this->numero_documento=$arrayDatos['numero_documento'];
          
 
@@ -99,6 +101,8 @@
                 $this->telefono=$lista[0]['telefono'];
                 $this->tipo_documento=$lista[0]['tipo_documento'];
                 $this->numero_documento=$lista[0]['numero_documento'];
+                $this->contrasena=$lista[0]['contrasena'];
+
                 $this->estado=$lista[0]['estado'];
 
                 $retorno = true;
@@ -145,10 +149,11 @@
                 "mail"=>$this->mail
             );
            // Verificar si se proporciona una nueva contraseña
-        if (!empty($this->contrasena)) {
+           if (!empty($this->contrasena)) {
             $sql .= ", contrasena = :contrasena";
             $arrayDatos["contrasena"] = md5($this->contrasena);
         }
+    
     
              $sql .= " WHERE id_tipo_usuario = :id_tipo_usuario";
         
@@ -273,7 +278,7 @@
                         "telefono" => $this->telefono,
                         "tipo_documento" => $this->tipo_documento,
                         "numero_documento" => $this->numero_documento,
-                        "contrasena" => md5($this->contrasena)
+                        "contrasena" => $contrasena
                     );
                 
                     $respuesta = $this->ejecutar($sql, $arrayDatos);

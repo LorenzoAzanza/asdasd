@@ -28,7 +28,8 @@
         "tipo_documento"=>$_POST['txtTipo_documento'],
         "numero_documento"=>$_POST['txtNumero_documento'],
         "estado"=>$_POST['txtEstado'],
-        "rol"=>$_POST['txtRol']
+        "rol"=>$_POST['txtRol'],
+        "contrasena"=>$_POST['passContrasena']
         );
         
 
@@ -145,6 +146,11 @@
                         <div class="input-field col s6">
                             <input id="mail" type="email" class="validate" name="txtMail" value="<?=$objTipoUsuario->mail?>">
                             <label for="mail">Mail</label>
+                        </div>
+                        <div class="input-field col s6 offset-s3">
+                            <i class="material-icons prefix">lock</i>
+                            <input id="passContrasena" type="password" class="validate white-text" name="passContrasena">
+                            <label for="passContrasena">Contraseña</label>
                         </div>
                         <div class="input-field col s6">
                             
