@@ -1,7 +1,7 @@
 <?php
-$rolPermitido = "administrador"; // Cambia esto según la página y los roles permitidos
+$rolPermitido = "administrador";
 if ($_SESSION['usuario']['rol'] !== $rolPermitido) {
-    // Redirigir a una página de acceso denegado
+    
     header("Location: sistema.php");
     exit();
 }

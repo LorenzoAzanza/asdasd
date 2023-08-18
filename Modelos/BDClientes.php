@@ -141,8 +141,7 @@ class cliente extends generico{
     }
 
 
-    //Esta funcion sirve por si queremos registrar un vendedor o encargado , le cambiamos el rol de cliente a vendedor por ejemplo
-    //Se cambia el campo activo, y ya no se muestra en la tabla clientes pero si en la de tipo_usuarios
+   //Este metodo es por si queremos cambiar el rol de un cliente por ejemplo a vendedor el mismo se borra de la tabla clientes y se actualiza en tipo_usuario hay que poner una contraseña nueva si no se guarda en vacio
     public function agregarNuevoUsuarioEnTipoUsuario($rol) {
         $sql = "INSERT INTO tipo_usuario (rol, estado, mail, nombre, apellido, direccion, telefono, tipo_documento, numero_documento, contrasena) 
                 SELECT :rol, :estado, :mail, :nombre, :apellido, :direccion, :telefono, :tipo_documento, :numero_documento, :contrasena

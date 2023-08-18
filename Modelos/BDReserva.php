@@ -157,7 +157,7 @@ class reserva extends generico{
         }
     }
 
-        //Funcion creada para mostrar las reservas del usuario en el perfil
+        //Metodo creado para mostrar las reservas del usuario en el perfil
 
     public function ObtenerReservasActivasCliente($idCliente) {
         // Obtener las reservas activas de un cliente específico

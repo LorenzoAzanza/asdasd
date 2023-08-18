@@ -1,7 +1,7 @@
 <?php
-$rolPermitido = "administrador"; // Cambia esto según la página y los roles permitidos
+$rolPermitido = "administrador"; 
 if ($_SESSION['usuario']['rol'] !== $rolPermitido) {
-    // Redirigir a una página de acceso denegado
+  
     header("Location: sistema.php");
     exit();
 }
@@ -22,7 +22,7 @@ if($boton=="ingresar"){
 
      
   $arrayDatos=array();
-    //si vale ingresar , ingresamos el registro 
+  
    
 
     $arrayDatos['nombre']= isset($_POST['txtNombre'])?$_POST['txtNombre']:"";
@@ -68,7 +68,7 @@ if($boton=="ingresar"){
 <html lang="es">
 
 <head>
-    <title>Ingresar vehiculos</title>
+    <title>Ingresar Usuarios</title>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />

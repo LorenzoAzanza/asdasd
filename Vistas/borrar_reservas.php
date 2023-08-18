@@ -1,8 +1,8 @@
 <?php
-$rolesPermitidos = array("administrador", "encargado"); // Definir los roles permitidos en un array
+$rolesPermitidos = array("administrador", "encargado"); 
 
 if (!in_array($_SESSION['usuario']['rol'], $rolesPermitidos)) {
-    // Redirigir a una página de acceso denegado
+
     header("Location: sistema.php");
     exit();
 }

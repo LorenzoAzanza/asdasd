@@ -1,4 +1,11 @@
 <?php
+$rolesPermitidos = array("administrador", "encargado", "vendedor"); 
+
+if (!in_array($_SESSION['usuario']['rol'], $rolesPermitidos)) {
+    
+    header("Location: sistema.php");
+    exit();
+}
     require_once("Modelos/BDClientes.php");
 
 

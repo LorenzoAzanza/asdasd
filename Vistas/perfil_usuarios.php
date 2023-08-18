@@ -192,26 +192,26 @@ require_once("Modelos/BDclientes.php");
             </div>
   </form>
 
-<form method="POST" action="sistema.php?r=perfil_usuarios">
-    <div class="row">
-<?php
-      if($respuesta==true && $boton=="contrasena"){
-?>
-    <div class="card-panel blue center-align">
-        <?=$mensaje?>
-      <a href="sistema.php" class="btn green">Regresar</a>
-    </div>
+        <form method="POST" action="sistema.php?r=perfil_usuarios">
+            <div class="row">
+        <?php
+            if($respuesta==true && $boton=="contrasena"){
+        ?>
+                <div class="card-panel blue center-align">
+                    <?=$mensaje?>
+                        <a href="sistema.php" class="btn green">Regresar</a>
+                </div>
 
-<?php
-        }elseif(($respuesta==false && $mensaje!="") && $boton=="contrasena"){ 
-?>
-    <div class="card-panel red center-align">
-        <?=$mensaje?>
+        <?php
+            }elseif(($respuesta==false && $mensaje!="") && $boton=="contrasena"){ 
+        ?>
+                <div class="card-panel red center-align">
+                    <?=$mensaje?>
             
-    </div>
-<?php
+                </div>
+        <?php
         }
-?>
+        ?>
           
         
           <div class="container">

@@ -1,4 +1,11 @@
 <?php
+$rolesPermitidos = array("administrador", "encargado", "vendedor"); 
+
+if (!in_array($_SESSION['usuario']['rol'], $rolesPermitidos)) {
+    
+    header("Location: sistema.php");
+    exit();
+}
     require_once("Modelos/BDClientes.php");
 
 
@@ -16,7 +23,7 @@ $boton = isset($_POST['boton']) ? $_POST['boton'] : "";
 
          
       $arrayDatos=array();
-        //si vale ingresar , ingresamos el registro 
+    
        
 
         $arrayDatos['nombre']= isset($_POST['txtNombre'])?$_POST['txtNombre']:"";
@@ -64,7 +71,7 @@ $boton = isset($_POST['boton']) ? $_POST['boton'] : "";
 <html lang="es">
 
 <head>
-    <title>Ingresar vehiculos</title>
+    <title>Ingresar Clientes</title>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />

@@ -55,11 +55,11 @@ $listaVehiculos = $objVehiculo->listar(array(
             <option value="<?php echo $vehiculo['tipo']; ?>"><?php echo $vehiculo['tipo']; ?></option>
         <?php } ?>
     </select>
-      <!-- Input para filtrar por cantidad de pasajeros -->
+    
     <input type="number" name="pasajeros" placeholder="Cantidad de pasajeros">
-     <!-- Input para filtrar por precio máximo -->
+    
     <input type="number" name="precio" placeholder="Precio máximo">
-       <!-- Botón para ejecutar la búsqueda -->
+     
     <button type="submit" class="blue">Buscar</button>
 </form>
     

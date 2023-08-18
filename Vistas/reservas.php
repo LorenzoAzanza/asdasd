@@ -1,5 +1,11 @@
 <?php
+$rolesPermitidos = array("administrador", "encargado", "vendedor"); 
 
+if (!in_array($_SESSION['usuario']['rol'], $rolesPermitidos)) {
+  
+    header("Location: sistema.php");
+    exit();
+}
 require_once("Modelos/BDReserva.php");
 
 $objReserva = new Reserva();
@@ -35,6 +41,7 @@ $listaReservas = $objReserva->listar($arrayFiltro);
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <title>Lista de reservas</title>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="web/css/materialize.min.css" media="screen,projection" />

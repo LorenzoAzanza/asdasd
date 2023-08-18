@@ -1,8 +1,8 @@
 <?php
-$rolesPermitidos = array("administrador", "encargado"); // Definir los roles permitidos en un array
+$rolesPermitidos = array("administrador", "encargado"); 
 
 if (!in_array($_SESSION['usuario']['rol'], $rolesPermitidos)) {
-    // Redirigir a una página de acceso denegado
+    
     header("Location: sistema.php");
     exit();
 }
@@ -16,19 +16,17 @@ if (!in_array($_SESSION['usuario']['rol'], $rolesPermitidos)) {
         
 
     if($boton=="cancelar"){
-        //redireccionar a la lista de proveedores
+   
         header('Location: sistema.php?r=vehiculos');
 
     }elseif($boton=="ingresar"){
       
 
-      //$respuestaCopy=copy($_FILES['fileImg']['tmp_name'] , "web/archivos/".$_FILES['fileImg']['name']);
-      //print_r($respuestaCopy);
       
       $img = $objVehiculos->subirImagen($_FILES['fileImg'], 150, 150);
          
       $arrayDatos=array();
-        //si vale ingresar , ingresamos el registro 
+      
        
 
         $arrayDatos['tipo']= isset($_POST['txtTipo'])?$_POST['txtTipo']:"";
