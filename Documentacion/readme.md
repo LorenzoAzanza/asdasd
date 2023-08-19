@@ -1,12 +1,12 @@
 
-Titulo: Proyecto <br>
+Titulo: Proyecto rentadora automotriz CLASE 2253<br>
 Autor: Lorenzo Azanza <br>
 Fecha inicio: 2023-06-25 <br>
 Fecha Fin: 2023-08-21 <br>
 Fecha ultima actualización: 2023-08-20 <br>
-Mail de reclamo: azanzalorenzo@gmail.com <br>
+Mail de reclamo: danielazanza6@gmail.com <br>
 
-Descripcion: Sistema de alquiler de autos, Funcional. <br>
+Descripcion: Sistema de alquiler de vehiculos, Funcional. <br>
 
 Tecnologia: PHP,MySQL, HTML, CSS, JS. <br>
 Framework: Materialize CSS https://materializecss.com/ <br>
@@ -26,6 +26,9 @@ Materialize CSS 1.0.0 <br>
 ////////////////////////////////////////////////////////////////////////ACLARACIONES Y DATOS IMPORTANTES/////////////////////////////////////
 
                   -DATOS DE ADMINISTRADOR PARA INICIAR SESION: CORREO: alexandercamacho@gmail.com CONTRASEÑA: @Admin123
+                  -DATOS DE VENDEDOR YA INGRESADO PARA INICIAR SESION: CORREO: azanza@lore.com CONTRASEÑA: Warframe12$
+                  -DATOS DE ENCARGADO YA INGRESADO PARA INICIAR SESION: CORREO: josepere@gmail.com CONTRASEÑA: Warframe12$
+                  -DATOS DE CLIENTE YA INGRESADO PARA INICIAR SESION:  CORREO: azanzalorenzo@gmail.com CONTRASEÑA: Warframe12!
 
                   -AL CAMBIAR EL ROL DE UN USUARIO/CLIENTE DESDE EDITAR USUARIO/CLIENTE TAMBIEN SE DEBE CAMBIAR LA CONTRASEÑA O SE GUARDARA VACIO
 
