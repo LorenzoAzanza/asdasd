@@ -149,7 +149,7 @@ if (!in_array($_SESSION['usuario']['rol'], $rolesPermitidos)) {
                         <div class="input-field col s6">
                             <select name="txtEstado">
                                 <option value="A" <?=$objReserva->estado == 'A' ? 'selected' : ''?>>Activa</option>
-                                <option value="B" <?=$objReserva->estado == 'B' ? 'selected' : ''?>>Borrada</option>
+                                <option value="D" <?=$objReserva->estado == 'D' ? 'selected' : ''?>>Desactivada</option>
                             </select>
                             <label>Estado</label>
                         </div>

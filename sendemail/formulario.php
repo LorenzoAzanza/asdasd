@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label for="mensaje">Mensaje</label>
                     </div>
                     <div class="btn-container">
-                <button class="btn waves-effect waves-light" type="submit" name="enviar">Enviar</button>
+                <button class="btn waves-effect waves-light blue" type="submit" name="enviar">Enviar</button>
                 </div>
         
             </form>

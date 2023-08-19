@@ -1,5 +1,10 @@
 <?php
-
+$rolPermitido = "cliente"; 
+if ($_SESSION['usuario']['rol'] !== $rolPermitido) {
+  
+    header("Location: sistema.php");
+    exit();
+}
 
 require_once("Modelos/BDClientes.php");
 require_once("Modelos/BDReserva.php");
