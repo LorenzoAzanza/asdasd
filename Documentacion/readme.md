@@ -24,7 +24,7 @@ Materialize CSS 1.0.0 <br>
 ///////////////////////////ESTE DOCUMENTO CONTIENE TODA LA INFORMACION DEL PROYECTO//////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////ACLARACIONES Y DATOS IMPORTANTES/////////////////////////////////////
-
+                  -COMANDO PARA HACER INSTALACION BASE DE DATOS: php .\comandos.php instalacion
                   -DATOS DE ADMINISTRADOR PARA INICIAR SESION: CORREO: alexandercamacho@gmail.com CONTRASEÑA: @Admin123
                   -DATOS DE VENDEDOR YA INGRESADO PARA INICIAR SESION: CORREO: azanza@lore.com CONTRASEÑA: Warframe12$
                   -DATOS DE ENCARGADO YA INGRESADO PARA INICIAR SESION: CORREO: josepere@gmail.com CONTRASEÑA: Warframe12$
